@@ -1,0 +1,33 @@
+\documentclass{book}
+
+
+\title{Character Theory}
+\author{Leandro Caniglia}
+\date{September 2024}
+
+\input preamble
+
+\begin{document}
+
+\frontmatter
+\thispagestyle{empty} % Removes page number from the title page
+\maketitle
+
+\thispagestyle{empty} % Removes page number from the table of contents page
+\tableofcontents
+
+\mainmatter
+
+\setlength{\parindent}{0pt}
+
+\include{1-algebras}
+\include{2-pid}
+\include{3-linear}
+\include{4-characters}
+
+
+
+\bibliographystyle{natbib/plainnat}  % Choose a bibliography style
+\bibliography{bibliography}     % Specify your .bib file without the extension
+
+\end{document}

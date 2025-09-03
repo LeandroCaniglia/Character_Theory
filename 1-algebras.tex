@@ -1,0 +1,1325 @@
+\chapter{Preliminaries}
+
+\section{Monoids}
+
+An \textsl{operation} on a set $M$ is simply a map
+\begin{align*}
+    M\times M&\to M\\
+    (x,y)&\mapsto x\cdot y.
+\end{align*}
+
+The operation is \textsl{associative} if it satisfies
+$$
+    x\cdot(y\cdot z) = (x\cdot y)\cdot z
+$$
+for all $x,y,z\in M$.
+
+An element $e\in M$ is the \textsl{identity} for the operation if
+$$
+    e\cdot x = x\cdot e = x
+$$
+for all $x\in M$. Clearly, the identity, when it exists, is unique.
+
+If the identity exists, given $a\in M$, a \textsl{left inverse} of $a$ is an element $a'$ such that $a'\cdot a= e$. Similarly, a \textsl{right inverse} of $a$ is an element $a''$ such that $a\cdot a''=e$.
+
+An element with both left and right inverses is \textsl{invertible} and its \textsl{inverse} is the common value of its left and right inverses, which are necessarily equal:
+$$
+    a' = a'\cdot e = a'\cdot (a\cdot a'') = (a'\cdot a)\cdot a''
+        = e\cdot a'' = a''.
+$$
+
+A set $M$ endowed with an operation `$\cdot$' is a \textsl{monoid} if the operation is associative and there exists an identity element.
+
+A monoid is \textsl{commutative} when $x\cdot y=y\cdot x$ for all $x,y\in M$.
+
+If a monoid is commutative, the operation usually adopts the additive notation `$+$'. In that case the identity element is denoted by~$0$. For the multiplicative notation the identity is usually denoted by~$1$. In this case, the operation symbol is sometimes omitted, i.e., $x\cdot y$ is written $xy$.
+
+\begin{prop}\label{prop:monoid-left-inverse}
+    Let\/ $M$ be a monoid. Then an element\/ $a\in M$ is invertible if, and only if, the map\/ $a_M\colon M\to M$, $x\mapsto ax$ is a bijection.
+\end{prop}
+
+\begin{proof}
+    The \textit{only if\/} part is trivial. Conversely, if $a_M$ is bijective, there exists $a'\in M$ such that $1=a_M(a')=aa'$. Therefore,
+    $$
+        a_M(a'a) = a(a'a)=(aa')a=1a=a1=a_M(1),
+    $$
+    and the injectivity of $a_M$ implies that $a'a=1$.
+\end{proof}
+
+\section{Monoid Rings}
+
+Given a commutative ring $\kappa$ with unit and a monoid $(M,\,\cdot\,)$ with multiplicative notation, the set
+$$
+    \kappa[M] = \Big\{(a_x)_{x\in M}\in\kappa^M\mid a_x=0\aew\Big\},
+$$
+whose elements are written as formal (unordered) linear combinations
+$$
+    \kappa[M] = \Big\{
+        \sum_{x\in M}a_x\cdot x \mid a_x\in\kappa, a_x=0\aew\Big\}
+$$
+admits two operations, a sum
+\begin{align*}
+    \Big(\sum_{x\in M}a_x\cdot x\Big)
+        + \Big(\sum_{x\in M}b_x\cdot x\Big)
+        &= \sum_{x\in M}(a_x+b_x)\cdot x
+    \intertext{and a multiplication}
+    \Big(\sum_{x\in M}a_x\cdot x\Big)
+         \Big(\sum_{x\in M}b_x\cdot x\Big)
+        &= \sum_{z\in M}c_z\cdot z,        
+\end{align*}
+where
+$$
+    c_z = \sum_{\substack{x,y\\xy=z}}a_xb_y,
+$$
+which is usually written as
+$$
+    \sum_{x,y}a_xb_y\cdot xy.
+$$
+Note that $\kappa[M]$ is a $\kappa$-algebra with:
+\begin{align*}
+    0 &= \sum_{x\in M}0\cdot x,\\
+    1 &= 1_\kappa\cdot 1_M \text{ and}\\
+    k&\,\Big(\sum_{x\in M}a_x\cdot x\Big) = \sum_{x\in M}ka_x\cdot x.
+\end{align*}
+This $\kappa$-algebra receives the name of \textsl{monoid ring} over~$\kappa$. There is also an injection
+\begin{align}
+    \iota\colon M&\to\kappa[M]
+        \label{map:iota-monoid}\\
+    x&\mapsto 1\cdot x\nonumber,
+\end{align}
+where $1\cdot x$ denotes the sum with coefficients $a_x=1$ and $a_y=0$ for all $y\ne x$.
+
+Note that $\kappa[M]$ is commutative if, and only if, $M$ is commutative.
+
+
+\section{Algebras} 
+
+Let\/ $\kappa$ be a field and let\/ $A$ be a\/ $\kappa$-vector space which is
+also a ring with\/~$1$. Suppose for all\/ $c\in \kappa$ and\/ $x, y\in A$, that
+$$
+    (c\cdot x)y = c\cdot(xy) = x(c\cdot y).
+$$
+Then\/ $A$ is a\/ \textsl{$\kappa$-algebra}.
+
+\begin{xmpls}${}$
+\begin{enumerate}[\rm a)]
+    \item $M_n(\kappa)$ is the algebra of\/ $n\times n$ matrices over the field\/ $\kappa$.
+    
+    \item Let\/ $\V$ be a\/ $\kappa$-vector space. Then\/ $\End_\kappa(\V)$, the set of\/ $\kappa$-linear transformations of\/ $\V$, is a\/ $\kappa$-algebra: Given\/ $x, y \in \End_\kappa(\V)$, $xy$ is the composition, i.e.,
+    $$
+        (xy)(v) = x(y(v)),
+    $$
+    and if\/ $c\in \kappa$, then\/ $cx$ is defined by
+    $$
+        (cx)(v) = x(cv).
+    $$
+    Finally,
+    $$
+        (x + y)(v) = x(v) + y(v).
+    $$
+\end{enumerate}
+\end{xmpls}
+
+\begin{defn}
+    Let $\kappa$ be a field. If $G$ is a group, the monoid ring $\kappa[G]$ has the structure of a $\kappa$-algebra. It receives the name of \textsl{group algebra}. More precisely, the elements of $G$, when viewed as elements of $\kappa[G]$ via the inclusion $\iota\colon G\mapsto\kappa[G]$ \eqref{map:iota-monoid}, form a basis of the $\kappa$-vector space $\kappa[G]$.
+\end{defn}
+
+\begin{xmpl}
+    Let $\mathbb F_2$ be the field of $2$ elements. Put
+    $$
+        g = \begin{pmatrix}
+            0   &1\\
+            1   &1
+        \end{pmatrix}
+    $$
+    and let $G=\grp g$ be the cyclic group generated by $g$. Then
+    $$
+        g^3 = \underbrace{\begin{pmatrix}
+            0   &1\\
+            1   &1
+        \end{pmatrix}
+        \begin{pmatrix}
+            0   &1\\
+            1   &1
+        \end{pmatrix}}_{\begin{pmatrix}
+            1   &1\\
+            1   &0
+        \end{pmatrix}}
+        \begin{pmatrix}
+            0   &1\\
+            1   &1
+        \end{pmatrix}
+        = \begin{pmatrix}
+            1   &0\\
+            0   &1
+        \end{pmatrix},
+    $$
+    which shows that $|G|=3$. In consequence $\mathbb F_2[G]$ consists of the formal expressions
+    $$
+        c_0\op{Id} + c_1g + c_2g^2,
+    $$
+    where $c_0,c_1,c_2\in\mathbb F_2$. In particular, the group algebra is an $\mathbb F_2$-vector space with basis $\set{\op{Id},g,g^2}$.
+
+    Note that this vector space is different from the subspace of $\mathbb F_2^{2\times2}$ generated by $\set{\op{Id},g,g^2}$ because, in the subspace, we have the linear relation
+    $$
+        \op{Id} + g^2 = g,
+    $$
+    which shows that it has dimension $2$, and not $3$.
+\end{xmpl}
+
+
+\begin{ntn}
+    From now on, \textsl{algebra} or \textsl{$\kappa$-algebra} will always refer to a finite dimensional\/ $\kappa$-algebra.
+
+    We will also assume that the structures of\/ $A$ as left and right\/ $\kappa$-algebra are the same, i.e., that\/ $c\cdot x=x\cdot c$, for all\/ $c\in\kappa$ and\/ $x\in A$.
+\end{ntn}
+
+
+\begin{rems}${}$
+    \begin{enumerate}[-]
+        \item Let $A$ be a $\kappa$-algebra with identity~$1$. Then $\kappa\cdot1 = \set{c\cdot1\mid c\in\kappa}$ is a subalgebra of $A$. Moreover, $\kappa\cdot1\subseteq Z(A)$, the center of~$A$. Indeed, given $x\in A$, we have
+        $$
+            (c\cdot1)x = c\cdot(1x) = c\cdot x
+                = x\cdot c = x(c\cdot1).
+        $$
+        Sometimes we will identify $\kappa$ with $\kappa\cdot1$, and view $\kappa$ as a subalgebra of~$A$.
+
+        \item If $I$ is a left (or right) submodule of $A$, given $x\in I$ and $c\in \kappa$, we have
+        $$
+            c\cdot x = (c\cdot1)x = x(c\cdot1)\in I,
+        $$
+        which shows that $I$ is a $\kappa$-vector subspace.
+
+        \item If $I$ is an \textsl{ideal} (i.e., bilateral), the ring $A/I$ (is well-defined and) has a natural structure of $\kappa$-algebra. 
+    \end{enumerate}
+
+\end{rems}
+
+\begin{defn}${}$
+    A \textsl{morphism} of $\kappa$-algebras is a map between $\kappa$-algebras that is both a $\kappa$-linear transformation and a morphism of rings.
+\end{defn}
+
+\begin{defns}${}$
+    \begin{enumerate}[-]
+        \item Let\/ $A$ be a\/ $\kappa$-algebra and\/ $\V$ a finite-dimensional\/ $\kappa$-vector space. Suppose that there is a map\/ $A\times\V\to\V$, $(x,v)\mapsto xv$. Assume for all\/ $x,y\in A$, $v,w\in\V$ and\/ $c\in\kappa$ that
+        \begin{enumerate}[\rm a)]
+            \item $x(v + w) = xv + xw$,
+            \item $(x + y)v = xv + yv$,
+            \item $y(xv) = (yx)v$,
+            \item $x(c\cdot v) = c\cdot(xv) = (c\cdot x)v$,
+            \item $1\cdot v = v$.
+        \end{enumerate}
+        Then\/ $\V$ is an\/ \textsl{$A$-module}.
+
+        \item Let\/ $\V$ be an\/ $A$-module. Each\/ $x \in A$ defines a map
+        \begin{align*}
+            x_\V\colon\V&\to\V\\
+            v &\mapsto xv. 
+        \end{align*}
+        By\/ {\rm a)} and part of\/ {\rm d)}, $x_\V\in\End_\kappa(\V)$. By\/ {\rm b)}, {\rm c)}, {\rm e)}, and part of\/ {\rm d)}, the map
+        \begin{align}\label{map:homothety}
+            A&\to\End_\kappa(\V)\\
+            x&\mapsto x_\V\nonumber
+        \end{align}
+        is a morphism of $\kappa$-algebras. Its image is denoted by\/~$A_\V$.
+    \end{enumerate}
+\end{defns}
+
+\begin{rem}\label{rem:End(V)-is-A-algebra}
+    If $\varphi\in\End_\kappa(\V)$, then $a\varphi$ defined as $(a\varphi)(v)=a\varphi(v)$ is an element of $\in\End_\kappa(\V)$, i.e., $\End_\kappa(\V)$ is an $A$-module and therefore an $A$-algebra. Moreover, the map \eqref{map:homothety} is a morphism of $A$-algebras because
+    $$
+        x_\V y_\V=(xy)_\V=xy_\V.
+    $$
+\end{rem}
+
+\begin{xmpls}${}$
+    \begin{enumerate}[\rm a)]
+        \item If\/ $A$ is a subalgebra of $\End_\kappa(\V)$, then\/ $\V$ naturally becomes an\/ $A$-module via composition.
+        
+        \item If\/ $A = M_n(\kappa)$, then the column space of dimension\/ $n$ over\/ $\kappa$ is an\/ $A$-module under matrix multiplication.
+        
+        \item If\/ $A$ is an algebra, then\/ $A$ itself is an\/ $A$-module under left multiplication. This module is called the \textsl{regular} $A$-module and is denoted by\/ $A^\circ$. 
+
+        \item If\/ $\V$ is an\/ $A$-module and\/ $\W \subseteq\V$ is an\/ $A$-invariant subspace (i.e., a subspace such that $A\W\subseteq\W$), then\/ $\W$ is a \textsl{submodule} of\/ $\V$. Thus, the left ideals of\/ $A$ are exactly the submodules of\/ $A^\circ$. If\/ $\W$ is a submodule of\/ $\V$, then the space\/ $\V/\W$ becomes an\/ $A$-module in the usual manner. 
+    \end{enumerate}
+\end{xmpls}
+
+\begin{rem}
+    Note that if\/ $I$ is a proper ideal of\/ $A$, then the objects\/ $A/I$,\/ $A^\circ/I$, and\/ $(A/I)^\circ$ are all defined and all different:
+    $$
+    \begin{array}{c|l}
+        &\text{is}\\
+        \hline
+        A/I &\text{an $A$-algebra}\\
+        A^\circ/I&\text{an $A$-module}\\
+        (A/I)^\circ&\text{the regular $A/I$-module.}
+    \end{array}
+    $$
+    Moreover, $A^\circ/I$ is annihilated by\/ $I$ (if\/ $\bar v \in A^\circ/I$ and\/ $x \in I$, then\/ $xv = 0$), and so it may be viewed as an\/ $A/I$-module. As such, it becomes\/ $(A/I)^\circ$.
+\end{rem} 
+
+\begin{defn}
+    If $\V$ and $\W$ are $A$-modules, a map $\varphi\colon\V\to\W$  is a \textsl{morphism of $A$-modules} if it is a linear transformation and
+    \begin{equation}\label{eq:end_A}
+        \varphi(xv)=x\varphi(v)
+    \end{equation}
+    for all $x\in A$ and $v\in\V$.
+\end{defn}
+
+\begin{rem}\label{rem:E_A(V)}
+    The set $\Hom_A(\V,\W)$ of morphisms of $A$-modules is a $\kappa$-vector space with action and sum defined as
+    $$
+        (c\cdot\varphi)(v) = c\cdot\varphi(v)
+        \quad\text{\rm and}\quad
+        (\varphi+\vartheta)(v)=\varphi(v)+\vartheta(v).
+    $$
+    The set $E=\End_A(\V)$ is a ring with the composition and so it has a natural structure of $\kappa$-algebra. Then $\V$ is an $E$-module with the evaluation as action:
+    \begin{equation}\label{eq:evaluation-as-action}
+        \varphi v=\varphi(v).
+    \end{equation}
+    Take $x\in A$ and $\varphi\in E$. The equation
+    $$
+        \varphi x_\V(v)=x_\V(\varphi v),
+    $$
+    derived from \eqref{eq:end_A} and \eqref{eq:evaluation-as-action}, shows that $x_\V\in \End_E(\V)$. Thus, $A_\V\subseteq \End_E(\V)$.
+\end{rem}
+
+\begin{prop}\label{prop:homotecy-centralizer}
+    $\End_A(\V)$ is the centralizer of\/ $A_\V$ in\/ $\End_\kappa(\V)$.
+\end{prop}
+
+\begin{proof}
+    Take $\varphi\in \End_A(V)$. If $x\in A$, then $\varphi\leftrightarrow x_\V$. Indeed,
+    \begin{equation}\label{eq:phi-commutativity}
+        x_\V\varphi(v)=x\varphi(v)=\varphi(xv)
+            =\varphi x_\V(v).
+    \end{equation}
+    This means that $\varphi$ is in the centralizer $C_{\End_A(\V)}(A_\V)$.
+
+    Conversely, if $\varphi\in\End_\kappa(\V)$ commutes with the elements of $A_\V$, then
+    $$
+        \varphi(xv)=\varphi x_\V(v)=x_\V\varphi(v)=x\varphi(v),
+    $$
+    which implies that $\varphi\in \End_A(\V)$.
+\end{proof}
+
+\begin{defn}
+    Let $\V$ be a nonzero $A$-module. Then $\V$ is \textsl{irreducible} (a.k.a.~\textsl{simple}) if its only submodules are $0$ and $\V$, with $\V\ne0$.
+\end{defn}
+
+\begin{rem}\label{rem:irreducible-exists}
+    Every nonzero $A$-module $\V$ includes an irreducible submodule. Indeed. Pick a submodule $\W$ of minimal dimension as $\kappa$-vector space. If $\U$ is an $A$-submodule of $\W$, it is also a $\kappa$-subspace, which must be $0$ or $\W$ as such.
+\end{rem}
+
+\begin{lem}\label{lem:schur}{\rm[Schur]}
+    If\/ $\V$ and\/ $\W$ are irreducible\/ $A$-modules, then every nonzero element of\/ $\Hom_A(\V,\W)$ has an inverse in\/ $\Hom_A(\W,\V)$.
+\end{lem}
+
+\begin{proof}
+    If $\varphi\colon\V\to\W$ is a morphism (of $A$-modules), then $\ker\varphi$ and $\im\varphi$ are submodules of $\V$ and $\W$, respectively. Under the hypothesis of the lemma, $\ker\varphi=0$ and $\im\varphi=\W$.
+\end{proof}
+
+\begin{cor}
+    If\/ $\V$ is irreducible, then\/ $\End_A(\V)$ is a \textsl{division algebra}, i.e., every nonzero element is invertible.
+\end{cor}
+
+\begin{proof}
+    This is a direct consequence of the lemma.
+\end{proof}
+
+\begin{cor}\label{cor:alg-closed-scalar-multiplications}
+    Let\/ $\kappa$ be algebraically closed, $A$ a\/ $\kappa$-algebra, and\/ $\V$ an irreducible\/ $A$-module. Then\/ $\End_A(\V) = \kappa \cdot \id_\V$, the set of scalar multiplications on\/~$\V$.\footnote{The converse is also true, see Corollary~\ref{cor:schur-converse}.}
+\end{cor}
+
+\begin{proof}
+    Let $\varphi\in \End_A(\V)$ be a nonzero morphism. By the previous corollary, $\varphi$ is an isomorphism. Moreover, since $\kappa$ is algebraically closed, $\varphi$ has an eigenvalue $c\in\kappa$. Put $\vartheta=\varphi-c\cdot\id_\V\in \End_A(\V)$. Then, $\vartheta$ is zero or an isomorphism. Since it is not mono, $\varphi=c\cdot\id_\V$.
+\end{proof}
+
+\begin{rem}\label{rem:scalar-matrix}
+    The previous corollary implies that if $\rho$ is an irreducible matrix representation of $G$ over an algebraically closed field $\kappa$ and $\deg(\rho)=d$ then every matrix $M\in M_d(\kappa)$ that commutes with $\rho(g)$ for all\/ $g\in G$ is scalar, i.e., $M=c\cdot\op{Id}$ for some\/ $c\in\kappa$. The reason is that such matrices are $\kappa[G]$-endomorphisms of $M_d(\kappa)$ and so we can apply the corollary to $A=\kappa[G]$.
+\end{rem}
+
+\begin{defn}
+    An\/ $A$-module $\V$ is \textsl{completely reducible} when, for every submodule\/ $\W$, there exists another submodule\/ $\U$ such that\/ $\V = \W \oplus\U$.
+\end{defn}
+
+\begin{defn}
+    An algebra\/ $A$ is \textsl{semisimple} if its regular module $A^\circ$ is completely reducible.
+\end{defn}
+
+\begin{defn}\label{defn:averaging-operator}
+    Suppose that $\fchar(\kappa)\nmid|G|$. Given two $\kappa[G]$-modules $\V$ and $\W$, the \textsl{averaging operator} is the map
+    \begin{align*}
+        E\colon\Hom_\kappa(\V,\W)&\to\Hom_\kappa(\V,\W)\\
+        \theta&\mapsto\frac1{|G|}\sum_{g\in G}\theta^g,
+    \end{align*}
+    where
+    \begin{align*}
+        \theta^g\colon\V&\to\W\\
+        v&\mapsto g\theta(g^{-1}v).
+    \end{align*}
+\end{defn}
+
+\begin{rem}\label{rem:conjugate-linearity}
+    With the notations of the previous definition, it is easy to verify that
+        \begin{equation}\label{eq:conjugate-linearity}
+            (\theta_1+c\cdot\theta_2)^g
+                =\theta_1^g+c\cdot\theta_2^g
+            \quad\mathrm{and}\quad
+            (\theta^g)^h = \theta^{hg}.
+        \end{equation}
+\end{rem}
+
+\begin{lem}\label{lem:E-properties}
+    With the notations introduced above,
+    \begin{enumerate}[a),font=\upshape]
+        \item $E(\theta+c\cdot\theta')=E(\theta)+c\cdot E(\theta')$, for all\/ $\theta,\theta'\in\Hom_\kappa(\V,\W)$.
+
+        \item $E(\theta)=E(\theta^g)$, for all\/ $g\in G$
+
+        \item $E^2=E$
+
+        \item $\im E\subseteq\Hom_{\kappa[G]}(\V,\W)$.
+    \end{enumerate}
+\end{lem}
+
+\begin{proof}${}$
+    \begin{enumerate}[a)]
+        \item This is a direct consequence of Remark~\ref{rem:conjugate-linearity}
+
+        \item Take $g\in G$. Then
+        \begin{align*}
+            E(\theta^g) &= \frac1{|G|}\sum_{x\in G}
+                    (\theta^g)^x\\
+                &= \frac1{|G|}\sum_{x\in G}\theta^{xg}
+                    &&\text{; by \eqref{eq:conjugate-linearity}}\\
+                &= \frac1{|G|}\sum_{x\in G}\theta^x\\
+                &= E(\theta).
+        \end{align*}
+
+        \item By definition,
+        \begin{align*}
+            E^2(\theta) &= \frac1{|G|}\sum_{g\in G}
+                    E(\theta)^g\\
+                &= \frac1{|G|}\sum_{g\in G}
+                    E(\theta^{g^{-1}})^g
+                        &&\text{; by b)}\\
+                &= \frac1{|G|}\sum_{g\in G}
+                    E\big((\theta^{g^{-1}})^g\big)
+                        &&\text{; Rem.~\ref{rem:conjugate-linearity}}\\
+                &= \frac1{|G|}\sum_{g\in G}E(\theta)\\
+                &= E(\theta).
+        \end{align*}
+
+        \item Take $g\in G$ and $v\in\V$. First observe that
+        $$
+            \theta^{x^g}(gv) = gxg^{-1}\theta((xg^{-1})^{-1}v)
+                = g\theta^{xg^{-1}}(v)
+        $$
+        Then,
+        \begin{align*}
+            gE(\theta)(v) &= \frac1{|G|}\sum_{x\in G}
+                    g\theta^{xg^{-1}}(v)\\
+                &= \frac1{|G|}\sum_{x\in G}
+                    \theta^{x^g}(gv)\\
+                &= E(\theta)(gv).
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+
+\begin{rem}\label{rem:E-generalization}
+    The reader should note that neither Definition~\ref{defn:averaging-operator} nor Lemma~\ref{lem:E-properties} use the linearity of the functions $\theta$. This means that the averaging operator $E$ can be defined on any subspace of functions $\mathcal F$ that has the structure of a $\kappa$-vector space.
+\end{rem}
+
+\begin{thm}\label{thm:maschke} {\rm[Maschke]}
+    Let\/ $G$ be a finite group and\/ $\kappa$ a field whose characteristic does not divide\/ $\abs{G}$. Then every\/ $\kappa[G]$-module is completely reducible.
+\end{thm}
+
+\begin{proof}
+    Let $\V$ be a $\kappa[G]$-module. Take a submodule $\W$ of $\V$. We have to show that there exists a submodule $\U$ such that $\V=\W\oplus\U$. Given that $\V$ is a vector subspace, we know that there exists a subspace $U$ such that $\V=\W\oplus U$. Let $\varphi\colon\V\to \W$ be the projection. Define $\phi=E(\varphi)$.
+
+    Take $w\in\W$. Since $gw\in\W$ for all $g\in G$, we see that $\varphi(gw)=gw$. Therefore,
+    $$
+        \phi(w)= E(\varphi)(w) = \frac1{|G|}\sum_{g\in G}
+                g\varphi(g^{-1}w)
+            = \frac1{|G|}\sum_{g\in G}w = w.
+    $$
+    In particular, from the inclusion $\phi(\V)\subseteq\W$, we deduce that $\phi^2=\phi$. Put $\U=\ker\phi$. Then $\U$ is a submodule of $\V$. Moreover, $\V=\W+\U$ because
+    $$
+        v = \phi(v) + (v-\phi(v)),
+    $$
+    where $\phi(v-\phi(v))=\phi(v)-\phi^2(v)=0$. The sum is direct because $\W\cap\U=0$.
+\end{proof}
+
+\begin{cor}\label{cor:schur-converse}
+    Suppose that\/ $\fchar(\kappa)\nmid|G|$ and let $\V$ be a nonzero $\kappa[G]$-module. If every\/ $\kappa[G]$-endomorphism of\/ $\V$ is a scalar multiple of\/ $\id_\V$, then \/$\V$ is irreducible.\footnote{For a converse see Corollary~\ref{cor:alg-closed-scalar-multiplications}.}
+\end{cor}
+
+\begin{proof}
+    Pick $\W\subseteq\V$ irreducible. By the theorem there exists $\U\subseteq\V$ such that $\V=\W\oplus\U$. Since the projection $\varphi$ onto $\W$ followed by the inclusion $\iota$ of $\W$ in $\V$ is an endomorphism of $\V$, we must have $\iota\circ\varphi=c\cdot\id_\V$ for some $c\in\kappa$. Taking images on both sides we obtain $\W=\V$.
+\end{proof}
+
+
+\begin{thm}\label{thm:sum-of-irreducible}
+    Let\/ $\V$ be an\/ $A$-module. Then\/ $\V$ is completely reducible if, and only if, it is a sum of irreducible submodules.
+\end{thm}
+
+\begin{proof}${}$
+    \begin{description}
+        \item[\rm\textit{if\/} part)] Suppose that $\V=\sum_{i\in I}\V_i$, with $\V_i$ irreducible for every $i\in I$. Take a submodule $\W$. We have to find a submodule $\U$ such that $\V=\W\oplus\U$. Pick $\U$ maximal with the property $\W\cap\U=0$. Suppose, for a contradiction, that $\W+\U\ne\V$. Then there should exist $i\in I$ such that $\V_i\nsubseteq\W+\U$. Since $\V_i$ is irreducible, we would have $(\W+\U)\cap\V_i=0$. But this implies that $\W\cap(\U+\V_i)=0$, in contradiction with the maximality of~$\U$.
+
+        \item[\rm\textit{only if})] Let $\W$ be maximal with the property of being the sum of irreducible submodules of $\V$. Suppose that $\W\varsubsetneq\V$. Since $\V$ is completely reducible we can pick $\U\ne0$ such that $\V=\W\oplus\U$. By Remark~\ref{rem:irreducible-exists}, $\U$ includes some nonzero irreducible submodule $\J$. Therefore, $\W\varsubsetneq\W+\J$, which is a contradiction.
+    \end{description}
+\end{proof}
+
+\begin{lem}\label{lem:irreducible-sum-implies-oplus}
+    Let\/ $\V$ be an\/ $A$-module and suppose\/ $\V = \sum_{i\in I} \V_i$, where the\/ $\V_i$ are irreducible submodules. Then\/ $\V$ is the direct sum of some of the\/ $\V_i$.
+\end{lem}
+
+\begin{proof}
+    Let $\W$ be maximal with the property of being a direct sum of some of the $\V_i$. If $\W\varsubsetneq\V$, there exists $\V_j$ such that $\V_j\varsubsetneq\W$. Since $\V_j$ is irreducible, we get $\W\cap\V_j=0$. Then $\W+\V_j=\W\oplus\V_j$, in contradiction with the maximality of~$\W$.
+\end{proof}
+
+\begin{defn}
+    Let\/ $\V$ be a completely reducible\/ $A$-module and $\Si$ an irreducible\/ $A$-module. The \textsl{$\Si$-homogeneous part} of\/ $\V$, denoted\/ $\V_{[\Si]}$, is the sum of all submodules of\/ $\V$ that are isomorphic to\/~$\Si$.
+\end{defn}
+
+\begin{lem}\label{lem:homogenous-decomposition}
+    Let\/ $\V$ be an $A$-module and\/ $\Si$ any irreducible\/ $A$-module. Then
+    \begin{enumerate}[\rm a)]
+        \item $\V_{[\Si]}$ is an\/ $\End_A(\V)$-submodule of\/ $\V$.
+    \end{enumerate}
+    If, in addition, $\V = \bigoplus_{i\in I} \V_i$ is a direct sum of\/ $A$-modules with\/ $\V_i$ irreducible, then
+    \begin{enumerate}[\rm a),start=2]        
+        \item $\V_{[\Si]} = \bigoplus\set{\V_i\mid i\in I\text{\rm\ and } \V_i\cong\Si}$;
+        
+        \item The number\/ $n_{\Si}(\V)$ of\/ $\V_i$ that are isomorphic to\/ $\Si$ equals $\dim\V_{[\Si]}/\dim\Si$, which is an invariant of\/ $\V$, independent of the given direct sum decomposition.
+    \end{enumerate}
+\end{lem}
+
+\needspace{2\baselineskip}
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item Recall from Remark~\ref{rem:E_A(V)} that $\V$ is an $\End_A(\V)$-module. Let $\V_j$ be one of the summands of $\V_{[\Si]}$. Take $\varphi\in \End_A(\V)$. Since $\V_j$ is irreducible, $\varphi(\V_j)$ is zero or isomorphic to $\V_j$, hence to $\Si$. Thus, $\varphi(\V_{[\Si]})\subseteq\V_{[\Si]}$, as wanted.
+
+        \item Clearly, the RHS is included in the LHS. To see the other inclusion, let\/ $\W$ be a submodule isomorphic to\/ $\Si$. Let\/ $\pi_i\colon \V \to \V_i$ denote the projection map. Note that\/ $\W \subseteq \sum_{i\in I} \pi_i(\W)$. Thus, taking into account that the RHS of~b) is an\/ $A$-submodule of\/ $\V$, to show that\/ $\W$ is included in the RHS, it suffices to prove that\/ $\pi_i(\W)$ is included. But\/ $\pi_i(\W)$ is either zero or\/ $\V_i$, since\/ $\W \cong \Si$ is irreducible.
+
+
+        \item By part b), $\dim\V_{[\Si]}=\dim(\Si)n_\Si(\V)$. Hence, $n_\Si(\V)=\dim\V_{[\Si]}/\dim\Si$.
+    \end{enumerate}
+\end{proof}
+
+\needspace{2\baselineskip}
+\begin{rems}\label{rem:homogenous-part}${}$
+    \begin{enumerate}[-]
+        \item If $\Si\cong\Si'$, then $\V_{[\Si]}=\V_{[\Si']}$.
+
+        \item In the case where $\V$ is completely reducible, part b) of the lemma shows that $\V$ is the direct sum of $\V_{[\Si]}$ for different irreducible modules $\Si$. In particular, $\V_{[\Si]}\cap\V_{[\TT]}=0$ for $\Si\not\cong\TT$.
+
+        \item Take $\varphi\in \End_A(\V)$. If $\Si$ is irreducible, then part~a) of the lemma implies that $\varphi_{[\Si]}\colon\V_{[\Si]}\to\V_{[\Si]}$ defined by $\varphi_{[\Si]}\subseteq\varphi$ is an element of $\End_A(\V_{[\Si]})$. Of course, $\varphi_{[\Si]}$ may be zero.
+    \end{enumerate}
+\end{rems}
+
+\begin{prop}\label{prop:A[S]-is-ideal}
+    Let $\Si$ be an irreducible submodule of $A$. Then  $A_{[\Si]}$ is a (bilateral) ideal of $A$.
+\end{prop}
+
+\begin{proof}
+        The map
+        \begin{align}\label{map:right-homothety}
+            \vartheta_x\colon A&\to A\\
+            y&\mapsto yx
+        \end{align}
+        is clearly $\kappa$-linear. Moreover, if $a\in A$, then $\vartheta_x(ay)=ayx=a\vartheta_x(y)$, i.e., $\vartheta_x\in \End_A(A^\circ)$. Thus, part~a) of Lemma~\ref{lem:homogenous-decomposition} implies that
+        $$
+            A_{[\Si]}x = \vartheta_x(A_{[\Si]})
+            =\vartheta_xA_{[\Si]}
+            \subseteq A_{[\Si]},
+        $$
+        for $x\in A$. In consequence, $A_{[\Si]}A\subseteq A_{[\Si]}$, as wanted.
+\end{proof}
+
+\begin{lem}\label{lem:simple-representatives}
+    Every irreducible\/ $A$-module is isomorphic to a quotient $A$-module of\/ $A^\circ$. If\/ $A$ is semisimple, then every irreducible\/ $A$-module is isomorphic to a submodule of\/ $A^\circ$. More precisely, there exist an irreducible submodule $\Si$ of $A$ and an element $v\in\V$ such that the map $\varepsilon_v\colon\Si\to\V$ given by $\varepsilon_v(x)=xv$ is an isomorphism of $A$-algebras.
+\end{lem}
+
+\begin{proof}
+    Let $\V$ be an irreducible $A$-module. Take $v\in\V$, $v\ne0$. Consider the expansion map
+    \begin{align*}
+        \varepsilon_v\colon A^\circ&\to\V\\
+        x&\mapsto xv.
+    \end{align*}
+    Since $\varepsilon_v$ is $\kappa$-linear and satisfies $\varepsilon_v(yx)=(yx)v=y(xv)=y\varepsilon_v(x)$, we see that $\varepsilon_v$ is an $A$-morphism. Since it is not zero, it must be onto. In particular, $A^\circ/\ker\varepsilon_v\cong\V$.
+
+    In the case where $A$ is semisimple, i.e., $A^\circ$ is completely reducible, there exists a complement $\Si$ of $\ker\varepsilon_v$. Thus, $A^\circ=\ker\varepsilon_v\oplus\Si$ and the restriction of $\varepsilon_v$ to $\Si$ is an isomorphism onto~$\V$.
+\end{proof}
+
+\begin{rem}
+    In other words, the lemma shows that, in the case where $A$ is semisimple, the set of irreducible submodules of $A^\circ$ is representative of the collection of all irreducible $A$-modules. In the general case, however, we don't have a candidate for such a collection.
+
+    Suppose that $A$ is semisimple and let $\mathcal S$ be a set of representatives of irreducible $A$-modules. By Remark~\ref{rem:homogenous-part}, if $\V$ is completely reducible, 
+    $$
+        \V=\bigoplus_{\Si\in\mathcal S}\V_{[\Si]}.
+    $$
+    If the elements of $\mathcal S$ are irreducible submodules of $A^\circ$ we will denote it by~$\mathcal S(A)$.
+\end{rem}
+
+
+\begin{thm}\label{thm:Wedderburn} {\rm[Wedderburn]}
+    Let\/ $A$ be a semisimple algebra and let\/ $\Si$ be an irreducible\/ $A$-module. Then
+    \begin{enumerate}[\rm a)]
+        \item Every irreducible\/ $A$-module\/ $\V$ is annihilated by\/ $A_{[\Si]}$ unless\/ $\V \cong \Si$;
+        
+        \item The map\/ $x \mapsto x_\Si$ is one-to-one from\/ $A_{[\Si]}$ onto\/ $A_\Si \subseteq\End_\kappa(\Si)$;
+        
+        \item $A_{[\Si]}$ is a minimal ideal of\/ $A$;
+        
+        \item $\mathcal S(A)$ is a finite set.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)] 
+        \item Suppose that $\V\not\cong\Si$ is irreducible. By Remark~\ref{rem:homogenous-part}, $A_{[\Si]}\cap A_{[\V]}=0$. And since both are ideals [cf.~Proposition~\ref{prop:A[S]-is-ideal}] we get $A_{[\Si]}A_{[\V]}=0$. By Lemma~\ref{lem:simple-representatives}, there is an ideal $\TT$ of $A$ isomorphic to $\V$. Moreover, $\TT\subseteq A_{[\V]}$ and so $A_{[\Si]}\TT=0$. It follows that $A_{[\Si]}\V=0$ because $\V$ is an $A$-module and $\V\cong\TT$.
+
+        \item Recall that $x_\Si(v)=xv$ is an element of $\End_\kappa(\Si)$.Using the decomposition
+        \begin{equation}\label{eq:homogeneous-decomposition-of-A}
+            A=\bigoplus_{\U\in\mathcal S(A)}A_{[\U]}
+        \end{equation}
+        from Lemma~\ref{lem:homogenous-decomposition}, for $x\in A_{[\Si]}$, we can write
+        $$
+            x=\sum_{\U\in\mathcal S(A)}
+                x_{[\U]}.
+        $$
+        Fix $\Si\in\mathcal S(A)$. Then
+        \begin{equation}\label{eq:homogeneous-decomposition-1}
+            x_{\Si} = \sum_{\U\in\mathcal S(A)}
+                (x_{[\U]})_{\Si}.
+        \end{equation}
+        Take $\U\in\mathcal S(A)$, $\U\ne\Si$. Part~a) applied to $\V=\Si$ implies that $A_{[\U]}\Si=0$. Therefore, $(x_{[\U]})_{\Si}(s)=x_{[\U]}s=0$, for all $s\in\Si$. Thus, $(x_{[\U]})_{\Si}=0$, and we get $x_{\Si}=(x_{[\Si]})_{\Si}$. It follows that the image of $A_{[\Si]}$ under $x\mapsto x_{\Si}$ equals~$A_{\Si}$, the full image of $x\mapsto x_{\Si}$.
+        
+        Suppose that $y\in A_{[\Si]}$ satisfies $y_\Si=0$. Then $y\Si=0$, and since $y\U=0$ for all $\U\not\cong\Si$, the semisimplicity of $A$ implies that $yA^\circ=0$. Then, $y=y1=0$ and the restriction is a bijection.
+
+        \item Suppose that $I$ is a proper subideal of $A_{[\Si]}$. Since $A_{[\Si]}$ is a sum of submodules isomorphic to $\Si$, there exists a submodule $\U\cong\Si$ such that $\U\nsubseteq I$. Then $\U\cap I\varsubsetneq\U$, and since $\U$ is irreducible, $\U\cap I=0$. Given that $I$ is an ideal and $\U$ a submodule, $I\U\subseteq\U\cap I=0$, i.e., $I$ annihilates $\U$ and hence $\Si$. It follows that the restriction of $A_{[\Si]}\to A_\Si$ to $I$ is zero. By part~b) this map is one-to-one. Therefore, $I=0$ as wanted.
+
+        \item This follows from \eqref{eq:homogeneous-decomposition-of-A} and the fact that $A$ is a finite-dimensional $\kappa$-vector space.
+    \end{enumerate}
+\end{proof}
+
+\begin{rem}\label{rem:homogeneus-part-is-algebra}
+    Observe that each homogeneous part $A_{[\Si]}$ is actually an algebra. Its unit element being the component $1_{[\Si]}$ of $1$ in $A_{[\Si]}$. Indeed, decomposition \eqref{eq:homogeneous-decomposition-1} implies
+    $$
+        1 = \sum_{\Si\in\mathcal S(A)} 1_{[\Si]}.
+    $$
+    Hence,
+    $$
+        \sum_{\Si\in\mathcal S(A)} 1_{[\Si]}x
+        = 1\cdot x=x=x\cdot1
+        = \sum_{\Si\in\mathcal S(A)} x1_{[\Si]},
+    $$
+    and, by uniqueness, $1_{[\Si]}x=x1_{[\Si]}$ for $x\in A$ because $A_{[\Si]}$ is an ideal of $A$. Moreover, since $A_{[\Si]}A_{[\Si']}=0$ whenever $\Si\not\cong\Si'$, $1_{[\Si]}a=a$ for $a\in A_{[\Si]}$. In particular, $1_{[\Si]}^2=1_{[\Si]}$. Moreover, $A1_{[\Si]}=A_{[\Si]}$.
+\end{rem}
+
+\begin{xmpls}\label{xmpls:irreducible-decomposition}${}$
+\begin{enumerate}[\rm a)]
+    \item Let $C_3=\set{1,a,a^3}$ be the cyclic group of order $3$ and let $\omega = e^{2\pi i/3}$.
+    Define $v_0, v_1, v_2 \in \C[C_3]$ by
+    \begin{align*}
+        v_0 &= 1 + a + a^2, \\
+        v_1 &= 1 + \omega^2 a + \omega a^2, \\
+        v_2 &= 1 + \omega a + \omega^2 a^2.
+    \end{align*}
+    Since $v_ia=\omega^iv_i$, we see that $U_i=\C v_i$ is a $\C[C_3]$-module for $i=0,1,2$.
+
+    The matrix
+    $$
+        A=\begin{pmatrix}
+            1   &1\hphantom{{}^2}       &1\hphantom{{}^2}\\
+            1   &\omega^2               &\omega\hphantom{{}^2}\\
+            1   &\omega\hphantom{{}^2}  &\omega^2
+        \end{pmatrix}
+    $$
+    has determinant
+    $$
+        \det A
+            = (\omega-\omega^2) - (\omega^2-\omega)
+                + (\omega-\omega^2)
+            =3\omega(1-\omega) \ne 0.
+    $$
+    Therefore, $\set{v_0,v_1,v_2}$ is a basis of $\C[C_3]$ and so
+    $$
+        \C[C_3] = U_0\oplus U_1\oplus U_2
+    $$
+    as $\C[C_3]$-modules. Moreover, $U_i$ is irreducible because $\dim U_i=1$.
+    
+    The $1\times1$ matrices of $a\in\End_\C(U_i)$ in the bases $\set{v_0}$, $\set{v_1}$ and $\set{v_2}$
+    $$
+        [a]_{\set{v_0}}=1,\quad [a]_{\set{v_1}}=\omega,\quad
+            [a]_{\set{v_2}}=\omega^2
+    $$
+    are different, hence pairwise nonsimilar and so $U_0$, $U_1$ and $U_2$ are pairwise nonisomorphic as $\C[C_3]$-modules. Thus, $\C[C_3]_{[U_i]}=U_i$, for $i=0,1,2$ and the equation
+    $$
+        1 = \frac13(v_0+v_1+v_2),
+    $$
+    which comes from $1+\omega+\omega^2=0$, shows that $e_i=\frac13 v_i$ is the identity of~$U_i$.
+
+    \item Consider the dihedral group $D_6=\langle a,b \mid a^3=b^2=1,\;ab=ba^{-1}\rangle$. Put $\omega=e^{2\pi i/3}$ and introduce
+    \begin{align*}
+        v_0 &= 1 + a + a^2, &w_0 &=v_0b, \\
+        v_1 &= 1 + \omega^2 a + \omega a^2, &w_1 &=v_1b, \\
+        v_2 &= 1 + \omega a + \omega^2 a^2, &w_2 &=v_2b.
+    \end{align*}
+    As we saw in part a), $v_ia=\omega^iv_i$. Moreover,
+    \begin{align*}
+        bv_0 &= w_0, & bw_0 &= v_0, \\
+        bv_1 &= w_2, & bw_1 &= v_2, \\
+        bv_2 &= w_1, & bw_2 &= v_1.
+    \end{align*}
+    The following $\C$-subspaces are $\C[D_6]$-submodules
+    \begin{align*}
+        U_1 &=\lsp{v_0+w_0}  &U_3 &= \lsp{v_1,w_2}\\
+        U_2 &=\lsp{v_0-w_0}  &U_4 &= \lsp{v_2,w_1}.
+    \end{align*}
+    Since $\set{v_0,v_1,v_2,w_0,w_1,w_2}$ is a basis of $\C[D_6]$, we deduce that
+    $$
+        \C[D_6] = U_1\oplus U_2\oplus U_3\oplus U_4
+    $$
+    as $\C[D_6]$-modules.
+    
+    Suppose that $I$ is an ideal that includes $U_3$. Then,
+    \begin{align*}
+        U_3b&=\lsp{v_1b,w_2b}=\lsp{w_1,v_2}=U_4\\
+        U_3a&=\lsp{v_1a,w_2a}=\lsp{v_1,w_2}=U_3
+    \end{align*}
+    and so $U_3\oplus U_4\subseteq I$ and $U_3\oplus U_4$ is an ideal. Given that $U_3\subseteq\C[D_6]_{[U_3]}$, which is minimal, we deduce that $\C[D_6]_{[U_3]}=U_3\oplus U_4$.
+
+    The map
+    \begin{align*}
+        \psi\colon U_3&\to U_4\\
+        v_1&\mapsto w_1\\
+        w_2&\mapsto v_2
+    \end{align*}
+    is a isomorphism:
+    \begin{align*}
+        \psi(av_1)&=\omega w_1=aw_1=a\psi(v_1)\\
+        \psi(bv_1)&=\psi(w_2)=v_2=bw_1=b\psi(v_1)\\
+        \psi(aw_2)&=\omega^2\psi(w_2)=a\psi(w_2)\\
+        \psi(bw_2)&=\psi(v_1)=w_1=b\psi(w_2).
+    \end{align*}
+    The equations
+    \begin{align*}
+        a(v_0\pm w_0) &=v_0\pm w_0     &(v_0\pm w_0)a &= v_0\pm w_0\\
+        b(v_0\pm w_0) &= w_0 \pm v_0     &(v_0\pm w_0)b &= w_0\pm v_0
+    \end{align*}
+    show that $U_1$ and $U_2$ are ideals, clearly minimal. Moreover, $U_1\not\cong U_2$ because any isomorphism $\phi$ would map $v_0+w_0$ to a scalar multiple of $v_0-w_0$, which would lead to
+    $$
+        \lambda(v_0-w_0) = \phi(a(v_0+w_0))
+            = \lambda a(v_0-w_0) = \lambda(w_0-v_0).
+    $$
+    Since $\lambda\ne0$, after multiplying by $\lambda^{-1}$, we would get $v_0=w_0$, i.e.,
+    $$
+        1+a+a^2 - b - ba - ba^2 = 0,
+    $$
+    which is impossible because the terms of this sum are the six elements of~$D_6$, hence, linearly independent in~$\C[D_6]$.
+
+    Finally, the equations
+    $$
+        v_0+v_1+v_2 = 3\quad\text{and}\quad
+        \frac12((v_0+w_0)+(v_0-w_0)) = v_0
+    $$
+    allow us to write
+    $$
+        1 = \frac16(v_0+w_0) + \frac16(v_0-w_0) + \frac13(v_1+v_2),
+    $$
+    which implies that
+    $$
+        e_{[U_1]} = \frac16(v_0+w_0),\quad
+        e_{[U_2]} = \frac16(v_0-w_0),\quad
+        e_{[U_3]} = \frac13(v_1+v_2)
+    $$
+    are the identities in $\C[D_6]_{[U_1]}$, $\C[D_6]_{[U_2]}$ and $\C[D_6]_{[U_3]}$.
+\end{enumerate}    
+\end{xmpls}
+
+\begin{defn}
+    An algebra is \textsl{simple} if it doesn't have any proper nontrivial ideal.
+\end{defn}
+
+\begin{prop}
+    Every semisimple algebra is a direct sum of simple algebras.
+\end{prop}
+
+\begin{proof}
+    Given that, in the case where $A$ is semisimple, $A_{[\Si]}A_{[\TT]}=0$ when $\Si\not\cong\TT$, every ideal of the algebra $A_{[\Si]}$ is an ideal of $A$. Since $A_{[\Si]}$ is minimal as ideal of $A$, it is simple as an algebra. 
+\end{proof}
+
+\begin{thm}\label{thm:double-centrilzer} {\rm[Double Centralizer]}
+    Let\/ $A$ be a semisimple algebra\footnote{Problem~\ref{probl:semisimplicity-of-A_V} shows that this hypothesis is actually unnecessary.} and let\/ $\V$ be an irreducible\/ $A$-module. Put\/ $E = \End_A(\V)$. Then\/ $\End_E(\V) = A_\V$.\footnote{Since $E$ is the centralizer of $A_\V$ \eqref{prop:homotecy-centralizer}, $\End_E(\V)$ is its \textit{double} centralizer.}
+\end{thm}
+
+\begin{proof}
+    By Lemma~\ref{lem:simple-representatives} we may assume that $\V\subseteq A^\circ$. Put $I=A_{[\V]}$. Then, $\V\subseteq I$. As we observed in Remark~\ref{rem:E_A(V)}, $A_\V\subseteq \End_E(\V)$ and we have to show that equality is attained.
+
+    Take $\vartheta\in \End_E(\V)$. Then, for $\varepsilon\in E$ and $z\in \V$, we have
+    \begin{equation}\label{eq:compatible-E-action}
+        \vartheta(\varepsilon z)=\varepsilon(\vartheta(z))=\varepsilon\vartheta(z).
+    \end{equation}
+    Define
+    \begin{align*}
+        \varepsilon_z\colon \V&\to \V\\
+        x&\mapsto xz,
+    \end{align*}
+    which is well-defined because $A\V\subseteq \V$. Note that $\varepsilon_z\in E$. Indeed. Given $a\in A$ and $x\in \V$ we have
+    $$
+        \varepsilon_z(ax) = axz = a\varepsilon_z(x).
+    $$
+    Thus, for $y,z\in \V$, from \eqref{eq:compatible-E-action} we obtain
+    \begin{equation}\label{eq:eq01}
+        \vartheta(yz) = \vartheta(\varepsilon_{z}(y))
+            = \varepsilon_{z}\vartheta(y)=\vartheta(y)z.
+    \end{equation}
+    Now fix $y\in \V$, $y\ne0$. Let $e$ be the unit in $I$ [cf.~Remark~\ref{rem:homogeneus-part-is-algebra}]. By part~c) of Wedderburn's Theorem~\ref{thm:Wedderburn}, $I$ is a minimal ideal of $A$. This has two consequences. First, $Ay\subseteq \V\subseteq I$, and so $AyA\subseteq I$. Second, since $AyA$ is an ideal, $I=AyA$. In particular, $e\in AyA$, i.e.,
+    $$
+        e = \sum_{i=1}^n a_iyb_i,
+    $$
+    for some $a_1,b_1,\dots,a_n,b_n\in A$. Multiplying by $z\in \V$,
+    $$
+        z=ez = \sum_{i=1}^n (a_iy)(b_iz),
+    $$
+    Applying $\vartheta$ and using \eqref{eq:eq01}, we get
+    $$
+        \vartheta(z)
+        = \sum_{i=1}^n\vartheta(a_iy)b_iz.
+        = \Big(\sum_{i=1}^n\vartheta(a_iy)b_i\Big)_\V(z),
+    $$
+    where the second equality is valid because $\vartheta(a_iy)b_i\in \V A\subseteq AA=A$. Since $z\in \V$ was arbitrarily chosen,
+    $$
+        \vartheta = \Big(\sum_{i=1}^n\vartheta(a_iy)b_i\Big)_\V \in A_\V
+    $$
+    and the proof is complete.
+\end{proof}
+
+
+\begin{cor}\label{cor:alg-closed-dim-equations}
+    Let\/ $A$ be a semisimple\footnote{As in the theorem, this condition is not needed in part~a) and the first equality of part~b).} algebra over an algebraically closed field\/ $\kappa$ and let\/ $\V$ be an irreducible\/ $A$-module. Then
+    \begin{enumerate}[\rm a)]
+        \item $A_\V = \End_\kappa(\V)$;
+        \item $\dim(A_\V) = \dim(\V)^2 = \dim(A_{[\V]})$;
+        \item $n_\V(A^\circ) = \dim(\V)$.
+    \end{enumerate}
+    Furthermore, if\/ $\mathcal S(A)$ is a representative set of irreducible\/ $A$-modules, then
+    \begin{enumerate}[\rm a),start=4]
+        \item $\dim A = \sum_{\Si \in\mathcal S(A)} \dim(\Si)^2$;
+        \item $\dim(Z(A)) = |\mathcal S(A)|$.
+    \end{enumerate}
+\end{cor}
+
+\needspace{2\baselineskip}
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item From Corollary~\ref{cor:alg-closed-scalar-multiplications}, we know that $\End_A(\V)=\kappa\cdot\id_\V$. Thus, the theorem implies that
+        $$
+            A_\V=\End_E(\V) = \End_{\kappa\cdot\id_\V}(\V)=\End_\kappa(\V),
+        $$
+        where the last equality comes from the fact that, for $c\in\kappa$ and $x\in \V$,
+        $$
+            c\cdot\id_\V(x) = c\cdot(\id_\V(x))=c\cdot x,
+        $$
+        which implies that $\End_\kappa(\V)\subseteq \End_{\kappa\cdot\id_\V}(\V)$, the other inclusion being clear.
+
+        \item This is a clear consequence of Wedderburn's Theorem~\ref{thm:Wedderburn} and part~a).
+        
+        In the general case, we can use the same theorem for $A'=A_\V$, as explained in Problem~\ref{probl:semisimplicity-of-A_V}, and get $\dim(A_\V)=\dim(\V)^2$. 
+
+        \item By Lemma~\ref{lem:homogenous-decomposition}, $n_\V(A^\circ)=\dim A_{[\V]}/\dim \V$. Hence the equation.
+
+        \item This is a direct consequence of part b).
+
+        \item Using decomposition \eqref{eq:homogeneous-decomposition-of-A} and taking into account that the $A_{[\Si]}$ annihilate each other, we see that
+        $$
+            Z(A)=\bigoplus_{\Si\in\mathcal S(A)}Z(A_{[\Si]}).
+        $$
+        As observed in the proof of part~a), $\End_A(\Si)=\kappa\cdot\id_\Si$. In particular, $\dim A_\Si=1$. By part~b) $\dim A_{[\Si]}=\dim A_\Si=1$. Since $0\ne Z(A_{[\Si]})\subseteq A_{[\Si]}$, we deduce that $\dim Z(A_{[\Si]})=1$. Thus,
+        $$
+            \dim(Z(A))=\sum_{\Si\in\mathcal S(A)}\dim Z(A_{[\Si]})
+                = \sum_{\Si\in\mathcal S(A)}1=|\mathcal S(A)|.
+        $$
+    \end{enumerate}
+\end{proof}
+
+\section{Representations}
+
+\begin{defns}
+    A \textsl{representation} of a $\kappa$-algebra $A$ in a $\kappa$-vector space $\V$ is a morphism of algebras $\rho\colon A\to\End_\kappa(\V)$. The vector space $\V$ is the \textsl{representation space} of $\rho$, and its dimension $\dim\V$ is the \textsl{degree} of the representation and is denoted by $\deg\rho$. Two representations $\rho$ and $\sigma$ of $A$ in $\V$ and $\W$ are \textsl{similar} when there is a $\kappa$-linear isomorphism $\phi\colon\V\to\W$ such that $\sigma=\phi\rho\phi^{-1}$. A \textsl{matrix representation} of $A$ is a morphism of algebras $\varrho\colon A\to M_n(\kappa)$ and two matrix representations $\varsigma$ and $\varrho$ are \textsl{similar} when there is a nonsignular matrix $P$ such that $\varsigma=P\varrho P^{-1}$.
+\end{defns}
+
+\begin{rem}
+    After fixing a basis $\basis B$ of $\V$, we can view $\rho$ as a matrix representation $[\rho]_{\basis B}\colon A \to M_n(\kappa)$, where $n = \dim \V$, defined by $x \mapsto [\rho(x)]_{\basis B}$. Conversely, any matrix representation $\varrho\colon A \to M_n(\kappa)$ can be regarded as a representation by identifying $M_n(\kappa)$ with $\End_\kappa(\kappa^n)$.
+\end{rem}
+
+
+
+\begin{rem}\label{rem:representations-and-modules}
+    If $\rho$ is a representation of $A$, its representation space $\V$ becomes an $A$-module under the action
+    $$
+        xv = \rho(x)v
+    $$
+    defined for $x\in A$ and $v\in\V$. Conversely, if $\V$ is an $A$-module, the map
+    \begin{equation}\label{eq:regular-representation}
+        x\mapsto x_\V,
+    \end{equation}
+    where $x_\V\in\End_\kappa(\V)$ is given by $v\mapsto xv$, is a representation of $A$ in $\V$ because
+    $$
+        (xy)_\V = x_\V y_\V.
+    $$
+    Both constructions are clearly reciprocal, i.e., representations of $A$ are the same than $A$-modules.
+
+    Additionally, if $\V$ is an $A$-module and $\basis B=(v_1,\dots,v_n)$ is a basis of $\V$, the isomorphism between $\V$ and $\kappa^n$ induced by $\mathcal B$ transforms $x_\V$ into the matrix with columns $([xv_1]_{\basis B},\dots,[xv_n]_{\basis B})$, which is precisely the matrix $[x_\V]_{\basis B}$. In a diagram,
+    $$
+        \begin{tikzcd}
+            A
+                    \arrow[r,"\rho_{\basis B}"]
+                    \arrow[rd,"\rho"']
+                &M_n(\kappa)
+                &x
+                    \arrow[r,mapsto]
+                    \arrow[rd,mapsto]
+                &{[x_\V]_{\basis B}}\\
+                &\End_\kappa(\V)
+                    \arrow[u,"{[\,\cdot\,]_{\basis B}}"']
+                &&x_\V
+                    \arrow[u,mapsto]
+        \end{tikzcd}
+    $$
+    Note that $\rho=(\,\cdot\,)_\V$ and $\rho_{\basis B} = [(\,\cdot\,)_\V]_{\basis B}$.
+\end{rem}
+
+\begin{defn}\label{defn:regular-representation}
+    In the case where $\V=A^\circ$ the representation given in \eqref{eq:regular-representation}, i.e., the one given by
+    \begin{align*}
+        \rrho\colon A&\to\End_A(A^\circ)\\ 
+        x&\mapsto x_{A^\circ}
+    \end{align*}
+    is the \textsl{regular} representation of $A$ (in $A^\circ$).
+\end{defn}
+
+\begin{prop}
+    Let $A$ be a $\kappa$-algebra. Then,
+    $$
+        x_{A^\circ} \text{\rm\ is bijective }
+        \iff x \text{\rm\ is invertible}.
+    $$
+\end{prop}
+
+\begin{proof}
+    This is a direct consequence of Proposition~\ref{prop:monoid-left-inverse} applied to the multiplicative monoid underlying~$A$.
+\end{proof}
+
+\begin{rem}[Similarity]\label{rem:similarity} Let $\rho\colon A\to\End_\kappa(\V)$ and $\sigma\colon A\to\End_\kappa(\W)$ be two representations of $A$. If $\varphi\in\Hom_A(\V,\W)$, then the condition $\varphi(xv)=x\varphi(v)$ translates into 
+$$
+    \varphi\rho=\sigma\varphi,
+$$
+where $\varphi\rho$ and $\sigma\varphi$ stand for
+\begin{align*}
+    \varphi\rho\colon A&\to\Hom_\kappa(\V,\W)
+    &\sigma\varphi\colon A&\to\Hom_\kappa(\V,\W)\\
+    x&\mapsto\varphi x_\V
+    &x&\mapsto x_\W\varphi.
+\end{align*}
+In the case where $\varphi$ is an isomorphism, $\rho$ and $\sigma$ are \textsl{similar}.
+
+As a consequence, any two representations that correspond to different bases of the same $A$-module, are similar. Conversely, two representations matricially similar, correspond to an isomorphism between the involved $A$-modules. In conclusion, there is a natural
+one-to-one correspondence between isomorphism classes of $A$-modules and similarity classes of representations of~$A$. 
+\end{rem}
+
+\paragraph{Reduced Representations.}\label{page:reudced-representations} Consider the case where $\W$ is an $A$-submodule of $\V$ and $\rho\colon A\to\End_\kappa(\V)$ a representation. Then the map \begin{align*}
+    \rho_\W\colon A&\to\End_\kappa(\W)\\
+    x&\mapsto x_\W
+\end{align*}
+is a well-defined representation that agrees with $\rho$ on~$\W$. We will say that $\rho_\W$ is the \textsl{restriction} of $\rho$ to~$\W$.
+
+Let $\basis B=\basis C,(v_1,\dots,v_m)$ be a basis of $\V$ with $\basis C$ a basis of $\W$. Given $x\in A$ the matrix $[x_\V]_{\basis B}$ has the form
+\begin{equation}\label{eq:reduced-representation}
+    [x_\V]_{\basis B}=\begin{bmatrix}
+        [x_\W]_{\basis C} &{\textsc r}(x)\\
+        0   &\pi(x)
+    \end{bmatrix},
+\end{equation}
+where $({\textsc r}(x),\pi(x))$ is the $n\times m$ matrix with columns $[xv_1]_{\basis B},\dots,[xv_m]_{\basis B}$. Moreover, $\pi\colon x\mapsto\pi(x)$ is the matrix representation of the representation of $A$ in $\V/\W$ defined by $x\mapsto x_{\V/\W}$, induced by $x_\V$ according to the diagram
+$$
+    \begin{tikzcd}
+        \V
+                \arrow[r,"x_\V"]
+                \arrow[d]
+            &\V
+                \arrow[d]\\
+        \V/\W
+                \arrow[r,"x_{\V/\W}"']
+            &\V/\W
+    \end{tikzcd}
+$$
+In other words, if $\bar\rho\colon A\to\End_\kappa(\V/\W)$ and $\bar{\basis B}=(\bar v_1,\dots,\bar v_m)$ is the basis of $\V/\W$, then
+\begin{equation}\label{eq:block-representation}
+    \rho_{\basis B}=\begin{bmatrix}
+        (\rho_\W)_{\basis C}    &\textsc r\\
+        0   &\bar\rho_{\bar{\basis B}}
+    \end{bmatrix}.
+\end{equation}
+When the above does happen for $m>0$, the representation $\rho$ is \textsl{reduced}. Any representation similar to a reduced one is said to be \textsl{reducible}. In this way, \textsl{irreducible\/} representations correspond to irreducible modules. Thus, a representation $\rho\colon A\to\V$ is irreducible when there is no proper nonzero linear subspace $\W\subseteq\V$ such that $\rho(x)(\W)\subseteq\W$ for all $x\in A$.
+
+If it is the case that $\V$ can be decomposed into a direct sum $\V=\W\oplus\U$ of $A$-modules then, by extending the basis of $\W$ with a basis of $\U$, the matrix $\rho_{\basis B}$ of~\eqref{eq:block-representation} will have $\textsc r=0$. In particular, a completely reduced module $\V$ will produce a representation that admits a block-diagonal matrix with irreducible blocks. In other words,
+
+\begin{prop}\label{prop:representation-decomposition}
+    If\/ $\V = \V_1 \oplus \cdots \oplus \V_r$ is a decomposition of\/ $\V$ into\/ $A$-submodules, and\/ $\basis B = \basis B_1, \dots, \basis B_r$ is the concatenation of bases of the components, then a\/ $\kappa$-representation\/ $\rho\colon A\to\End_\kappa(\V)$ takes the block-diagonal form
+    \begin{equation}\label{eq:block-diagonal-representation}
+        \rho_{\basis B} = \begin{bmatrix}
+            (\rho_1)_{\basis B_1}  &\cdots &0\\
+            \vdots  &\ddots &\vdots\\
+            0   &\cdots &(\rho_r)_{\basis B_r}
+        \end{bmatrix},
+    \end{equation}
+    where\/ $\rho_j\colon A\to\End_\kappa(\V_j)$ is the restriction of\/ $\rho$ to\/ $\V_j$ for\/ $j = 1, \dots, r$. In particular,\/ $\rho_j$ is irreducible whenever\/ $\V_j$ is irreducible. 
+\end{prop}
+
+\needspace{2\baselineskip}
+\begin{defns}\label{defns:Jacobson-radical}
+    Let $A$ be a $\kappa$-algebra.
+    \begin{enumerate}[-]
+        \item Given an $A$-module $\V$, the \textsl{annihilator} of $\V$ is
+        $$
+            \Ann(\V) = \set{a\in A\mid a\V=0}.
+        $$
+        Note that $\Ann(\V)$ is an ideal of $A$ [cf.~Problem~\ref{probl:Ann(V)}].
+
+        \item An ideal $I\subseteq A$ is \textsl{primitive} if there is an irreducible $A$-module~$\V$ such that $I=\Ann(\V)$.
+
+        \item The \textsl{Jacobson radical} of $A$ is
+        $$
+            J(A) = \bigcap_{I\in\op{Prim}(A)}I,
+        $$
+        where $\op{Prim}(A)$ is the set of all primitive ideals of~$A$.
+
+        \item A left ideal $I\subseteq A$ is \textsl{nilpotent} if $I^n=0$ for some integer~$n$.
+    \end{enumerate}
+\end{defns}
+
+
+\section{Problems}
+
+\begin{probl}\label{probl:chinise-remainder}
+    Let\/ $\V$ be an\/ $A$-module. Show that\/ $\V$ is completely reducible if, and only if, the intersection of all of the maximal submodules of\/ $\V$ is trivial.
+
+    \textrm{\rm Hint: To prove \textit{if\/} part embed\/ $\V$ into a sum of irreducible modules. Recall that our definition of module requires finite dimensionality.}
+\end{probl}
+
+\begin{solution}${}$
+    \begin{description}
+        \item[\rm\textit{only if\/}:] A submodule is maximal when it is proper and is not included in any other proper submodule. Since $\dim\V<\infty$ every proper submodule is included in a maximal one.  Let $\W$ be the intersection of all maximal submodules of $\V$. By hypothesis, there exists a complement $\U$ such that $\V=\W\oplus\U$. If $\U$ is not proper then $\W=0$ and we are done. Otherwise, it would be included in some maximal submodule $\M$. In that case both $\U$ and $\W$ are included in $\M$, which is impossible because that would imply
+        $$
+            \V=\W+\U\subseteq\M\varsubsetneq\V.
+        $$
+
+        \item[\rm\textit{if\/} part:] Let $\M$ be a submodule of $\V$. The submodules of $\V/\M$ correspond to submodules of $\V$ that include $\M$. In particular, if $\M$ is maximal, $\V/\M$ is irreducible. Let $\op{Max}(\V)$ be the set of all maximal submodules of $\V$. The map
+        \begin{align*}
+            \iota\colon\V&\to\bigoplus_{\M\in \op{Max}(\V)}
+                \V/\M\\
+            v&\mapsto(v\bmod\M)_{\M\in
+                \op{Max}(\V)}
+        \end{align*}
+        is (clearly) a morphism of $A$-modules and, by hypothesis, a monomorphism. Pick a basis of $\V$. There is a finite subset $\set{\M_1,\dots,\M_r}$ of $\op{Max}(\V)$ such that $\im(\iota)$ is included in the sum $\bigoplus_{i=1}^r\V/\M_i$. By coastriction we get a morphism, say $\jmath$, from $\V$ to a finite sum of irreducible $A$-modules. Since the coastriction of a monomorphism is a monomorphism, we get $\bigcap_{i=1}^r\M_i=0$. Therefore, we can further assume that this set of maximal submodules is minimal. In particular,
+        \begin{equation}\label{eq:chinese-condition}
+            \M_i + \bigcap_{k\ne i}\M_k=\V
+        \end{equation}
+        for all $1\le i\le r$.
+
+        We claim that condition \eqref{eq:chinese-condition}, if held for any set of submodules (not necessarily maximal), implies that $\jmath$ is onto. The proof works by induction on~$r$.
+        
+        The case $r=1$ is trivial.
+        
+        If $r=2$, take $v_1,v_2\in\V$. Since $\M_1+\M_2=\V$, we can write
+        $$
+            v_1-v_2=-w_1+w_2
+        $$
+        for some $w_1\in\M_1$ and $w_2\in\M_2$. Then $v=v_1+w_1=v_2+w_2$ satisfies $(v_1\bmod\M_1,v_2\bmod\M_2)=\jmath(v)\in\im(\jmath)$.
+        
+        If $r>2$, take $v_1,\dots,v_r\in\V$. A trivial consequence of our hypothesis is
+        $$
+            \M_i
+                + \bigcap_{\substack{1\le k \le r-1\\k\ne i}}
+                \M_k=\V
+        $$
+        for $1\le i\le r-1$. By the inductive hypothesis, there exists $v\in\V$ such that $v\equiv v_i\bmod\M_i$ for $1\le i\le r-1$. Moreover, by the case $r=2$, there exists $v'\in\V$ with $v'\equiv v_r\bmod\M_r$ and $v'-v\equiv 0\bmod\M_1\cap\cdots\cap\M_{r-1}$. It follows that $v'\equiv v_i\bmod\M_i$ for $1\le i\le r$.
+    \end{description}
+
+    
+\end{solution}
+
+\begin{probl}
+    Let\/ $\rho$ and\/ $\sigma$ be representations of a\/ $\kappa$-algebra\/ $A$. A nonzero matrix\/ $P$ is said to \textsl{intertwine}\/ $\rho$ and\/ $\sigma$ if\/ $P \rho(x) = \sigma(x) P$ for all\/ $x \in A$. Assume\/ $\rho$ and\/ $\sigma$ are irreducible.
+    \begin{enumerate}[\rm a)]
+        \item If\/ $P$ intertwines\/ $\rho$ and\/ $\sigma$, show that\/ $P$ is square and nonsingular.
+        \item Assume that\/ $\kappa$ is algebraically closed and that\/ $P$ and\/ $Q$ both intertwine\/ $\rho$ and\/ $\sigma$. Show that\/ $Q = cP$ for some\/ $c\in\kappa$.
+    \end{enumerate}
+\end{probl}
+
+\begin{solution}
+    From Remark~\ref{rem:representations-and-modules} we know that the modules $\V$ and $\W$ induced by $\rho$ and $\sigma$ are irreducible.
+    \begin{enumerate}[\rm a)]
+        \item The matrix $P$ is nonsingular because it corresponds to a morphism of $A$-modules from $\V$ to $\W$ (same remark), which is necessarily an isomorphism by Lemma~\ref{lem:schur}.
+
+        \item By part~a) $P$ and $Q$ are nonsingular. Moreover, if $n=\dim\V$, then $\dim\W=n$ and $P,Q\in M_\kappa(n)$. It follows that $Q^{-1}P$ is an element of $\End_A(\V)$ which, according to Corollary~\ref{cor:alg-closed-scalar-multiplications} is a $1$-dimensional $\kappa$-vector space. The conclusion is now apparent.
+    \end{enumerate}
+\end{solution}
+
+
+\begin{probl}\label{probl:A-semisimple-iff-V-completely-reducible}
+    Show that an algebra\/ $A$ is semisimple if, and only if, every\/ $A$-module is completely reducible. 
+\end{probl}
+
+\begin{solution}
+    The \textit{if\/} part is trivial because $A^\circ$ is an $A$-module.
+    
+    Let $\V$ be an $A$-module. The proof of the \textit{only if\/} part works by induction on $n=\dim_\kappa\V$. If $n\le1$ then $\V$ is zero or irreducible and there is nothing to prove. Suppose that $n>1$. We may also assume that $\V$ is not irreducible. Pick an irreducible submodule $\J$ of $\V$ [cf.~Remark~\ref{rem:irreducible-exists}]. Since $\dim_\kappa\V/\J<n$, the induction hypothesis implies that $\V/\J$ is completely reducible. By Theorem~\ref{thm:sum-of-irreducible} we can write
+    \begin{equation}\label{eq:oplus-quotient}
+        \V/\J = \bigoplus_{i=1}^m\W_i/\J,
+    \end{equation}
+    where $\W_i\varsupsetneq\J$ and $\W_i/\J$ is irreducible. If $m>1$, equation \eqref{eq:oplus-quotient} implies that $\dim_\kappa\W_i<n$ for all $i$. Thus, the induction hypothesis implies that every $\W_i$, and \textit{a fortriori} $\V$, is a sum of irreducible modules, hence completely reducible. Therefore, we are left with the case $m=1$, where $\V/\J$ is irreducible.
+
+    By Lemma~\ref{lem:simple-representatives}, there exist an irreducible submodule $I$ of $A^0$ and $v\in\V$ such that
+    \begin{align*}
+        \vartheta_v\colon I&\to\V/\J\\
+        x&\mapsto x\bar v
+    \end{align*}
+    is an isomorphism. We claim that $\V=Iv+\J$. Indeed. Given $w\in\V$, write the class $\bar w$ of $w$ in $\V/\J$ as $\bar w=x\bar v$ with $x\in I$. Then, $w-xv\in\J$ and $w=xv+(w-xv)\in Iv+\J$. Moreover, $Iv\cap\J=0$ because $xv\in Iv\cap\J$ implies $\vartheta_v(x)=x\bar v=0$ and so $x=0$. Therefore, $\V=Iv\oplus\J$, and since $\dim_\kappa Iv<n$, the result follows from the induction hypothesis.
+\end{solution}
+
+\begin{probl}\label{probl:Ann(V)}
+    Let\/ $A$ be a\/ $\kappa$-module and\/ $\V$ an\/ $A$-module. Show:
+    \begin{enumerate}[\rm a)]
+        \item $\Ann(\V)$ is an ideal of\/ $A$ for all\/ $\V$.
+        \item $J(A)\V\varsubsetneq\V$ for every nonzero\/ $A$-module\/ $\V$.
+        
+        \textrm{\rm Hint [l.c.]: $J(A)\V$ is included in every maximal submodule of $\V$.}
+        \item $J(A)^n = 0$ for some integer\/ $n$.
+        \item If\/ $I$ is a left ideal of\/ $A$ and\/ $I^m = 0$ for some\/ $m$, then\/ $I \subseteq J(A)$.
+    \end{enumerate}
+\end{probl}
+
+\begin{solution}
+    \begin{enumerate}[\rm a)]
+        \item $\Ann(\V)$ is a left ideal because $a\V=0\implies ba\V=0$ for all $b\in A$. It is a right ideal because $A\V=\V$ and so $a\V=0\implies ab\V=0$ for all $b\in A$.
+
+        \item {[From \href{https://math.stackexchange.com/q/1571066/269050}{MSE}]} Let $M\subseteq\V$ be a maximal submodule. Since $\V/M$ is irreducible, $\Ann(\V/M)\in\op{Prim}(A)$ and so
+        \begin{equation}\label{eq:J(A)-annihilates-irreducibles}
+            J(A)(\V/M)=0.
+        \end{equation}
+        Now suppose, toward a contradiction, that $\V=J(A)\V$. Given $v\in\V$ we can write
+        $$
+            v = a_1v_1+\cdots+a_nv_n,
+        $$
+        where $a_1,\dots,a_n\in J(A)$ and $v_1,\dots,v_n\in\V$. Projecting onto $\V/M$ and using \eqref{eq:J(A)-annihilates-irreducibles}, we get
+        $$
+            \bar v = a_1\bar v_1+\cdots+a_n\bar v_n = 0.
+        $$
+        Then $v\in M$ and so $M=\V$, in contradiction with the definition of~$M$.
+
+        \textbf{Note:} By applying this to $A^\circ$, we obtain that $J(A)$ is included in all maximal submodules of $A^\circ$. Conversely, if $a \in M$ for every maximal submodule $M$, then $a \in J(A)$. To see this, take an irreducible submodule $I$ of $A^\circ$ and fix $x \in I \setminus \{0\}$. Then $I = Ax$ and $\varepsilon_x\colon A^\circ \to I$ defined by $\varepsilon_x(y) = yx$ is onto. Hence, $A^\circ / \ker \varepsilon_x \cong I$. Thus, $\ker \varepsilon_x$ is maximal, and therefore it includes $a$, i.e., $ax = 0$. Since $x$ was chosen arbitrarily, $a \in \Ann(I)$. Consequently, $a \in J(A)$.
+        
+        \item By part b) $J(A)^{n+1}=J(A)J(A)^n\varsubsetneq J(A)^n$ for $n>0$.
+
+        \item Take $J\in\op{Prim}(A)$. Then there is an irreducible $A$-module $H\subseteq A$ such that $J=\Ann(H)$. Let $n$ be the smallest integer satisfying $I^n=0$. If $n>1$, then $I^{n-1}H=H$ because $H$ is irreducible. Then $0=I^nH=IH$, and so $I\subseteq J$. If $n=1$, then $I=0$, which is trivially included in $J$. Thus, in any case, $I\subseteq J$ and, since $J$ was arbitrarily chosen, we conclude that $I\subseteq J(A)$.\qedhere
+    \end{enumerate}
+\end{solution}
+
+\begin{probl}\label{probl:semisimplicity-and-jacobson-radical}
+    Prove that the following are equivalent for the algebra\/ $A$.
+    \begin{enumerate}[\rm a)]
+        \item $J(A) = 0$.
+        \item $A$ has no nonzero nilpotent left ideals.
+        \item $A$ has no nonzero nilpotent ideals.
+        \item $A$ is semisimple.
+    \end{enumerate}
+    
+    \textrm{\rm Hint: If\/ $\V$ is irreducible, then\/ $\Ann(\V)$ is an intersection of maximal left ideals of\/~$A$.}
+\end{probl}
+
+\begin{solution}
+    Let's start by proving the hint. Pick $v\in\V$ such that $\V=Av$. If $\varepsilon_v\colon A\to\V$ is defined as $\varepsilon_v(x)=xv$, then $\Ann(\V)\subseteq\ker\varepsilon_v$ and $\ker\varepsilon_v$ is maximal because $A/\ker\varepsilon_v\cong\V$ is irreducible. It follows that $\Ann(\V)$ is included in the intersection of $\ker\varepsilon_v$ for $v\in\V\setminus\set0$. Equality is clearly attained.
+    
+    \begin{enumerate}[\rm a)]
+        \item $\Rightarrow$~b) This is a direct consequence of Problem~\ref{probl:Ann(V)}~d).
+
+        \item $\Rightarrow$~c) Trivial.
+
+        \item $\Rightarrow$~d) For every $J\in\op{Prim}(A)$ choose an irreducible $A$-module $\V_J$ such that $J=\Ann(\V_J)$. Given that c) implies a), from Problem~\ref{probl:Ann(V)}, we deduce that the intersection of all $\Ann(\V_J)$ with $J\in\op{Prim}(A)$ is zero. Since, according to the hint, each annihilator is an intersection of maximal submodules, it follows that the intersection of all those maximal submodules is zero. In consequence, the intersection of all maximal submodules is zero. Hence,~$A$ is semisimple by Problem~\ref{probl:chinise-remainder}.
+
+        \item $\Rightarrow$~a) Firstly observe that, in the case $A$ semisimple, we have
+        $$
+            J(A) = \bigcap_{J\in\mathcal S(A)}\Ann(J)
+        $$
+        because $\mathcal S(A)$ represents all irreducible $A$-modules. Secondly,
+        $$
+            \Ann(J)=\Ann(A_{[J]}).
+        $$
+        Therefore,
+        $$
+            J(A) = \bigcap_{J\in\mathcal S(A)}\Ann(A_{[J]})=0
+        $$
+        because $A=\bigoplus_{J\in\mathcal S(A)}A_{[J]}$.
+    \end{enumerate}
+\end{solution}
+
+\begin{probl}\label{probl:semisimplicity-of-A_V}
+    Let\/ $A$ be an algebra and\/ $\V$ a completely reducible\/ $A$-module. Show that the algebra\/ $A_\V$ is semisimple.
+
+    \textrm{\rm\textbf{Note:} A consequence of this result is that the hypothesis that\/ $A$ is semisimple in the Double Centralizer Theorem~\ref{thm:double-centrilzer} may be dropped. To see this put $A'=A_\V$ and consider $\V$ as an $A'$-module under evaluation. Note that $\V$ is irreducible as $A'$-module because the equation $xv=x_\V v$ implies that any $A$-module is automatically an $A'$-module, and vice versa. Let $E'=\End_{A'}(\V)$. Then $E'$ is the commutator of $A'_\V$ in $\End_\kappa(V)$ (as well as $E=\End_A(\V)$ is the commutator of $A_\V$). But $A'_\V=A_\V$. Therefore, $E'=E$. Since $A'$ is semisimple we obtain 
+    $$
+        \End_E(\V)=\End_{E'}(\V)=A'_\V=A_\V.
+    $$}
+\end{probl}
+
+\begin{solution}
+    Recall that $A_\V=\set{x_\V\mid x\in A}$, where $x_\V$ is the element of $\End_\kappa(\V)$ defined by $x_\V(v)=xv$. Moreover, $A_\V$ is a $\kappa$-subalgebra of $\End_\kappa(\V)$.
+
+    Let $\mathcal S=\mathcal S(\V)$ be the set of all irreducible submodules of $\V$. Since $\V$ is completely reducible we can write
+    \begin{equation}\label{eq:V-decomposed}
+        \V = \bigoplus_{\Si\in\mathcal S}\V_{[\Si]}.
+    \end{equation}
+    In particular, given $x\in A$, we have the decomposition
+    \begin{equation}\label{eq:x_V-decomposed}
+        x_\V = \sum_{\Si\in\mathcal S}x_\Si,
+    \end{equation}
+    where $x_\Si$, by abuse of notation, denotes the map
+    $$
+        x_\Si(v) = \begin{cases}
+            xv  &\text{if }v\in\Si,\\
+            0   &\text{if }v\in\Si' \text{ for }\Si'\ne\Si,
+        \end{cases}
+    $$
+    extended to $\V$ under \eqref{eq:V-decomposed}. In other words, $x_\Si=\pi_{[\Si]} x_\V$, where $\pi_{[\Si]}$ is the projection $\pi_{[\Si]}\colon\V\to\V_{[\Si]}$. With this convention, equation~\eqref{eq:x_V-decomposed} defines an isomorphism
+    \begin{equation}\label{eq:A_V-decomposed}
+        A_\V\to\bigoplus_{\Si\in\mathcal S}A_\Si.
+    \end{equation}
+    Therefore, to prove that $A_\V$ is semisimple, it suffices to show that $A_\Si$ is semisimple. By Problem~\ref{probl:semisimplicity-and-jacobson-radical}, this is equivalent to seeing that $A_\Si$ has no nonzero nilpotent ideal. Suppose otherwise. Take a nonzero nilpotent ideal $I$ of $A_\Si$. Let $n>0$ be such that $I^n\ne0$ and $I^{n+1}=0$. There exist $\varphi_1,\dots,\varphi_n\in I$ with
+    $$
+        \varphi_1\cdots\varphi_n(v)\ne0,
+    $$
+    for some $v\in\Si$. In particular, $\varphi_n(v)\ne0$ and so $\Si=A\varphi_n(v)$. It follows that $v=a\varphi_n(v)$ for some $a\in A$. Then,
+    $$
+        0\ne\varphi_1\cdots\varphi_n(v)
+            = \varphi_1\cdots \varphi_n(a\varphi_n)(v)
+            = 0,
+    $$
+    because $a\varphi_n\in I$ and so $\varphi_1\cdots \varphi_n(a\varphi_n)\in I^{n+1}=0$.
+\end{solution}
+
+\begin{probl}
+    Let\/ $A$ be an algebra and\/ $\V$ an irreducible\/ $A$-module. Show that\/ $|\mathcal S(A_\V)|=1$.
+\end{probl}
+
+\begin{solution}
+    Take an irreducible submodule $I$ of $A_\V$. Let $I=Ax_\V$ for some $x\in A$. Since $I\ne0$ (it is irreducible), there exists $v\in\V$ such that $x_\V(v)\ne0$. Consider the evaluation map
+    \begin{align*}
+        \varepsilon_v\colon I&\to\V\\
+        \varphi&\mapsto\varphi(v),
+    \end{align*}
+    which is not zero because $\varepsilon_v(x_\V)=x_\V(v)\ne0$. Given $a\in A$, we have
+    $$
+        \varepsilon_v(a\varphi)=(a\varphi)(v)
+            =a\varphi(v)=a\varepsilon_v(\varphi),
+    $$
+    and so $\varepsilon_v\in\Hom_A(I,\V)$. By Lemma~\ref{lem:schur}, $\varepsilon_v$ is an isomorphism. Thus, all irreducible submodules of $A_\V$ are isomorphic to $\V$ and, consequently, to each other. The conclusion now follows immediately.
+\end{solution}
+
+\begin{probl}
+    Let\/ $G$ be a group,\/ $H \subseteq G$ a subgroup, and\/ $\kappa$ a field with\/ $\fchar(\kappa)\nmid|G : H|$. Let\/ $\V$ be a\/ $\kappa[G]$-module and\/ $\W$ a submodule. Suppose that there exists a\/ $\kappa[H]$-submodule\/ $U \subseteq \V$ such that\/ $\V = \W\oplus U$. Show that there exists a\/ $\kappa[G]$-submodule\/ $\U \subseteq \V$ with\/ $\V = \W\oplus\U$.
+
+    \textrm{\rm\textbf{Note:} This generalization of Maschke’s Theorem~\ref{thm:maschke} is due to D.~G.~Higman.}
+\end{probl}
+
+\begin{solution}
+    As in the proof of \eqref{thm:maschke}, let $\varphi\colon\V\to\W$ be the projection from $\W\oplus U$ onto $\W$. Note that $\varphi$ is a morphism of $\kappa[H]$-algebras and so $\varphi^h=\varphi$, for $h\in H$. Define
+    \begin{align*}
+        \phi\colon\V&\to\W\\
+        v&\mapsto\frac1{|G:H|}\sum_{\bar g\in\lco GH}
+            \varphi^g(v),
+    \end{align*}
+    where $\lco GH$ denotes the set of left-coclasses of $G$ mod $H$. To see that $\phi$ is well-defined suppose that $g_1H=g_2H$, i.e., $g_2=g_1h$ for some $h\in H$. Then
+    $$
+        \varphi^{g_2}=\varphi^{g_1h}
+            = (\varphi^h)^{g_1}
+            = \varphi^{g_1}.
+    $$
+    Since $\varphi$ is $\kappa[H]$-linear, it is clear that $\phi$ is also $\kappa[H]$-linear. Moreover, given $x\in G$ and $v\in\V$, since $xv\in\V$ we can compute $\phi(xv)$ and get
+    \begin{align*}
+        \phi(xv) &= \frac1{|G:H|}\sum_{\bar g\in\lco GH}
+                g\varphi(g^{-1}xv)\\
+            &= \frac1{|G:H|}\sum_{\bar g\in\lco GH}
+                x\varphi^{x^{-1}g}(v)\\
+            &= x\phi(v),
+    \end{align*}
+    because the map $g\mapsto x^{-1}g$ induces a bijection of $\lco GH$ onto itself. It follows that $\phi$ is a morphism of $\kappa[G]$-modules.
+
+    Now take $w\in\W$. If $x\in G$, then $xw\in\W$ and so $\varphi(xw)=xw$. In consequence,
+    $$
+        \phi(w)=\frac1{|G:H|}\sum_{\bar g\in\lco GH}gg^{-1}w
+            =\frac1{|G:H|}\sum_{\bar g\in\lco GH}w=w.
+    $$
+    In particular, $\phi^2=\phi$. Then, the equation $v=\phi(v)+(v-\phi(v))$ shows that $\V=\W+\ker\phi$ and the sum is direct because $\W\cap\ker\phi=0$.
+\end{solution}
+
+\begin{probl}
+    Let\/ $G$ be a group and\/ $\kappa$ a field of characteristic\/ $p$. Suppose\/ $p \mid |G|$ and show that\/ $\kappa[G]$ is not semisimple.
+    
+    \textrm{\rm Hint: $\big(\sum_{g \in G} g\big)^2 = 0$.}
+\end{probl}
+
+\begin{solution}
+    Write $A=\kappa[G]$. Let $s=\sum_{g\in G}g$. Firstly observe that, since $gG=G$, we obtain $gs=s$ for $g\in G$. Secondly, define the trace
+    $$
+        \tr\Big(\sum_{g\in G}c_gg\Big)=\sum_{g\in G}c_g,
+    $$
+    and we get for $a\in A$
+    $$
+        as=\tr(a)s.
+    $$
+    In particular $s^2=\tr(s)s=|G|s=0$. Since $s$ is in the center of $A$, it follows that $(as)^2=\tr(a)^2s^2=0$. Thus, $(As)^2=0$ with $As\ne0$ because $s\ne0$. Therefore, if $I\subseteq As$ is an irreducible submodule, we have $I^2\subseteq(As)^2=0$, and $A$ cannot be semisimple by Problem~\ref{probl:semisimplicity-and-jacobson-radical}.
+    
+\end{solution}
+
+\begin{probl}
+    Let\/ $\V$ be an\/ $A$-module. Show that\/ $\V$ is completely reducible if, and only if, $J(A)\V=0$.
+
+    \textrm{\rm Hint: $A/J(A)$ is semisimple}.
+\end{probl}
+
+\begin{solution}
+    \begin{description}
+        \item[\rm\textit{only if\/}:] By Problem~\ref{probl:chinise-remainder} we know that the intersection of all maximal submodules of $\V$ is zero. By the hint given in Problem~\ref{probl:Ann(V)}, $J(A)\V$ is included in such intersection. Hence, $J(A)\V=0$.
+
+        \item[\rm\textit{if\/} part:] Put $\bar A=A/J(A)$. A submodule\/ $\bar{I}$ of\/ $\bar A$ corresponds to a submodule\/ $I$ of\/ $A$ that includes\/ $J(A)$. Therefore,
+        %\small
+        \begin{align*}
+            \bar{I} \text{ is nilpotent}
+            &\iff \bar{I}^n = 0\\
+            &\iff I^n \subseteq J(A)\\
+            &\iff I\text{ is nilpotent}
+                &&\text{; Prob.~\ref{probl:Ann(V)}~c)~\&~d)}\\
+            &\iff I = J(A)\\
+            &\iff \bar I=0.
+        \end{align*}
+        \normalsize
+        Then $\bar A$ is semisimple by Problem~\ref{probl:Ann(V)}. Thus,
+        %\small
+        \begin{align*}
+            J(A)\V=0
+                &\implies \V \text{ is a } \bar A\text{-module}\\
+                &\implies \V \text{ is completely reducible as }
+                    \bar A\text{-module}
+                    &&\text{; Prob.~\ref{probl:A-semisimple-iff-V-completely-reducible}}\\
+                &\implies \V \text{ is completely reducible as }
+                    A\text{-module}.
+        \end{align*}
+        \normalsize
+    \end{description}
+\end{solution}

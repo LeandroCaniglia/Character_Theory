@@ -1,0 +1,1226 @@
+\chapter{Principal Ideal Domains}
+
+\section{Finitely Generated Modules over a PID}
+
+In this section $A$ will denote a commutative ring with unit. Let's recall that if $M$ is an $A$-module, a set $\set{v_1,\dots,v_n}$ of elements in $M$ is \textsl{linearly independent\/} if the map
+\begin{align*}
+    \varphi\colon A^n&\to M\\
+    e_i&\mapsto v_i,
+\end{align*}
+where $e_i$ is the $i$th canonical vector, is a monomorphism. In particular, when this is the case, the submodule $\lsp{v_1,\dots,v_n}$ is isomorphic to~$A^n$.
+
+\begin{lem}
+    If $A^n\cong A^m$ as $A$-modules then $n=m$.
+\end{lem}
+
+\begin{proof}
+    Let $\phi\colon A^n\to A^m$ be an $A$-isomorphism. The matrix of $\phi$ in the canonical bases, when reduced modulo any maximal ideal $\mathfrak m$, produces an invertible matrix in $(A/\mathfrak m)^{m\times n}$. Hence, $n=m$.
+\end{proof}
+
+\begin{lem}\label{lem:torsion-free-free-immersion}
+    Suppose that\/ $A$ is an integral domain. If\/ $M$ is a finitely generated torsion-free\/ $A$-module, then there exists an embedding\/ $\iota\colon M\hookrightarrow A^d$ for some\/ $d$ such that the image of\/ $M$ intersects each standard coordinate axis of\/ $A^d$. In other words,
+    the compositions
+    $$
+        \begin{tikzcd}
+            M
+                    \arrow[r,hook,"\iota"]
+                    \arrow[rd,"\pi_i\circ\iota"']
+                &A^d
+                    \arrow[d,"\pi_i"]\\
+                &A
+        \end{tikzcd}
+    $$
+    are not zero for\/ $i=1,\dots,n$.
+\end{lem}
+
+\begin{proof}
+    Pick an epimorphism 
+    \begin{align*}
+        \phi\colon A^n&\to M\\
+        e_i&\mapsto v_i,
+    \end{align*}
+    where $e_i$ is the $i$th canonical vector and $M=\lsp{v_1,\dots,v_n}$.
+    
+    Take a linearly independent set $\set{w_1,\dots,w_k}$ of elements in $M$. We can write
+    $$
+        w_j = \phi(a_{1j},\dots,a_{nj})
+    $$
+    for certain elements $a_{ij}\in A$. The $k$ columns of the matrix $(a_{ij})\in A^{n\times k}$ are linearly independent in $A^n$ because their images under $\phi$ are. In particular, they are linearly independent in $K^n$, where $K$ is the fraction field of~$A$, and so~$k\le n$.
+
+    Now suppose that $d$ is the size of a maximal set of independent elements, i.e., that the set $\set{v,w_1,\dots,w_d}$ is linearly dependent for every $v\in M$. Thus, for every $v\in M$, there exists a nontrivial linear combination
+    $$
+        av+a_1w_1+\cdots+a_dw_d=0.
+    $$
+    It follows that $a\in A\setminus\set0$ and $av\in\lsp{w_1,\dots,w_d}$. Applying this to $v_1,\dots,v_n$, we deduce the existence of $a\in A\setminus\set0$ such that
+    $$
+        av_i\in\lsp{w_1,\dots,w_d}
+    $$
+    for $i=1,\dots,n$. In consequence,
+    $$
+        M\cong aM\subseteq\lsp{w_1,\dots,w_d}\cong A^d.
+    $$
+    If the intersection of the $j$th coordinate of $A^d$ with the image of $M$ is zero, we can remove $w_j$ and obtain an injection into~$A^{d-1}$.
+\end{proof}
+
+\separator
+
+Recall that PID stands for Principal Ideal Domain. From now on, we will focus in the case where $A$ is a PID.
+
+\medskip
+
+\begin{lem}\label{lem:PID-implies-ACCP}
+    Every PID satisfies the ascending chain condition on principal ideals {\rm(ACCP)}.
+\end{lem}
+
+\begin{proof}
+    Let $\gen{a_1}\subseteq\gen{a_2}\subseteq\cdots\subseteq\gen{a_n}\subseteq\cdots$ be a chain of principal ideas in a PID. The union
+    $$
+        I = \bigcup_{i\ge1}\gen{a_i}
+    $$
+    is clearly an ideal. Therefore it is principal, i.e., $I=\gen{a}$. In particular, $a\in I$ and so $a\in\gen{a_m}$ for some $m\ge1$. In consequence $\gen{a_n}=\gen{a_m}=\gen{a}$ for all $n\ge m$.
+\end{proof}
+
+\begin{lem}
+    Let $A$ be a PID. Then the number of nonassociated factors of an element $a\in A\setminus\set0$ is finite.
+\end{lem}
+
+\begin{proof}
+    An element $b$ is a factor of $a$ if, and only if, $\gen a\subseteq\gen b$. Should $a$ have an infinite number of nonassociated factors, $(b_i)_{i\ge1}$, we could form a strictly increasing chain of ideals $\gen{b_1,\dots,b_i}_{i\ge1}$, all of which would be principal, in contradiction with the previous lemma.
+\end{proof}
+
+\begin{thm}
+    Every PID is a UFD.
+\end{thm}
+
+\begin{proof}
+    Let $A$ be a PID and $p$ an irreducible element of $A$. Take a maximal ideal $\mathfrak m$ such that $\gen p\subseteq\mathfrak m$. Write $\mathfrak m=\gen q$. Then $p=uq$ for some $u\in A$, and the irreducibility of $p$ implies that $\gen p=\mathfrak m$, i.e., $\gen p$ is maximal. We claim that $p$ is prime. To see this suppose that $pm=rs$ and that $p\nmid s$. Then $\gen p\varsubsetneq\gen{p,s}$, which implies that $\gen{p,s}=A$. Thus, we can write $1=ap+bs$, which multiplied by $r$ leads to $r=rap+brs=p(ra+bm)$ and $p\mid r$.
+
+    Since the previous lemma implies that every nonzero element is associated to a finite product of irreducible factors and we just saw that every irreducible is prime, we deduce that $A$ is a~UFD.
+\end{proof}
+
+%Referred to UFDs, we will need the following
+
+\begin{ntn}
+    Let\/ $D$ be a UFD. Suppose we have chosen a representation\/ $\mathcal{R}$ of primes in\/ $D$, meaning a set containing exactly one representative from each equivalence class of associated primes. For any subset\/ $S \subseteq D$, we denote by\/ $\spec(S)$ the set
+    $$
+    \spec(S) = \set{p \in \mathcal{R} \mid p \in S}.
+    $$
+    Similarly, for any\/ $a \in D$, we define
+    $$
+    \spec a = \set{p \in \mathcal{R} : p \mid a}.
+    $$
+    In most cases, the choice of\/ $\mathcal{R}$ will remain implicit.
+\end{ntn}
+
+\begin{prop}
+    Let\/ $A$ be a PID. Suppose that\/ $a = a_1\cdots a_n$, with the\/ $a_i\in A$, pairwise relatively prime. Put\/ $b_i=a/a_i$. Then\/ $\gen{b_1,\dots,b_n}=A$, i.e., there exist\/ $r_1,\dots,r_n\in A$ such that
+    $$
+        1 = r_1b_1+\cdots+r_nb_n.
+    $$
+\end{prop}
+
+\begin{proof}\label{prop:relative-prime-combination}
+    The hypothesis implies that
+    $$
+        \spec b_i = \spec{a_1} \cup \cdots \cup \spec{a_n} \setminus \spec{a_i}.
+    $$
+    Therefore, if there was a prime\/ $p$ such that\/ $p \mid b_i$ for all\/ $i$, we would have
+    $$
+        p \in \bigcap_{i=1}^n \spec b_i = \emptyset.
+    $$
+\end{proof}
+
+
+\begin{thm}
+    Suppose that\/ $A$ is a PID. Then, each submodule of a free\/ $A$-module of rank\/ $n$ is finitely generated with\/ $n$ generators or less.
+\end{thm}
+
+\begin{proof}
+    Let $M$ be an $A$-submodule of $A^n$. The proof works by induction on~$n$.
+
+    The case $n=1$ is trivial because $M$ is an ideal of $A$, which is of the form $Aa$.
+
+    In the case $n>1$, write $A^n=A^{n-1}\oplus A$ and let $\pi\colon A^n\to A^{n-1}$ be the projection. By the inductive hypothesis $\pi(M)=\lsp{\pi(v_1),\dots,\pi(v_m)}$ for some $m\le n-1$ and some $v_1,\dots,v_m\in M$.
+
+    On the other hand, since $\ker\pi=0\oplus A\cong A$, we deduce that $\ker\pi|_M=\ker\pi\cap M$ is isomorphic to a submodule of $A$. Thus, $\ker\pi|_M=\lsp{(0,\dots,0,c)}$ for some $c\in A$.
+
+    Put $v_{m+1}=(0,\dots,0,c)$. We claim that $M=\lsp{v_1,\dots,v_{m+1}}$. Since $v_{m+1}\in M$ it is clear that the LHS includes the RHS. For the other inclusion take $v\in M$. Then $\pi(v)=a_1\pi(v_1)+\cdots a_m\pi(v_m)$ and so $v-(a_1v_1+\cdots+a_mv_m)\in\ker\pi|_M$. The conclusion is clear because $\ker\pi|_M=\lsp{v_{m+1}}$ and $m+1\le n$.
+\end{proof}
+
+\begin{thm}\label{thm:pid-submodule-of-free-is-free}
+    Suppose that\/ $A$ is a PID. Then, each submodule of a free\/ $A$-module of rank\/ $n$ is free of rank at most\/ $n$.
+\end{thm}
+
+\begin{proof}
+    Without loss of generality, we may assume that the free module is $A^n$ and that $M\subseteq A^n$ is the submodule. We will proceed by induction on~$n$.
+
+    The case $n\le1$ is trivial because $M$ is an ideal.
+
+    For the case $n>1$ put $A^n=A^{n-1}\oplus A$ and let $\pi\colon A^n\to A^{n-1}$ be the projection.
+
+    By induction, $\pi(M)$ is free of rank at most $n-1$. If $\pi(M)=0$, the $M\subseteq 0\oplus A$ and we are done by the case $n\le1$. Therefore, we may assume that $\pi(M)\ne0$.
+    
+    Let $(\pi(v_1),\dots,\pi(v_m))$ be a basis of $\pi(M)$, with $m\le n-1$. Then the set $\set{v_1,\dots,v_m}$ is linearly independent and we can define
+    \begin{align*}
+        \phi\colon M&\to A^m\oplus\ker\pi|_M\\
+        v&\mapsto (a_1,\dots,a_m)
+            +\Big(v-\sum_{i=1}^na_iv_i\Big),
+    \end{align*}
+    where $(a_1,\dots,a_m)$ satisfy
+    $$
+        \pi(v)=\sum_{i=1}^ma_i\pi(v_i).
+    $$
+    It is easy to verify that $\phi$ is an isomorphism of $A$-modules with inverse
+    \begin{align*}
+        A^m\oplus\ker\pi|_M&\to M\\
+        (a_1,\dots,a_m)+w&\mapsto\sum_{i=1}^ma_iv_i+w.
+    \end{align*}
+    Since $\ker\pi|_M\subseteq\ker\pi$ are both free of rank at most $1$, we see that $M$ is free of rank at most $m+1\le n$, as desired.
+\end{proof}
+
+\small
+    \begin{thm}\label{thm:pid-submodule-of-free-is-free-general}
+        The generalization to arbitrary rank also holds true. In other words, every submodule of a free module over a PID is itself free, with rank less than or equal to the rank of the module.
+    \end{thm}
+
+    \begin{proof}
+        Let $(e_i)_{i\in I}$ be a basis of $M$ and $(\varphi_i)_{i\in I}$ its dual. Endow $I$ with a well-order~${\prec}$ (and~${\preceq}$). Given $i\in I$ define
+        $$
+            I|_{\preceq i}=\set{j\in I\mid j\preceq i}
+            \quad\text{and}\quad
+            I|_{\prec i}=\set{j\in I\mid j\prec i}.
+        $$
+        For $v\in M$ put
+        $$
+            \supp(v) = \set{i\in I\mid \varphi_i(v)\ne0}
+        $$
+        and then, for $i\in I$,
+        $$
+            N_i = \set{v\in N\mid\supp(v)\subseteq I|_{\preceq i}}.
+        $$
+        Since $N_i$ is a submodule of $N$, $\varphi_i(N_i)$ is an ideal of $A$ and we can pick $y_i\in N_i$ such that $\varphi_i(N_i)=\gen{\varphi_i(y_i)}$.
+        
+        We claim that
+        $$
+            \basis B = \set{y_i\mid i\in I,\;\varphi_i(y_i)\ne0}
+        $$
+        is a basis of $N$.
+
+        To verify that the elements of $\basis B$ are linearly independent suppose, toward a contradiction, that there is a linear equation
+        $$
+            a_{i_1}y_{i_1}+\cdots+a_{i_n}y_{i_n}=0,
+        $$
+        with $a_{i_k}\ne0$ for $k=1,\dots,n$. After reindexing these elements, we may assume that $i_1\prec i_2\prec\cdots\prec i_n$. Then $y_{i_1},\dots,y_{i_n}\in N_{i_n}$. For $k<n$, since $y_{i_k}\in N_{i_k}$, we have $\supp(y_{i_k})\subseteq I|_{\preceq i_k}\subseteq I|_{\prec i_n}$. Therefore, $\varphi_{i_n}(y_{i_k})=0$. It follows that $a_{i_n}\varphi(y_{i_n})=0$. Hence, $a_{i_n}=0$ because $\varphi_{i_n}(y_{i_n})\ne0$ and $A$ is a domain. Contradiction.
+
+        Now suppose that $\lsp{\basis B}\varsubsetneq N$. Given $v\in M\setminus\set0$, since $\supp(v)$ is nonempty and finite, we can define the \textsl{last index} map
+        $$
+            \lambda(v)=\max\supp(v).
+        $$
+        Let
+        $$
+            \ell = \min\lambda(N\setminus\lsp{\basis B}).
+        $$
+        Pick $z\in N\setminus\lsp{\basis B}$ with $\lambda(z)=\ell$. By definition, $\varphi_\ell(z)\ne0$ and $z\in N_\ell$. In consequence,
+        $$
+            0\ne\varphi_\ell(z)\in\varphi_\ell(N_\ell)
+                = \gen{\varphi_\ell(y_\ell)}.
+        $$
+        Hence, $y_\ell\in\basis B$ and, for some $c\in A$, we have
+        $$
+            \varphi_\ell(z) = c\varphi_\ell(y_\ell).
+        $$
+        Put $z'=z-c\varphi_\ell(y_\ell)e_\ell$. Then $\lambda(z')\prec\ell$, i.e., $\supp(z')\subseteq I|_{\prec\ell}$. Since
+        $$
+            z-cy_\ell =
+                z'- c(y_\ell -\varphi_\ell(y_\ell)e_\ell)
+        \quad\text{and}\quad
+            \supp(y_\ell-\varphi_\ell(y_\ell)e_\ell)
+                \subseteq I|_{\prec\ell},
+        $$
+        we deduce that
+        $$
+            \supp(z-cy_\ell)= \supp(z'-
+            c(y_\ell -\varphi_\ell(y_\ell)e_\ell))
+                \subseteq I|_{\prec\ell},
+        $$
+        which implies that $\lambda(z-cy_\ell)\prec\ell$. Since $z-cy_\ell\in N$, it must belong in~$\lsp{\basis B}$. Therefore, $z=(z-cy_\ell)+cy_\ell\in\lsp{\basis B}$. Contradiction.
+        
+    \end{proof}
+\normalsize
+
+\begin{cor}\label{cor:PID-submodule-of-torsion-free-is-free}
+    If\/ $A$ is a PID, every finitely generated torsion-free A-module is a finitely generated free\/ $A$-module
+\end{cor}
+
+\begin{proof}
+    By Lemma~\ref{lem:torsion-free-free-immersion}, a finitely generated torsion-free $A$-module is isomorphic to a submodule of some $A^n$, which is free by the theorem.
+\end{proof}
+
+\begin{cor}
+    Let\/ $A$ be a PID. For every tower\/ $M' \supseteq M \supseteq M''$  of\/ $A$-modules with\/ $M' \cong A^n$ and $M'' \cong A^n$, we have\/ $M \cong A^n$.
+\end{cor}
+
+\begin{proof}
+    The theorem for $M\subseteq M'$ implies that $M$ is free of rank $k\le n$ and, for $M''\subseteq M$, that $n\le k$.
+\end{proof}
+
+\begin{xmpl}
+    Let's consider the ring $\Z[\sqrt{-5}]$. To begin with, we claim that $3$ is irreducible in $\Z[\sqrt{-5}]$. Suppose otherwise. Then
+    $$
+        3 = (a+b\sqrt{-5})(c+d\sqrt{-5}).
+    $$
+    Taking $N^2$, which is multiplicative, we get
+    \begin{equation}\label{eq:9=blah}
+        9 = (a^2+5b^2)(c^2+5d^2).
+    \end{equation}
+    If $9$ divides one of the two quantities, the other is $1$. So, the corresponding factor of $3$ is a unit, and we are done. Otherwise,
+    \begin{align*}
+        a^2+5b^2&=3\\
+        c^2+5d^2&=3,
+    \end{align*}
+    which implies $b=d=0$ and $a^2=c^2=3$. Impossible. The claim stands.
+
+    Now consider
+    $$
+        3\Z[\sqrt{-5}]
+            \subset\gen{3, 1 + \sqrt{-5}}
+            \subset \Z[\sqrt{-5}].
+    $$
+    Both ends are free of rank $1$, however the ideal in the middle is not because it is not principal. Indeed. Otherwise we would have $\gen{3, 1 + \sqrt{-5}}=\gen{a+b\sqrt{-5}}$. Let $I$ denote this ideal. Since $3\in I$, we have
+    $$
+        3 = (a+b\sqrt{-5})(c+d\sqrt{-5}).
+    $$
+    And given that $3$ is irreducible, there are two possibilities: $I=\gen{\,3\,}$ or $I=\gen{\,1\,}$. The former doesn't hold because $1+\sqrt{-5}\notin\gen{\,3\,}$. Hence, we are left with the latter, which translates into
+    \begin{align*}
+        1 &= 3s+3t\sqrt{-5} + (r+q\sqrt{-5})(1+\sqrt{-5})\\
+            &= 3s+r-5q + (3t+r+q)\sqrt{-5},
+    \end{align*}
+    i.e., $3s+r-5q=1$ and $3t+r+q=0$. Reducing module $3$ we obtain
+    \begin{align*}
+        r+q &= 1\\
+        r+q &= 0,
+    \end{align*}
+    which is a contradiction.
+\end{xmpl}
+
+\begin{cor}\label{cor:PID-basis-extension}
+    Suppose that\/ $A$ is a PID. If\/ $M$ is a finitely generated free\/ $A$-module and\/ $N$ a submodule of\/ $M$ such that\/ $M/N$ is torsion-free, each\/ $A$-basis of\/ $N$ can be extended to an\/ $A$-basis of\/ $M$.
+\end{cor}
+
+\begin{proof}
+     According to Theorem~\ref{thm:pid-submodule-of-free-is-free}, $N$ is isomorphic to $A^d$ for some $d$. Therefore, it make sense to take a basis $(v_1,\dots,v_m)$ of $N$ and show that it can be extended to a basis of $M$. By Corollary~\ref{cor:PID-submodule-of-torsion-free-is-free}, $M/N$ is isomorphic to $A^d$ for some $d$. Let $(\bar v_{m+1},\dots,\bar v_{m+d})$ be a basis of $M/N$. We claim that $(v_1,\dots,v_{m+d})$ is a basis of $M$. To see this take $v\in M$. The class of $v$ in $M/N$ satisfies
+    $$
+        \bar v = a_1\bar v_{m+1}+\cdots+a_m\bar v_{m+d}.
+    $$
+    Therefore, we can write
+    $$
+        v-(a_{m+1}v_{m+1}+\cdots+a_{m+d}v_{m+d})
+            =a_1v_1+\cdots+a_mv_m,
+    $$
+    which shows that $M=\lsp{v_1,\dots,v_{m+d}}$. It remains to be seen that $\set{v_1,\dots,v_{m+d}}$ is linearly independent. Suppose
+    $$
+        a_1v_1+\cdots+a_mv_m
+            + a_{m+1}v_{m+1}+\cdots+a_{m+d}v_{m+d} = 0.
+    $$
+    Reduction module $N$ yields
+    $$
+        a_{m+1}\bar v_{m+1}+\cdots+a_{m+d}\bar v_{m+d}=0,
+    $$
+    which implies $a_{m+1}=\cdots=a_{m+d}=0$ and, consequently, $a_1=\cdots=a_m=0$.
+    
+\end{proof}
+
+\begin{defn}
+    If\/ $A$ is a PID, $M$ a finitely generated free\/ $A$-module, and\/ $N$ a submodule of\/ $M$, then two bases $(v_1, \dots, v_n)$ of\/ $M$ and $(w_1, \dots, w_m)$ of\/ $N$ are \textsl{aligned} when $w_i=a_iv_i$ for $1\le i\le m$.
+\end{defn}
+
+
+\begin{thm}\label{thm:aligned-bases}
+    Suppose that $A$ is a PID. Then, every finitely generated free\/ $A$-module\/ $M$ of rank\/ $n$ and every submodule\/ $N$ of rank\/ $m \le n$ admit a pair of aligned bases: there is a basis\/ $(v_1, \dots, v_n)$ of\/ $M$ and nonzero\/ $a_1, \dots, a_m \in A$ such that
+    $$
+    M = \bigoplus_{i=1}^n A v_i \quad \text{\rm and} \quad N = \bigoplus_{j=1}^m A a_j v_j.
+    $$
+    We can also arrange that\/ $a_1 \mid a_2 \mid \cdots \mid a_m$.
+\end{thm}
+
+\begin{proof} Let $M^*=\Hom_A(M,A)$ be the dual of $M$. In what follows $\set{v_1,\dots,v_n}$ denotes a basis of $M$ and $\set{\varphi_1,\dots,\varphi_n}$ its dual. Without loss of generality, we may assume that $N\ne0$.
+
+\textbf{Claim 1:} \textit{The set of ideals $S=\set{\varphi(N) \mid \varphi\in M^*}$ is not\/ $\set0$ and has a maximal member\/ $(a)$, with\/ $a=\psi(y)$ for some $y\in N$ and $\psi\in M^*$.}
+
+Since $N\ne0$ there must exist some element $y\in N$ with at least one coordinate in the basis $(v_1,\dots,v_n)$ different from zero. If the $j$th coordinate is not zero, then $\varphi_j(y)\ne0$ and $\varphi_j(y)\in\varphi_j(N)\in S$.
+
+By Lemma~\ref{lem:PID-implies-ACCP}, every nonzero ideal $\gen x$ is only included in a finite number of chained ideals. In consequence, the set $S$ contains some maximal member $\psi(N)=\gen a$. Moreover, $a=\psi(y)$ for some $y\in N$.
+
+\textbf{Claim 2:} \textit{For the ideal\/ $\gen a$ in\/ {\rm Claim~1} and every\/ $\varphi\in M^*$, we have\/ $a \mid \varphi(y)$.}
+
+Let $b\in A\setminus\set0$ be such that $\gen{a,\varphi(y)}=\gen b$. Then,
+$$
+    b = sa+t\varphi(y) = s\psi(y)+t\varphi(y)=(s\psi+t\varphi)(y).
+$$
+Put $\phi=s\psi+t\varphi$. Then $\phi\in M^*$ and
+$$
+    \gen a\subseteq\gen{a,\varphi(y)}=\gen b=\gen{\phi(y)}
+        \subseteq\phi(N)\in S,
+$$
+and equality is attained because $\gen a$ is maximal in $S$. In particular, $\varphi(y)\in\gen a$, i.e., $a\mid\varphi(y)$.
+
+\textbf{Claim 3:} \textit{There is an\/ $e_1\in M$ such that\/ $\psi(e_1)=1$ and\/ $ae_1\in N$.}
+
+Write $y=b_1v_1+\cdots+b_nv_n$. Since $\psi(y)=a\mid\varphi_i(y)=b_i$ for all $i$, i.e., $b_i=ac_i$. Thus,
+$$
+    a = \psi(y) = a\psi(c_1v_1+\cdots+c_nv_n),
+$$
+and we can choose $e_1=c_1v_1+\cdots+c_nv_n$.
+
+\textbf{Claim 4:} \textit{We have direct sum decompositions}
+$$
+    M = A e_1 \oplus \ker \psi,
+        \quad
+    N = A a e_1 \oplus (N \cap \ker \psi).
+$$
+
+Take $v\in M$. Then, $\psi(v)=\psi(\psi(v)e_1)$ and so
+$$
+    v = \psi(v)e_1 + (v-\psi(v)e_1) \in Ae_1+\ker\psi.
+$$
+The sum is direct because $\psi(be_1)=0\implies b=0$.
+
+For the second equation take $w\in N$. Then, $\psi(w)=\psi(\psi(w)e_1)$. Given that $\gen a=\gen{\psi(y)}\subseteq\psi(N)$, equality is attained because $\gen a$ is maximal. Therefore, $a\mid \psi(w)$ and
+$$
+    w = \psi(w)e_1+(w-\psi(w)e_1),
+$$
+where $\psi(w)e_1\in Aae_1$ and $w-\psi(w)e_1\in\ker\psi$. Finally, $\psi(w)e_1\in N$ because $a\mid\psi(w)$ and $ae_1\in N$.
+
+\bigskip
+
+If $N\cap\ker\psi=0$ then, by Claim~4, $N=\lsp{ae_1}$ and $M=\lsp{e_1,e_2,\dots,e_n}$, for any basis $(e_2,\dots,e_n)$ of $\ker\psi$.
+
+If $N\cap\ker\psi\ne0$, induction on $n$ implies the existence of a basis $(e_2,\dots,e_n)$ of $\ker\psi$ and elements $a_2,\dots,a_m\in A$ such that $(a_2e_2,\dots,a_me_m)$ is a basis of $N\cap\ker\psi$. Thus, $(e_1,\dots,e_n)$ is a basis of $M$ aligned with $(ae_1,a_2e_2,\dots,a_me_m)$, which is a basis of~$N$. Moreover, $a_2\mid a_3\mid\cdots\mid a_m$. It remains to be seen that $a\mid a_2$. Consider the dual basis $(\varphi_1,\dots,\varphi_n)$ of $(e_1,\dots,e_n)$ and define $\varphi=\varphi_1+\varphi_2$. We have
+$$
+    \varphi(y)= \varphi(ae_1)=a
+$$
+which implies that $\gen a\subseteq\varphi(N)$. Equality is attained because $\gen a$ is maximal. In particular, $a_2=\varphi(a_2e_2)\in\gen a$, i.e., $a\mid a_2$.
+\end{proof}
+
+
+\begin{cor}\label{cor:M=Mfree+Mtor}
+    Let $A$ be a PID. Every finitely generated\/ $A$-module has the form\/ $F \oplus T$ where\/ $F$ is a finite free\/ $A$-module and\/ $T$ is a finitely generated torsion\/ $A$-module. Moreover, $T \cong \bigoplus_{j=1}^m A/\gen{a_j}$ for some\/ $m$ with nonzero\/ $a_i$ that satisfy $a_1\mid a_2\mid\cdots\mid a_m$.
+\end{cor}
+
+\begin{proof}
+    Since $M$ is finitely generated we can pick an epimorphism $\varphi\colon A^n\to M$. Then, $M\cong A^n/\ker\varphi$ and we can replace $M$ with a quotient $A^n/N$ for some submodule $N$ of~$A^n$.
+    
+    According to the theorem, we can pick two aligned bases $(v_1,\dots,v_n)$ for $A^n$ and $(av_1,\dots,a_mv_m)$ for $N$, where $m\le n$ and $a_i\in A\setminus\set0$ for $1\le i\le m$, and $a_1\mid \cdots\mid a_m$. Then,
+    \begin{equation}\label{eq:torsion+free-decomposition}
+        M=A^n/N\cong\Big(\bigoplus_{i=1}^nAv_i\Big)
+            /\Big(\bigoplus_{j=1}^mAa_iv_i\Big)
+            \cong\bigoplus_{j=1}^mA/\gen{a_j}\oplus
+                \!\!\bigoplus_{j=m+1}^n
+                    \!\!\!Av_i.
+    \end{equation}
+    The conclusion follows.
+\end{proof}
+
+\begin{cor}\label{cor:rank-characterization}
+    Let\/ $A$ be a PID, $M$ a finitely generated free\/ $A$-module, and\/ $N$ be a submodule of\/ $M$. Then\/ $M$ and\/ $N$ have the same rank if, and only if, $M/N$ is a torsion module.
+\end{cor}
+
+\begin{proof}
+    Take two aligned bases $(v_1,\dots,v_n)$ and $(av_1,\dots,av_m)$ for $M$ and $N$. Then,
+    $$
+        M/N\cong\Big(\bigoplus_{i=1}^nAv_i\Big)
+            /\Big(\bigoplus_{j=1}^mAa_iv_i\Big)
+            \cong\bigoplus_{j=1}^mA/\gen{a_j}\oplus
+                \!\!\bigoplus_{j=m+1}^n
+                    \!\!\!Av_i.
+    $$
+    The conclusion is now apparent.
+\end{proof}
+
+\begin{rem}\label{rem:Mtor-characterization}
+    The torsion part\/ $T$ of a decomposition $M = F\oplus T$, where\/ $F\cong A^n$ is a free submodule, is unique because it is the set of all elements in\/ $M$ with nonzero annihilator ideal. The free part, however, is not unique, as illustrated in the following
+\end{rem}
+
+\begin{xmpl}
+    Consider\/ $\Z \times \Z/\gen2$. It is generated by\/ $\set{(1, \bar0), (0, \bar1)}$ and\/ $\set{(1, \bar1), (0, \bar1)}$. Therefore, it can be written as\/ $F_1 = \lsp{(1,\bar0)}\oplus(0\times\Z/\gen2)$, and also as\/ $\lsp{(1,\bar1)}\oplus(0\times\Z/\gen2)$.
+\end{xmpl}
+
+\begin{defn}
+    Let\/ $A$ be a PID, and let\/ $M$ be an\/ $A$-module with submodule\/ $N \subseteq M$. Any generator of the ideal\/ $\Ann(N)$ is called an \textsl{order} of\/ $N$. An \textsl{order} of an element\/ $v\in M$ is an order of the submodule\/ $\lsp v$.
+\end{defn}
+
+\begin{rem}
+    Let's recall that, given a group $G$, the order $\ord(x)$ of an element $x\in G$ is the minimum integer $n$ such that $x^n=1$. If $G$ is abelian and additively noted, then $\ord(x)=\min\set{n\mid nx=0}$, i.e., is the generator of $\Ann(x)$, when $G$ is seen as a $\Z$-module.
+\end{rem}
+
+\begin{rem}
+    Since two orders of the same submodule or element are associated, we will sometimes refer to any of them as \textsl{the} order. In those cases, we will use the notation $\ord(v)$ to refer to (an) order of the element~$v$.
+\end{rem}
+
+\begin{thm}\label{thm:cyclic-modules-over-PID}
+    Let\/ $A$ be a PID and\/ $M$ an $A$-module.
+
+\begin{enumerate}[\rm a)]
+    \item If\/ $M$ is a cyclic\/ $A$-module with generator\/ $x$, then the map
+   $$
+       A \to M, \quad a \mapsto a x
+   $$
+   is a surjective\/ $A$-homomorphism with kernel\/ $\gen{\!\ord(x)}$. Hence,
+   $$
+       M \cong A/\gen{\!\ord(x)}.
+   $$
+   In other words, cyclic\/ $A$-modules are isomorphic to quotients of the base ring\/ $A$. If\/ $\ord(x)$ is prime, then\/ $\Ann(x)$ is a maximal ideal in\/ $A$, and thus\/ $A/\gen{\!\ord(x)}$ is a field.
+
+    \item Any submodule of a cyclic\/ $A$-module is cyclic.
+
+    \item Let\/ $x\in M$ be an element of order\/ $a$. If\/ $b \in A$, then\/ $bx$ has order\/ $a/\gcd(a,b)$. Hence, if\/ $a$ and\/ $b$ are relatively prime, $bx$ also has order\/~$a$.
+
+    \item If\/ $x_1, \dots, x_n$ are nonzero elements of\/ $M$ with orders that are pairwise relatively prime, then the sum
+   $$
+       x = x_1 + \dots + x_n
+   $$
+   has order\/ $\ord(x_1)\cdots\ord(x_n)$. Consequently, if\/ $M$ is an\/ $A$-module and
+   $$
+       M = N_1+\cdots+N_k,
+   $$
+   where the submodules\/ $N_i$ have orders that are pairwise relatively prime, the sum is direct.
+\end{enumerate}
+\end{thm}
+
+\needspace{2\baselineskip}
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item Trivial.
+        
+        \item This is a direct consequence of part~a). In fact, a submodule of a cyclic module $M$ is isomorphic to an ideal of $A/\Ann(M)$, i.e., it has the form $I/\Ann(M)$ for some ideal $I$ including $\Ann(M)$. Since $I$ is principal, so it is $I/\Ann(M)$.
+
+        \item Put $d=\gcd(a,b)$. First suppose that $d=1$. We have
+        $$
+            cbx = 0\iff a\mid cb\iff a\mid c\iff cx=0,
+        $$
+        which implies that $\ord(bx)=\ord(x)$. Second, suppose that $b\mid a$. Put $a=bq$. Then
+        $$
+            cbx=0\iff a\mid cb\iff bq\mid cb\iff q\mid c\iff c\in\gen q,
+        $$
+        i.e., $\ord(bx)=q=a/b=\ord(x)/b$. Third, for the general case put $b'=b/d$. Then $a\perp b'$ and $d\mid a$. Thus, first we have $\ord(b'x)=a$ and second $\ord(bx)=\ord(db'x)=\ord(b'x)/d=a/d$.
+
+        \item Put $a=\ord(x)$, $a_i=\ord(x_i)$ ($1\le i\le n$), and $b=a_1\cdots a_n$. By definition $a\mid b$. Suppose, for a contradiction, that both quantities are not associated. Then, there exist an index $j$ and a prime $p\mid a_j$ such that $a\mid a_1\cdots(a_j/p)\cdots a_n=b/p$. Since $(b/p)x=0$ and $bx_i=0$ for $i\ne j$, we deduce that $(a_j/p)x_j=0$, which is impossible.
+
+        Finally, the sum is direct because given an equation
+        $$
+            x_1+\cdots+x_n=0
+        $$
+        the RHS has order $1$ and the only way for the LHS to have the same order is for each $x_i$ to have order $1$, i.e., to be zero.
+    \end{enumerate}
+\end{proof}
+
+\begin{cor}
+    Let\/ $A$ be a PID and\/ $M$ an\/ $A$-module. If\/ $x\in M$ has order\/ $a$, where\/ $a$ factors as\/ $a = a_1\cdots a_n$, with the\/ $a_i$ pairwise relatively prime, then\/ $x$ can be written in the form
+    $$
+        x = x_1 + \dots + x_n
+    $$
+    where\/ $x_i$ has order\/ $a_i$.
+\end{cor}
+
+\begin{proof}
+    Put $b_i=a/a_i$ ($1\le i\le n$). By Proposition~\ref{prop:relative-prime-combination}, the ideal $\gen{b_1,\dots,b_n}$ equals $A$, and we can write
+    \begin{equation}\label{eq:(b1...bn)=1}
+        1 = r_1b_1+\cdots+r_nb_n
+    \end{equation}
+    for some $r_1,\dots,r_n\in A$. Then
+    $$
+        x = r_1b_1x+\cdots+r_nb_nx.
+    $$
+    Put $x_i=r_ib_ix$. By the theorem, $\ord(x_i)=a/\gcd(a,r_ib_i)$. Since $a_i\mid b_j|r_jb_j$ for $j\ne i$, equation \eqref{eq:(b1...bn)=1} implies that $a_i\perp r_ib_i$. Hence,
+    \begin{align*}
+        \ord(x_i) &= \ord(r_ib_ix)\\
+            &=\ord(x)/\gcd(a,r_ib_i)
+                &&\text{; Thm.~\ref{thm:cyclic-modules-over-PID}~c)}\\
+            &= b_ia_i/\gcd(a_ib_i,r_ib_i)\\
+            &= b_ia_i/b_i\\
+            &= a_i,
+    \end{align*}
+    as desired.
+\end{proof}
+
+\section{The Primary Decomposition}
+
+\begin{defn}
+    Let $A$ be a PID and\/ $p$ a prime in\/ $A$. A\/ $p$-\textsl{primary} (or just \textsl{primary}) module is a module whose order is a power of\/ $p$. 
+\end{defn}
+
+\begin{rem}\label{rem:primary-element-in-primary-module}
+    A\/ $p$-primary module with order\/ $p^e$ must have an element of order\/~$p^e$.
+\end{rem}
+
+\begin{thm}\label{thm:primary-decomposition}
+    {\rm[Primary Decomposition Theorem]}
+    Let\/ $M$ be a torsion module over a principal ideal domain\/ $A$ with order
+    $$
+        \operatorname{ord}(M) = p_1^{e_1} \cdots p_n^{e_n},
+    $$
+    where the\/ $p_i$ are distinct, non-associate primes in\/ $A$. Then,
+    \begin{enumerate}[\rm a)]
+        \item $M$ is the direct sum
+        $$
+            M = M_{p_1} \oplus \cdots \oplus M_{p_n}
+        $$
+        where
+        $$
+            M_{p_i} = \set{ x \in M\mid p_i^{e_i} x = 0}
+        $$
+        is a\/ $p_i$-primary submodule with order\/ $p_i^{e_i}$, i.e., $\Ann(M_{p_i}) =\gen{p_i^{e_i}}$.
+    
+        \item This decomposition of\/ $M$ into primary submodules is unique up to the order of the summands. That is, if
+        $$
+            M = N_{q_1} \oplus \cdots \oplus N_{q_m}
+        $$
+        where\/ $N_{q_j}$ is primary of order\/ $q_j^{d_j}$ and the\/ $q_j$ are distinct, non-associate primes, then after a suitable reindexing of the summands, we have\/ $m = n$ and\/ $q_j^{d_j}$ associated with\/ $p_j^{e_j}$.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}${}$ Put $a=\ord(M)$ and $a_i=a/p^{e_i}$ ($1\le i\le n$).
+\begin{enumerate}[\rm a)]
+    \item We claim that $M_{p_i} = a_i M = \set{a_i x \mid x \in M}$. Since $p_i^{e_i} a_i x = a x = 0$ for all $x \in M$, it follows that $a_i M \subseteq M_{p_i^{e_i}}$. For the reverse inclusion, note that $a_i$ and $p_i^{e_i}$ are coprime, so we can write
+    $$
+    1 = s a_i + t p_i^{e_i}.
+    $$
+    Now, given any $x \in M_{p_i}$, the equation $p_i^{e_i} x = 0$ implies
+    $$
+    x = s a_i x + t p_i^{e_i} x = s a_i x \in a_i M,
+    $$
+    proving the claim.
+
+    By Proposition~\ref{prop:relative-prime-combination}, we can write
+    $$
+        1 = r_1a_1+\cdots+r_na_n.
+    $$
+    Thus, given $x\in M$,
+    $$
+        x = r_1a_1x+\cdots+r_na_nx\in a_1M+\cdots+a_nM.
+    $$
+    Since $ba_iM=0$ implies $p_i^{e_i}\mid b$, we deduce that $\ord(a_iM)\mid p_i^{e_i}$. Therefore, the sum is direct because these modules have pairwise relative prime orders [cf.~Theorem~\ref{thm:cyclic-modules-over-PID}~d)].
+
+    \item Consider the product $q=q_1^{d_1}\cdots q_m^{d_m}$. Since $qN_{q_j}=0$ for all $j$, we deduce that $qM=0$ and $\ord(M)\mid q$. By Remark~\ref{rem:primary-element-in-primary-module}, for every $1\le j\le m$, we can pick $y_j\in N_{q_j}$ with $\ord(y_j)=q^{d_j}$. According to Theorem~\ref{thm:cyclic-modules-over-PID}~d), the sum $y=y_1+\cdots+y_m$ has order $q$. Hence $q\mid\ord(M)$. Then $q$ is associated to $\ord(M)$ and so $n=m$ and, after reindexing the $q_j$, we may assume that $p_i\sim q_i$ and $d_i=e_i$ for $1\le i\le n$. Now, the claim of part~a) shows that $N_{q_i}=a_iM=M_{p_i}$.
+\end{enumerate}
+\end{proof}
+
+\begin{xmpl}\label{xmpl:vector-space-as-k[x]-module-1}
+    Let $\kappa$ be a field and $\V$ a finite-dimensional $\kappa$-vector space. Given an endomorphism $\Delta \in \End_\kappa(\V)$, we can define a $\kappa[x]$-module structure on $\V$ by the action:
+    $$
+        f \cdot v = f(\Delta)(v)
+    $$
+    for $f \in \kappa[x]$ and $v \in \V$. We will denote the $\kappa[x]$-module structure on $\V$ by $\V_\Delta$. This module is finitely generated because $\kappa\subseteq\kappa[x]$. The (only) monic order of $\V_\Delta$ is known as the \textsl{minimal polynomial} of $\Delta$, denoted by $\min(\Delta)$ or $m_\Delta$. If $\deg m_\Delta=d$ then the set $\set{\Delta^0,\Delta,\dots,\Delta^{d-1}}$, where $\Delta^0$ is the identity on $\V$, is linearly independent over $\kappa$. In particular, if $n=\dim\V$, we get $d\le\dim\End_\kappa(\V) = n^2$.
+
+    If $\basis B$ is a basis of $\V$ and $D=[\Delta]_{\basis B}$ is the matrix of $\Delta$ in this basis, the minimal polynomials of $D$ and $\Delta$ are the same. In particular, if
+    $$
+        m_\Delta=p_1^{e_1}\cdots p_r^{e_r}
+    $$
+    is the prime factorization of the minimal into monic factors, Theorem~\ref{thm:primary-decomposition} implies that there is a decomposition of the $\kappa[x]$-module $\V_\Delta$ as direct sum
+    $$
+        \V_\Delta = \V_{p_1}\oplus\cdots\oplus\V_{p_r}
+    $$
+    of the submodules
+    $$
+        \V_{p_i} = \set{v\in\V\mid p_i^{e_i}\cdot v=0}
+            = \ker\big(p_i(\Delta)^{e_i}\big)
+            =
+            \frac{m_\Delta}{p_i^{e_i}}\cdot\V_\Delta
+            = \Big(\prod_{j\ne i}p_j^{e_j}\Big)\cdot\V_\Delta.
+    $$
+    These $\kappa$-vector subspaces are $\Delta$-invariant, i.e., $\Delta\cdot\V_{p_i}\subseteq\V_{p_i}$. If $\Delta_{p_i}\subseteq\Delta$ is the corresponding element of $\End_\kappa(\V_{p_i})$, then $m_{\Delta_{p_i}}=p_i^{e_i}$. In consequence, for the concatenation $\basis B$ of bases $\basis B_{p_i}$ for $\V_{p_i}$, the matrix $D$ consists of the $r$ diagonal blocks $[\Delta_{p_i}]_{\basis B_{p_i}}$.
+\end{xmpl}
+
+\section{Cyclic Decomposition of Primary Modules}
+
+\begin{lem}
+    Let\/ $M$ be a module over a principal ideal domain\/ $A$ and let\/ $p \in A$ be a prime. For any submodule\/ $N$ of\/ $M$, the set
+    $$
+    N^{(p)} = \set{x\in N\mid px=0}
+    $$
+    is also a submodule of\/ $M$, and if\/ $M = N \oplus T$, then\/ $M^{(p)} = N^{(p)} \oplus T^{(p)}$.
+\end{lem}
+
+\begin{proof}
+    Clearly $N^{(p)}$ is a submodule because $0\in N^{(p)}$ and if $px=py=0$, then $p(cx+y)=0$ for $c\in A$. Moreover, if $px=0$ and $x=y+z\in N\oplus T$, then $0=px=py+pz$, which implies that $py=pz=0$, i.e., $y\in N^{(p)}$ and $z\in T^{(p)}$. The other inclusion is trivial.
+\end{proof}
+
+\begin{thm}\label{thm:cyclic-decomposition-of-primary}
+    {\rm[Cyclic decomposition of primary modules]}.
+    Let\/ $A$ be a PID and\/ $M$ a primary finitely generated torsion $A$-module, with order\/~$p^e$.
+    \begin{enumerate}[\rm a)]
+        \item Then\/ $M$ is the direct sum
+        $$
+            M = \lsp{v_1} \oplus \cdots \oplus \lsp{v_n}
+        $$
+        of cyclic submodules with annihilators $\Ann\lsp{v_i}=\lsp{p^{e_i}}$ that can be arranged in ascending order
+        $$
+            \Ann(v_1) \subseteq \cdots \subseteq \Ann(v_n),
+        $$
+        or equivalently,
+        $$
+            e=e_1 \ge e_2 \ge \cdots \ge e_n.
+        $$
+        
+        \item As to uniqueness, suppose that\/ $M$ is also the direct sum
+        $$
+            M = \lsp{w_1} \oplus \cdots \oplus \lsp{w_m}
+        $$
+        of cyclic submodules with annihilators $\Ann(w_j)=\lsp{q^{d_j}}$ arranged in ascending order
+        $$
+            \Ann(w_1) \subseteq \cdots \subseteq \Ann(w_m),
+        $$
+        or equivalently,
+        $$
+            d_1 \ge d_2 \ge \cdots \ge d_m.
+        $$
+        Then the two chains of annihilators are identical, that is, $n=m$ and
+        $$
+            \Ann\lsp{v_i} = \Ann\lsp{w_i}
+        $$
+        for all\/ $i$. Thus,\/ $p_i$ and\/ $q_i$ are associates, and\/ $e_i = d_i$ for all\/ $i$.
+
+        In particular,
+        \begin{align*}
+            n &= \dim_{A/\gen p}(M^{(p)}),\\
+            e_1 &=\ord(M),\\
+            e_i &>1\iff
+                i\le\dim_{A/\gen p}(pM)^{(p)}.
+        \end{align*}
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item By Remark~\ref{rem:primary-element-in-primary-module}, we can pick $v_1\in M$ with $\ord{v_1}=\ord{M}=p^e$. If $\lsp{v_1}=M$, we are done. Otherwise, let $N$ be a maximal submodule of $M$ for which $\lsp{v_1}\cap N=0$, so that $\lsp{v_1}+N$ is direct. If $\lsp{v_1}\oplus N=M$, we can repeat the argument for $N$ and get $v_2\in N$ and continue with the direct sum $\lsp{v_1}\oplus\lsp{v_2}\oplus\cdots$, in a process that eventually ends because $M$ is finitely generated. Suppose, for a contradiction that $\lsp{v_1}\oplus N\ne M$ and pick $u\in M\setminus\lsp{v_1}\oplus N$. Consider the ideal
+        $$
+            I = \set{q\in A\mid qu\in\lsp{v_1}\oplus N}.
+        $$
+        Take a generator $g$ of $I$. Since $p^eu=0$, we see that $p^e=cg$ for some $c\in A$. It follows that $g=p^d$ for some $d\ge0$. So, we can write
+        $$
+            p^du = av_1+y,
+        $$
+        with $a\in A$ and $y\in N$. Thus,
+        $$
+            0 = p^eu = p^{e-d}p^du= p^{e-d}av_1+p^{e-d}y,
+        $$
+        which implies $p^{e-d}av_1=0$. In particular, $p^d\mid a$ because $\ord(v_1)=p^e$. Put $a=bp^d$. We claim that
+        $$
+            \lsp{v_1}\cap\lsp{N,u-bv_1}=0.
+        $$
+        Indeed. Suppose that
+        $$
+            sv_1 = z+tu-tbv_1,
+        $$
+        with $z\in N$, which implies first that $t\in I=\gen{p^d}$ and then that
+        $$
+            sv_1 = z+t'(p^du-av_1)=z+t'y\in N\cap\lsp{v_1}=0,
+        $$
+        as claimed.
+        
+        Since $N$ is maximal with this property, we deduce that $u-bv_1\in N$, which is impossible because it would imply that $u\in\lsp{v_1}\oplus N$.
+
+        The proof of part~a) is now complete.
+
+        \item Applying the previous lemma to part~a) we obtain
+        $$
+            M^{(p)} = \lsp{v_1}^{(p)}\oplus\cdots\oplus
+                \lsp{v_n}^{(p)},
+        $$
+        and since $p$ annihilates each of these modules, all of them are $A/\gen p$-vector spaces. Therefore, $n=\dim M^{(p)}$, which is independent of the decomposition.
+
+        Note also that $e_1=\ord(M)$ is also independent of the decomposition.
+        
+        Now suppose that $e_1=1$. In that case $e_i=1$ for all $1\le i\le n$, meaning that there is no other possibility.
+
+        If $e_1>1$, let $k\ge1$ be such that $e_k>1$ and $e_{k+1}=\cdots=e_n=1$. Then,
+        $$
+            pM = \lsp{pv_1}\oplus\cdots\oplus\lsp{pv_k}.
+        $$
+        Again $k=\dim(pM)^{(p)}$, is independent from the decomposition. Finally, since $\ord(pM)=p^{e-1}$ and $\ord(pv_i)=p^{e_i-1}$, we can apply induction on $e$ and deduce that $e_2,\dots,e_k$ are independent from the decomposition. The conclusion follows because $e_j=1$ for $j>k$.
+    \end{enumerate}
+\end{proof}
+
+\section{Primary Cyclic Decompositions}
+
+\begin{thm}\label{thm:primary-cyclic-decomposition}
+    {\rm[Primary cyclic decomposition]}
+    Let\/ $M$ be a finitely generated module over a principal ideal domain\/ $A$. Then,
+
+\begin{enumerate}[\rm a)]
+    \item There is a decomposition
+    $$
+        M \cong M_{\rm free} \oplus M_{\rm tor}
+    $$
+    where\/ $M_{\rm free}$ is free and\/ $M_{\rm tor}$ is a torsion module. If\/ $M_{\rm tor}$ has order
+    $$
+        a=p_i^{e_1}\cdots p_n^{e_n},
+    $$
+    where the $p_i$'s are distinct, nonassociate primes in\/ $A$, then\/ $M_{\rm tor}$ can be uniquely decomposed (up to the order of the summands) as the direct sum
+    $$
+        M_{\rm tor} = M_{p_1} \oplus \cdots \oplus M_{p_m}
+    $$
+    where
+    $$
+        M_{p_i} = \set{x \in M_{\rm tor} \mid p_i^{e_i}x=0}
+    $$
+    is a primary submodule with annihilator\/ $\Ann(M_{p_i}) = \gen{p_i^{e_i}}$. Finally, each primary submodule\/ $M_{p_i}$ can be written as a direct sum of cyclic submodules, so that
+    \begin{equation}\label{eq:primary-cyclic-decomposition}
+        M_{\text{tor}} \cong M_{\rm free}
+            \oplus
+            \underbrace{
+            \lsp{v_{11}}\oplus\cdots\oplus\lsp{v_{1k_1}}
+            }_{M_{p_1}}
+            \oplus \cdots \oplus
+            \underbrace{
+            \lsp{v_{n1}}\oplus\cdots\oplus\lsp{v_{nk_n}}
+            }_{M_{p_n}},
+    \end{equation}
+    where the terms in each cyclic decomposition can be arranged such that, for each\/ $i$,
+    $$
+        \Ann\lsp{v_{i1}} \subseteq \cdots \subseteq \Ann\lsp{v_{ik_i}}
+    $$
+    or, equivalently,
+    \begin{equation}\label{eq:decreasing-elementary-exponents}
+        e_i=e_{i1} \ge e_{i2} \cdots \ge e_{ik_i}.
+    \end{equation}
+    
+    \item As for uniqueness, suppose that
+    $$
+        M \cong N_{\rm free} \oplus
+            \lsp{w_1}\oplus\cdots\oplus\lsp{w_m}
+    $$
+    is a decomposition of\/ $M$ into the direct sum of a free module and primary cyclic submodules. Then
+    \begin{enumerate}[\rm i)]
+        \item $\op{rk}(M_{\rm free}) = \op{rk}(N_{\rm free})$,
+        
+        \item $m = k_1+\cdots+k_n$,
+        
+        \item The summands in this decomposition can be reordered to get
+        $$
+            M \cong N_{\rm free}\oplus
+                \underbrace{\lsp{u_{11}}
+                    \oplus\cdots\oplus\lsp{u_{1k_1}}
+                }_{M_{p_1}}
+                \oplus\cdots\oplus
+                \underbrace{\lsp{u_{n1}}
+                    \oplus\cdots\oplus\lsp{u_{nk_n}}
+                }_{M_{p_n}},
+        $$
+        where the primary submodules are the same, and the annihilator chains are identical, that is,
+        $$
+            \Ann\lsp{v_{ij}} = \Ann\lsp{w_{ij}}
+        $$
+        for $1\le i\le n$ and\/ $1\le j\le k_i$.
+    \end{enumerate}
+\end{enumerate}
+In summary, the free rank, primary submodules, and annihilator chain are uniquely determined by the module\/ $M$.
+\end{thm}
+
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item This follows from Corollary~\ref{cor:M=Mfree+Mtor} and Theorems~\ref{thm:primary-decomposition} and~\ref{thm:cyclic-decomposition-of-primary}.
+
+        \item The characterization of the rank is consequence of Corollary~\ref{cor:rank-characterization}.
+
+        The torsion part is unique by Remark~\ref{rem:Mtor-characterization}. Moreover, since every $\lsp{w_j}$ is primary, we deduce that its order must be a power of some of the $p_i$. Grouping these cyclic modules according the prime powers that annihilate them, we deduce from the uniqueness part of Theorem~\ref{thm:primary-decomposition} that
+        $$
+            M_{p_i}=\lsp{u_{i1}}\oplus\cdots\lsp{u_{ih_i}},
+        $$
+        where $u_{ij}$ denotes one of the $w_\ell$ in the grouping. It follows that $h_i=k_i=\dim_{A/\gen p}M_{p_i}$ for all $i$, which implies part~ii).
+    \end{enumerate}
+\end{proof}
+
+\begin{defn}
+    Once a representation of primes in $A$ has been fixed, the set of powers $p_i^{e_{ij}}$ for $1\le i\le n$, $1\le j\le k_i$, is univocally determined. It is called the set of \textsl{elementary divisors} of~$M$.
+\end{defn}
+
+\begin{ntn}
+     Since it may happen that\/ $e_{ij}=e_{i,j+1}$, elementary divisors actually form a \textsl{multiset}, i.e., a set where each element has a multiplicity. This multiset is denoted by\/ $\op{ElemDiv}(M)$
+\end{ntn}
+
+\begin{xmpl}\label{xmpl:vector-space-as-k[x]-module-2}
+    With the notations of Example~\ref{xmpl:vector-space-as-k[x]-module-1}, we can decompose every $\V_{p_i}$ as a direct sum of $\Delta$-invariant cyclic subspaces
+    $$
+        \V_{p_i} = \lsp{v_{i1}}\oplus\cdots\oplus\lsp{v_{ik_i}},
+    $$
+    where $v_{ij}$ has monic order $p_i^{e_{ij}}$ and
+    $$
+        e_i=e_{i1}\ge\cdots\ge e_{ir_i}.
+    $$
+    Furthermore, if $\Delta_{ij}\subseteq\Delta$ is the restriction to $\End_\kappa\lsp{v_{ij}}$, then
+    $$
+        m_{\Delta_{ij}}=p_i^{e_{ij}}.
+    $$
+    Finally, every cyclic component $\lsp{v_{ij}}$ admits a basis
+    $$
+        \basis B_{ij}=\big(v_{i1},x\cdot v_{i1},\dots,x^{d_{ij}-1}
+            \cdot v_{ik_i}\big)
+        =
+        \big(v_{i1},\Delta(v_{i1}),\dots,\Delta^{d_{ij}-1}
+            (v_{ik_i})\big),
+    $$
+    where $d_{ij}=\deg(p_i^{e_{ij}})$. This is so because the minimal of $v_{ij}$ is the monic polynomial of lowest degree that annihilates $v_{ij}$. The concatenation of all $\basis B_{ij}$
+    $$
+        \basis B = B_{11},\dots,\basis B_{1k_1},
+            \dots,\basis B_{r1},\dots,\basis B_{rk_r}
+    $$
+    is called the \textsl{elementary divisors basis}. In particular,
+    $$
+        \dim\V = \sum_{i=1}^r\sum_{j=1}^{k_i}d_{ij}.
+    $$
+\end{xmpl}
+
+\begin{xmpl}\label{xmpl:vector-space-as-k[x]-module-3}
+    Following with Example~\ref{xmpl:vector-space-as-k[x]-module-2}, the $\kappa$-vector space $\V$ can be decomposed as a direct sum of $\Delta$-invariant primary cyclic subspaces
+    $$
+        \V_\Delta = (\underbrace{\lsp{v_{11}}
+            \oplus\cdots\oplus
+            \lsp{v_{1r_1}}}_{\V_{p_1}})
+            \oplus\cdots\oplus
+            (\underbrace{\lsp{v_{r1}}
+            \oplus\cdots\oplus
+            \lsp{v_{rk_r}}}_{\V_{p_r}}),
+    $$
+    where the monic order of $v_{ij}$ is $p_i^{e_{ij}}$ and
+    $$
+        e_i=e_{i1}\ge\cdots\ge e_{ik_i},
+    $$
+    for $i=1,\dots,r$.
+\end{xmpl}
+    
+
+\begin{thm}\label{thm:invariant-factors}
+    {\rm[Invariant Factor Decomposition]}
+    Let\/ $M$ be a finitely generated module over a principal ideal domain\/ $A$. Then
+    \begin{equation}\label{eq:invariant-factor-decomposition}
+        M \cong M_{\rm free} \oplus M_1 \oplus \cdots \oplus M_r
+    \end{equation}
+    where\/ $M_{\rm free}$ is a free submodule, and each\/ $M_i$ is a cyclic submodule of\/ $M$, with order\/ $d_i$ such that
+    \begin{equation}\label{eq:invariant-factor-sequence}
+        d_r \mid d_{r-1} \mid \cdots \mid d_1.
+    \end{equation}
+    This decomposition is called an \textsl{invariant factor decomposition} of\/ $M$, and the scalars\/ $d_i$ are called the \textsl{invariant factors} of\/ $M$. The invariant factors are uniquely determined, up to multiplication by a unit, by the module\/ $M$. Also, the rank of\/ $M$ is uniquely determined by\/ $M_{\rm free}$.
+\end{thm}
+
+\begin{proof}
+    Starting from the primary cyclic decomposition of $M$ given in \eqref{eq:primary-cyclic-decomposition}, we proceed with the following definitions
+    \begin{align*}
+        M_1 = \bigoplus_{i=1}^n\lsp{v_{i1}}
+        \intertext{and then,}
+        M_j = \bigoplus_{i=1}^n\lsp{v_{ij}},
+    \end{align*}
+    with the notational convention of considering $v_{ij}=0$ (and consequently, $e_{ij}=0$) for $j>k_i$. Under this convention we may assume that $k_1=\cdots=k_n$ and put~$k$ for this common value.
+
+    Since $\ord(v_{ij})=p_i^{e_{ij}}$, Theorem~\ref{thm:cyclic-modules-over-PID}~d) implies that $M_j$ is cyclic, generated by $v_{1j}+\cdots+v_{nj}$, and has order
+    $$
+        d_j=\prod_{i=1}^np_i^{e_{ij}}.
+    $$
+    Since $e_{i,j+1}\ge e_{ij}$, we see that $d_{j+1}\mid d_j$ for $1\le j<k$.
+
+    Conversely, \eqref{eq:invariant-factor-decomposition} and \eqref{eq:invariant-factor-sequence} may be used to rediscover all elementary factors $p_i^{e_{ij}}$. To do that, fix a representation of primes in $A$ and consider the prime decomposition of every $d_j$. Start with $j=1$ to obtain from the factorization of $d_1$ both $n$ and the primes $p_1,\dots,p_n$, along with $e_{11},\dots,e_{n1}$. Then proceed with $j=2,\dots,k$ to compute $e_{1j},\dots,e_{nj}$.
+\end{proof}
+
+\begin{defn}
+    Once a representation of primes in $A$ has been fixed, the set of scalar $d_1,\dots,d_r$ is univocally determined. It is called the set of \textsl{invariant factors} of~$M$.
+\end{defn}
+
+\begin{ntn}
+     Since it may happen that\/ $d_i=d_{i+1}$, invariant factors actually form a multiset. This multiset is denoted by\/ $\op{InvFact}(M)$
+\end{ntn}
+
+\begin{xmpl}\label{xmpl:vector-space-as-k[x]-module-4}
+    Let $\V_\Delta=S\oplus T$ be a direct sum of $\kappa[x]$-modules under the conventions of Examples~\ref{xmpl:vector-space-as-k[x]-module-1}, \ref{xmpl:vector-space-as-k[x]-module-2} and \ref{xmpl:vector-space-as-k[x]-module-3}. Then
+    \begin{enumerate}[\rm a)]
+        \item The minimal polynomial of $\Delta$ is 
+        $$
+            m_\Delta = \lcm(m_{\Delta_S},m_{\Delta_T}),
+        $$
+        where $\Delta_S\subseteq\Delta$ and $\Delta_T\subseteq\Delta$ are respectively the induced endomorphisms of~$S$ and~$T$.
+    
+        \item The primary cyclic decomposition of $\V_\Delta$ is the direct sum of the primary cyclic decompositions of $S$ and $T$; that is, if 
+        $$
+            S \cong \bigoplus_{i=1}^n\lsp{v_i} \quad
+                \text{and} \quad 
+            T \cong \bigoplus_{j=1}^m\lsp{w_j}
+        $$
+        are the primary cyclic decompositions of $S$ and $T$, respectively, then
+        $$
+            \V_\Delta \cong \bigoplus_{i=1}^n\lsp{v_i}
+                \oplus \bigoplus_{j=1}^m \lsp{w_j}
+        $$
+        is the primary cyclic decomposition of $S \oplus T$.
+    
+        \item The elementary divisors of $\Delta$ are 
+        $$
+            \op{ElemDiv}(\Delta) = \op{ElemDiv}(\Delta_S)
+                \uplus \op{ElemDiv}(\Delta_T),
+        $$
+        where $\op{ElemDiv}$ stands for the multiset of elementary divisors and the union is a multiset union; that is, all duplicate members are retained.
+    \end{enumerate}
+\end{xmpl}
+
+\begin{thm}\label{thm:cyclic-torsion}
+    Let\/ $M$ be a finitely generated torsion module over a principal ideal domain, with order  
+    $$
+        a = \prod_{i=1}^np_i^{e_i}.
+    $$
+    \needspace{2\baselineskip}
+    The following are equivalent:  
+    \begin{enumerate}[\rm a)]
+        \item $M$ is cyclic.  
+        \item $M$ is the direct sum  
+        $$
+            M = \lsp{v_1}\oplus\cdots\oplus\lsp{v_n}
+        $$  
+        of primary cyclic submodules of order\/ $p_i^{e_i}$.  
+        \item The elementary divisors of\/ $M$ are precisely the prime power factors of\/~$a$:
+        $$
+            \op{ElemDiv}(M) = \set{p_1^{e_1},\dots,p_n^{e_n}}.
+        $$
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item $\Rightarrow$~b) Consider the primary decomposition [cf.~Theorem~\ref{thm:primary-decomposition}]
+        $$
+            M = M_{p_1}\oplus\cdots\oplus M_{p_n},
+        $$
+        where $\ord(M_{p_i})=p_i^{e_i}$. If $M$ is cyclic, then every $M_{p_i}$ is cyclic because every submodule of a cyclic module is cyclic~[cf.~Theorem~\ref{thm:cyclic-modules-over-PID}~b)].
+
+        \item $\Rightarrow$~a) This is a direct consequence of Theorem~\ref{thm:cyclic-modules-over-PID}~d).
+
+        \item[a)] $\Rightarrow$~c) Since every submodule of a cyclic module is cyclic, the invariant factor decomposition \eqref{eq:invariant-factor-decomposition} has the form
+        $$
+            \lsp v = \lsp{v_1}\oplus\cdots\oplus\lsp{v_r},
+        $$
+        where $v$ is a generator of $M$ and $\ord(v_i)=d_i$ with $d_{i+1}\mid d_i$ for $1\le i<r$. It follows that $\ord(v)=d_1$. Therefore, $r=1$.
+
+        \item[c)] $\Rightarrow$ b) This is a direct consequence of Theorem~\ref{thm:primary-cyclic-decomposition}.
+    \end{enumerate}
+\end{proof}
+
+
+\begin{defn}
+    A module is \textsl{indecomposable} when it cannot be expressed as a direct sum of proper submodules.
+\end{defn}
+
+\begin{thm}\label{thm:indecomposable-equivalences}
+    Let\/ $M$ be a finitely generated torsion module over a principal ideal domain. The following are equivalent:  
+    \begin{enumerate}[\rm a)]
+        \item $M$ is indecomposable.  
+        \item $M$ is primary cyclic.  
+        \item $M$ has only one elementary divisor:  
+        $$
+            \op{ElemDiv}(M) = \set{p^e}.
+        $$
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item $\Rightarrow$~b) This follows from Theorem~\ref{thm:primary-cyclic-decomposition}
+
+        \item $\Rightarrow$~c) This is a direct consequence of Theorem~\ref{thm:cyclic-torsion}~b)
+
+        \item $\Rightarrow$~a) Theorem~\ref{thm:primary-cyclic-decomposition}.
+    \end{enumerate}
+\end{proof}
+
+\begin{cor}
+    The primary cyclic decomposition of\/ $M$ is a decomposition of\/ $M$ into a direct sum of indecomposable modules. Conversely, if  
+    $$
+        M \cong \bigoplus_{i} M_i,
+    $$  
+    is a decomposition of\/ $M$ into a direct sum of indecomposable submodules, then each submodule\/ $M_i$ is primary cyclic, and so this is the primary cyclic decomposition of\/ $M$.
+\end{cor}
+
+\begin{thm}\label{thm:prime-factors-of-ord-have-submodules}
+    Let\/ $M$ be a finitely generated torsion module over a principal ideal domain. If\/ $p$ is a prime divisor of\/ $\ord(M)$, then\/ $M$ has an indecomposable cyclic submodule of prime order\/~$p$.
+\end{thm}
+
+\begin{proof}
+    Put $a=\ord(M)$. Let $v\in M$ be such that $\ord(v)=a$. Put $a=pb$. Then $w=bv$ has order $p$ and $\lsp w$ is indecomposable by Theorem~\ref{thm:indecomposable-equivalences}.
+\end{proof}
+
+
+\section{Exercises}
+
+\begin{exr}\label{exr:quotient-field-submodules-locally-free}
+    Let\/ $A$ be a principal ideal domain and\/ $K$ its field of quotients. Then\/ $K$ is an\/ $A$-module. Prove that any nonzero finitely generated submodule of\/ $K$ is a free module of rank\/~$1$.
+\end{exr}
+
+\begin{solution}
+    Take a finitely generated $A$-submodule $Q\subseteq K$, say
+    $$
+        Q=\lsp{a_1/b_1,\dots, a_n/b_n}.
+    $$
+    Put $b=\lcm(b_1,\dots,b_n)$, $t_i=b/b_i\in A$ and $a = \gcd\set{a_1t_1,\dots,a_nt_n}$. If $r_i$ is defined by $a_it_i=r_ia$, then
+    $$
+        \frac{a_i}{b_i} = \frac{a_it_i}b = r_i\frac{a}b,
+    $$
+    which shows that $Q\subseteq\lsp{a/b}$. To verify that equality is attained, pick a linear combination
+    $$
+        a = r_1t_1a_1+\cdots+r_nt_na_n.
+    $$
+    Then,
+    $$
+        \frac ab = r_1\frac{a_1}{b_1}+\cdots
+            +r_n\frac{a_n}{b_n}
+    $$
+    and so $a/b\in Q$.
+\end{solution}
+
+
+
+\begin{exr}
+    Let\/ $M$ be a finitely generated torsion module over a principal ideal domain.  
+    Prove that the following are equivalent:  
+    \begin{enumerate}[\rm a)]
+        \item $M$ is indecomposable.
+        \item $M$ has only one elementary divisor (including multiplicity).
+        \item $M$ is cyclic of prime power order.
+    \end{enumerate}
+\end{exr}
+
+\begin{solution}${}$
+    \begin{enumerate}[\rm a)]
+        \item $\Rightarrow$~b) This is a consequence of Theorem~\ref{thm:primary-cyclic-decomposition}.
+
+        \item $\Rightarrow$~c) Idem.
+
+        \item $\Rightarrow$~a) Should $M=N\oplus P$, we would have one elementary divisor on the LHS and at least two (counting multiplicities) on the RHS.
+    \end{enumerate}
+\end{solution}
+
+\begin{exr}
+    Let\/ $A$ be a principal ideal domain. Let\/ $M$ be a cyclic $A$-module with order\/ $a$. We have seen that any submodule of\/ $M$ is cyclic. Prove that for each\/ $d$ such that\/ $d \mid a$, there is a unique submodule of\/ $M$ of order\/ $d$.
+\end{exr}
+
+\begin{solution}
+    Put $b=a/d$ and pick a generator $v$ of $M$. Then $\ord(v)=a$. Thus, by Theorem~\ref{thm:cyclic-modules-over-PID}~d), $\ord(bv)=a/\gcd(a,b)=a/b=d$. The existence, is proven.
+
+    For the uniqueness, let $\lsp{w}$ be such that $\ord(w)=d$. Write $w=cv$. Then $d=\ord(w)=a/\gcd(a,c)$.
+    Hence, $\gcd(a,c)=a/d=b$ and so $b\mid c$, i.e., $w=c'bv$ for some $c'$. In consequence,
+    $$
+        d=\ord(w)=\frac a{\gcd(a,c'b)}
+            =\frac a{b\gcd(d,c')} = \frac d{\gcd(d,c')}
+    $$
+    and $\gcd(d,c')=1$. Therefore, we can write
+    $$
+        1 = sd + tc'
+    $$
+    and get $v=tc'v$, which shows that $\lsp{v}=\lsp{c'v}$. In consequence
+    $$
+        \lsp{w}=\lsp{c'bv}=\lsp{bv},
+    $$
+    as desired.
+\end{solution}
+
+\begin{exr}
+    Let\/ $A=\kappa[x]$ be the ring of polynomials over a field, and let\/ $B$ be the ring of all polynomials in\/ $x$ that have the coefficient of\/ $x$ equal to\/ $0$. Then\/ $A$ is a\/ $B$-module. Show that\/ $A$ is finitely generated and torsion-free\/ $B$-module but not free. Is\/ $B$ a principal ideal domain?
+\end{exr}
+
+\begin{solution}
+    Since every polynomial $f=a_0+a_1x+\cdots+a_nx^n\in A$ can be written as $a_1x+(f-a_1x)$ with $f-a_1x\in B$, we see that $A=\lsp{1,x}$ as a $B$-module.
+
+    To see that $A$ is not free, suppose for a contradiction that $(f_1,\dots,f_m)$ is a basis of $A$. We would have
+    \begin{align*}
+        1 &= g_1f_1+\cdots+g_mf_m\\
+        x &= h_1f_1+\cdots+h_mf_m
+    \end{align*}
+    with $g_1,\dots,g_m,h_1,\dots,h_m\in B$. Multiplying the first equation by $x^3\in B$ and the second by $x^2\in B$, the uniqueness of a linear combination that produces $x^3$ would imply
+    $$
+        x^3g_i=x^2h_i\quad(1\le i\le m),
+    $$
+    i.e., $xg_i=h_i$ for $i=1,\dots,m$. But this forces $g_i(0)=$ for all $i$ (otherwise the $h_i$ wouldn't belong to $B$). However, this contradicts the first equation because it implies
+    $$
+        1 = g_1(0)f_1(0)+\cdots+g_m(0)f_m(0).
+    $$
+    Finally, $B$ is not a PID because it is not a UFD. In fact, $x^2$ is irreducible in $B$ and it is not prime because $x^2\mid x^3x^3$ but $x^2\nmid x^3$.
+\end{solution}
+
+\begin{exr}
+    Show that the rational numbers form a torsion-free\/ $\Z$-module that is not free.
+\end{exr}
+
+\begin{solution}
+    By Exercise~\ref{exr:quotient-field-submodules-locally-free}, every finitely-generated $\Z$-submodule of $\Q$ is free of rank~$1$. In particular, $\Q$ is not finitely generated. Otherwise, we would have $\Q=\lsp{a/b}$ for some $a,b\in\Z$, which is impossible because given a prime~$p$,
+    $$
+        \frac1p=c\frac ab \iff b= pca\implies p\mid b,
+    $$
+    a condition that only happens for the finite set of prime factors of $b$.
+
+    Therefore, we are left with the case where $\Q$ has infinite rank. In that case there would exist an infinite linearly independent set $\set{q_i\mid i\ge1}$. In particular $\lsp{q_1,q_2}$ would be free of rank $2$, in contradiction with Exercise~\ref{exr:quotient-field-submodules-locally-free}.
+\end{solution}
+
+\begin{exr}
+    Let\/ $A$ be a principal ideal domain, and let\/ $M$ be a free\/ $A$-module.  
+    \begin{enumerate}[\rm a)]
+        \item Prove that a submodule\/ $N$ of\/ $M$ is complemented if, and only if, $M/N$ is free.
+        
+        \item If\/ $M$ is also finitely generated, prove that\/ $N$ is complemented if, and only if, $M/N$ is torsion-free.
+    \end{enumerate}
+\end{exr}
+
+\needspace{2\baselineskip}
+\begin{solution}${}$
+    \begin{enumerate}[\rm a)]
+        \item The \textit{only if\/} part is trivial because of~Theorem~\ref{thm:pid-submodule-of-free-is-free-general}. The reason is that if $M=N\oplus Q$, then $Q$ is free and $M/N\cong Q$.
+
+        For the \textit{if\/} part, if $M/N$ is free, then it is projective and the s.e.s.
+        $$
+            0\to N\to M\to M/N\to0
+        $$
+        splits, which means that $N$ is complemented in $M$.
+        
+        
+        \item If $N$ is complemented, i.e., $M\cong N\oplus Q$, then $M/N\cong Q$ which is torsion free it is injected in $M$ which is torsion free.
+
+        Conversely, suppose that $M/N$ is torsion free. Since it is also finitely generated, we can invoke Corollary~\ref{cor:M=Mfree+Mtor} to deduce that $M/N$ is free. Therefore, the quotient projection $M\to M/N$ is a retraction and so the s.e.s.
+        $$
+            0\to N\to M\to M/N\to 0
+        $$
+        splits.
+    \end{enumerate}
+\end{solution}
+
+\begin{exr}
+    Let\/ $M$ be a free module of finite rank over a principal ideal domain\/ $A$.  
+    \begin{enumerate}[\rm a)]
+        \item Prove that if\/ $N$ is a complemented submodule of\/ $M$, then\/ $\rank(N) = \rank(M)$ if, and only if, $N=M$.
+        \item Show that this need not hold if\/ $N$ is not complemented.
+        \item Prove that\/ $N$ is complemented if, and only if, any basis for\/ $N$ can be extended to a basis for\/ $M$.
+    \end{enumerate}
+\end{exr}
+
+\begin{solution}${}$
+    \begin{enumerate}[\rm a)]
+        \item Put $M=N\oplus N'$. Then $N$ and $N'$ are both free and
+        $$
+            \rank(M)=\rank(N)+\rank(N').
+        $$
+        Thus, $\rank(N)=\rank(M)$ if, and only if, $\rank(N')=0$, i.e., $N'=0$ or $N=M$.
+
+        \item Take $a\in A\setminus\set0$. Then $aM$ is a proper free submodule of $M$.
+
+        \item Trivial.
+    \end{enumerate}    
+\end{solution}
+
+
+\begin{exr}
+    Let\/ $M$ be a free module of finite rank over a principal ideal domain\/ $A$. Let\/ $N$ and\/ $L$ be submodules of\/ $M$, with\/ $N$ complemented in\/ $M$. Prove that  
+    $$
+        \rank(N \cap L) + \rank(N + L) = \rank(N) + \rank(L).
+    $$
+\end{exr}
+
+\begin{solution} Consider the isomorphism
+    $$
+        N+L/N = L/L\cap N.
+    $$
+    Since $N$ is complemented, $M/N$ is torsion free. Therefore, $N+L/N\subseteq M/N$ is also torsion free, and so it is $L/L\cap N$. Thus, both quotients are free and the equation with ranks easily follows.
+\end{solution}
+

@@ -1,0 +1,1858 @@
+\chapter{Group Representations and Characters}
+
+\section{Introduction}
+Let $\kappa$ be a field and $G$ a group. Consider a representation $\rho\colon\kappa[G]\to\End_\kappa(\V)$ of the group algebra $\kappa[G]$. Since $\rho$ is a morphism of algebras, it induces by restriction and coastriction a morphism of groups
+$$
+    \rho\colon G\to\Aut_\kappa(\V)
+$$
+from $G$ to the general linear group $\Aut_\kappa(\V)$, which we will denote by the same letter.
+
+In particular, if $\basis B$ is a basis of $\V$, and $\GL n\kappa$ is the \textsl{general linear group} of invertible matrices, then $\rho$ induces a morphism of groups
+$$
+    [\rho]_{\basis B}\colon G\to\GL n\kappa.
+$$
+
+\begin{defn}
+    A \textsl{$\kappa$-representation} of $G$ is a morphism $\rho\colon G\to\Aut_\kappa(\V)$ for some $\kappa$-vector space $\V$. The dimension $\dim\V$ is the \textsl{degree} of~$\rho$. In the case where $\V=\kappa^n$, we will use $\GL n\kappa$ instead of $\Aut_\kappa(\kappa^n)$.
+\end{defn}
+
+
+
+\begin{rem}
+    Given that the elements of $G$ form a basis of $\kappa[G]$, every $\kappa$-representation $\rho\colon G\to\Aut_\kappa(\V)$ defines a representation of $\kappa[G]$ by linear extension, also denoted by~$\rho$,
+    \begin{align*}
+        \rho\colon\kappa[G]&\to\Aut_\kappa(\V)\\
+        \sum_{g\in G}c_gg&\mapsto\sum_{g\in G}c_g\rho(g)
+    \end{align*}
+\end{rem}
+
+\begin{xmpl}
+    Let $D_8$ be the dihedral group of $8$ elements with generators $a$ and $t$, where $a$ has order $4$ and $t$ order $2$. Given a field $\kappa$ with $\fchar(\kappa)\ne2$, consider the matrices of $\kappa^{2\times2}$
+    $$
+        A = \begin{pmatrix}
+            0   &-1\\
+            1   &\phantom-0
+        \end{pmatrix}
+        \quad\text{and}\quad
+        T = \begin{pmatrix}
+            1   &\phantom-0\\
+            0   &-1
+        \end{pmatrix}.
+    $$
+    Since $A$ represents the rotation of $\pi/2$ and $T$ the reflection on the $x$ axis, we see that both belong to $\GL 2\kappa$, with $\ord A=4$ and $\ord T=2$. Moreover
+    $$
+        TAT = \begin{pmatrix}
+            1   &\phantom-0\\
+            0   &-1
+        \end{pmatrix}
+        \underbrace{
+        \begin{pmatrix}
+            0   &-1\\
+            1   &\phantom-0
+        \end{pmatrix}
+        \begin{pmatrix}
+            1   &\phantom-0\\
+            0   &-1
+        \end{pmatrix}}_{ \begin{pmatrix}
+            0   &1\\
+            1   &0
+        \end{pmatrix}}
+        = \begin{pmatrix}
+            \phantom-0    &1\\
+            -1   &0
+        \end{pmatrix}
+        =A^{-1}
+    $$
+    because
+    $$
+        \begin{pmatrix}
+            0   &-1\\
+            1   &\phantom-0
+        \end{pmatrix}
+        \begin{pmatrix}
+            \phantom-0    &1\\
+            -1   &0
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            1   &0\\
+            0   &1
+        \end{pmatrix}.
+    $$
+    Therefore, the map
+    \begin{align*}
+        \rho\colon D_8&\mapsto\GL 2\kappa\\
+        a^it^j &\mapsto A^iT^j
+    \end{align*}
+    is a $\kappa$-representation of $D_8$ of degree $2$.
+
+    To show that $\ker \rho = \grp{1}$, observe that any nontrivial subgroup of $D_8$ has order $2$ or $4$. Such subgroups must therefore contain at least one element of order $2$. The elements of $D_8$ with order $2$ are $a^2$, $t$, $a^2t$, $at$ and $ta$. However, as it is easy to check, none of these elements lies in $\ker(\rho)$. Thus, $\ker(\rho)$ cannot contain any nontrivial element.
+
+    Observe, however, that $\rho\colon\kappa[D_8]\to\End_\kappa(\kappa^2)$ is not a monomorphism because the domain has dimension~$8$ and the codomain~$4$. This means that even though $\rho\colon G\to\GL2\kappa$ is \textsl{faithful}, the $\kappa[D_8]$-module $\kappa^2$ is not: if $f\in\ker\rho$, $f\cdot v=0$ for all $v\in\kappa^2$.
+
+    Let's finally prove that $\rho$ is irreducible. Suppose otherwise. Then there exists a nontrivial $\kappa[D_8]$-submodule $W$ of $\kappa^2$. It follows that $\dim W=1$. Let $(c_1,c_2)$ be a generator of $W$. Then, there exist scalars $\lambda$ and $\mu$ such that
+    $$
+        A(c_1,c_2) = \lambda(c_1,c_2)\quad\text{and}\quad
+        T(c_1,c_2) = \mu(c_1,c_2),
+    $$
+    i.e.,
+    $$
+        (-c_2,c_1)=\lambda(c_1,c_2)\quad\text{and}\quad
+        (c_1,-c_2)=\mu(c_1,c_2).
+    $$
+    First observe that $\lambda\ne0$ and $\mu\ne0$. Since $\fchar(\kappa)\ne2$, the second equation implies that $c_1=0$ or $c_2=0$. Hence, from the first equation, both $c_1$ and $c_2$ are zero. Contradiction.
+\end{xmpl}
+
+\begin{defn}
+    Let $\rho$ be a $\kappa$-representation of $G$. Then the \textsl{$\kappa$-character\/ $\chi_\rho$ of\/ $G$ afforded by\/} $\rho$ is the function given by $\chi_\rho(g) = \tr(\rho(g))$.
+\end{defn}
+
+\begin{rems}${}$
+    \begin{enumerate}[-]
+        \item As the $\kappa$-representation $\rho$ can be extended to a representation of $\kappa[G]$, the character afforded by it can also be extended to $\kappa[G]$ as a $\kappa$-linear transformation. Note that, for $n\ge0$, we have $\chi_\rho(g^n)=\tr(\rho(g)^n)$, which is generally different from $\chi_\rho(g)^n$.
+
+        \item Suppose that $\fchar(\kappa) = p > 0$. Then the map $G \to\GL p\kappa$ defined by $g\mapsto\op{Id}_p$ is a $\kappa$-representation of $G$ that affords a character with constant value zero.
+
+        \item If $\fchar(\kappa)=0$, then the constant function zero is not a character because $\chi_\rho(1)=\deg\rho\ne0$.
+
+        \item Given $n>0$, the constant map $G\to\GL n\kappa$ defined by $g\mapsto\op{Id}_n$ is a representation of degree~$n$. In consequence, every group has representations of any degree on any field.
+    \end{enumerate}
+\end{rems}
+
+\begin{defns}\label{defn:scalar-representation}${}$
+    \begin{enumerate}[-]
+        \item If $\chi$ is a character afforded by the $\kappa$-representation $\rho$, the \textsl{degree} of $\chi$ is $\deg\chi=\deg\rho$.
+
+        \item A \textsl{scalar representation} is as a $\kappa$-representation of degree~$1$, i.e., a group morphism from $G$ to the multiplicative group $\kappa^*$. Any scalar representation affords itself as a character, and it is called a \textsl{scalar character} (a.k.a.~\textsl{linear character}).
+
+        \item The \textsl{principal character} $\pchi$ is the scalar character with constant value~$1$. When seen as a representation we will denote it by~$\prho$. By definition, $\prho(g)=\pchi(g)=1$ for all $g\in G$.
+
+        \item The principal representation $\prho$ defines a structure of $\kappa[G]$-module on $\kappa$ given by
+        $$
+            \Big(\sum_{g\in G}c_gg\Big)c = \sum_{g\in G}c_gc.
+        $$
+
+        \item The \textsl{regular} character $\rchi$ is the character afforded by the regular representation~$\rrho$.
+    \end{enumerate}
+\end{defns}
+
+\begin{rems}${}$\label{rem:chi(1)-is-dim}
+    \begin{enumerate}[-]
+        \item Let $\chi$ be the character afforded by a representation $\rho$ of $G$ in~$\V$. Then
+        $$
+            \deg\chi=\deg\rho=\dim\V=\tr(\id_\V)=\tr\rho(1)=\chi(1),
+        $$
+        where $1$ denotes the identity of~$G$.
+    
+        \item Put $A=\kappa[G]$. The regular character, afforded by the regular representation $\rrho\colon G\to\Aut_\kappa(A^\circ)$, is given by
+        $$
+            \rchi(g) = \begin{cases}
+                |G|     &\text{if }g=1,\\
+                0       &\text{otherwise.}
+            \end{cases}
+        $$
+        Indeed. According to Definition~\ref{defn:regular-representation}, the regular representation $\rrho$ is given by $\rrho(g)=g_{A^\circ}$. Thus, $\rrho(g)(h)=gh\ne h$ unless $g=1$ and the matrix $[\rrho(g)]_{\basis G}$ of $\rrho$ in the basis $\basis G$, whose elements are the elements of $G$, is the identity for $g=1$ and has zeros in the diagonal for $g\ne1$.
+
+        \item Since every scalar (a.k.a.~linear) character is afforded by a representation in $\kappa$, it is clearly irreducible. In particular, the principal character $\pchi$ is irreducible.
+    \end{enumerate}
+\end{rems}
+
+\begin{xmpl}\label{xmpl:S_3-character}
+    Let $S_3$ be the group of permutations of $\set{1,2,3}$. Suppose that $\fchar(\kappa)\nmid6$ and define
+    \begin{align*}
+        \rho\colon S_3&\to\GL3\kappa\\
+        \sigma&\mapsto\sigma(\op{Id}),
+    \end{align*}
+    where $\sigma(\op{Id})$ is the matrix obtained from the identity matrix permuting its rows according to~$\sigma$, i.e.,
+    $$
+        \sigma(\op{Id})(x_1,x_2,x_3)
+            =
+            (x_{\sigma(1)},x_{\sigma(2)},x_{\sigma(3)}).
+    $$
+    Note that $\chi_\rho(\sigma)$ is the number of fixed points of $\sigma$, namely
+    $$
+        \chi_\rho(\sigma) = |\set{i\in\nset3:\sigma(i)=i}|.
+    $$
+    It follows that the possible values of $\chi_\rho$ are $\set{0,1,3}$ because the only permutation with at least $2$ fixed points is the identity.
+
+    Given that $\kappa^3$ is a direct sum of irreducible subspaces, there must be at least one, say $\V$, of dimension $1$. Let $(a,b,c)$ be its generator. Suppose that $a\ne0$. Since $\rho(12)(a,b,c)=\lambda(b,a,c)$, we see that $\lambda^2=1$. In particular, $b\ne0$ and a similar argument shows that $c\ne0$. It follows that $\lambda=1$ and $a=b=c$. Thus, $\V=\lsp{(1,1,1)}$. Therefore, there must be an irreducible $\W$ of dimension~$2$. Let $\W$ be given by the equation $ax_1+bx_2+cx_3=0$. Since any permutation of the $x_i$ belongs in $\W$, it follows that any permutation of $(a,b,c)$ is a multiple of $(a,b,c)$. Hence, as we just proved, $a=b=c=1$ and $\W$ is defined by $x_1+x_2+x_3=0$. Since $3\ne0$ in $\kappa$, we see that $\V\cap\W=0$. It follows that
+    $$
+        \kappa^3 = \V\oplus\W.
+    $$
+    Let $\basis B=((1,1,1),(1,-1,0),(1,0-1))$ be the basis of $\kappa^3$ obtained as the concatenation of a basis of $\V$ and a basis of $\W$. We have,
+    $$
+        [\rho]_{\basis B}=\begin{bmatrix}
+            1   &0\\
+            0   &A
+        \end{bmatrix}
+    $$
+    where $A$ is a $2\times2$ block corresponding to $\rho_\W$, the restriction of $\rho$ as a representation of $S_3$ in~$\W$.
+\end{xmpl}
+
+\begin{lem} Let\/ $G$ be a group. Then
+    \begin{enumerate}[\rm a)]
+        \item Similar\/ $\kappa$-representations of\/ $G$ afford equal characters.
+
+        \item Characters are constant on the conjugacy classes of\/ $G$.
+    \end{enumerate}
+\end{lem}
+
+\needspace{2\baselineskip}
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item Let $\rho$ and $\sigma$ be two similar $\kappa$-representations of $G$ in $\V$ and $\W$. Choose a $\kappa$-linear isomorphism $\phi\colon\V\to\W$ such that $\sigma=\phi\rho\phi^{-1}$. Then, given $g\in G$, we have
+        $$
+            \chi_\sigma(g)=\tr(\sigma(g))=\tr(\phi\rho(g)\phi^{-1})
+                =\tr(\rho(g))=\chi_\rho(g).
+        $$
+
+        \item Take $g\in G$. An element of the conjugacy class of $g$ is $hgh^{-1}$ for some $h\in G$. Therefore,
+        $$
+            \chi_\rho(hgh^{-1})=\tr(\rho(hgh^{-1}))
+                = \tr(\rho(h)\rho(g)\rho(h)^{-1})
+                = \tr(\rho(g)) = \chi_\rho(g).
+        $$
+    \end{enumerate}
+\end{proof}
+
+\begin{rem}\label{rem:sum-of-characters}
+    The sum of two $\kappa$-characters is a $\kappa$-character. To see this consider $(\rho,\sigma)\colon G\to\Aut_\kappa(\V\oplus\W)$, where $\rho$ and $\sigma$ are $\kappa$-representations of $G$ in $\V$ and $\W$ and
+    $$
+        (\rho,\sigma)(g) = \rho(g)\oplus\sigma(g),
+    $$
+    which is a $\kappa$-representation and satisfies
+    $$
+        \chi_{(\rho,\sigma)}=\chi_\rho+\chi_\sigma.
+    $$
+\end{rem}
+
+\section{Algebraically Closed Base Field}
+
+\newcommand{\acf}{\op{\textnormal{\textsc{acf}}}}
+\begin{ntn}
+    In this section, the notation\/ $\kappa\in\acf_p$ indicates that\/ $\kappa$ is an algebraically closed field of characteristic\/~$p\ge0$. When the characteristic is not specified, we will write\/ $\kappa\in\acf$.
+\end{ntn}
+
+\begin{prop}
+    Suppose that $\kappa\in\acf_p$ and $p\nmid|G|$. Let\/ $\rho\colon G\to\Aut_\kappa(\V)$ be a $\kappa$-representation. Then\/ $\rho$ is irreducible if, and only if, every endomorphism $\psi\colon\V\to\V$ that satisfies 
+    \begin{equation}\label{eq:rho-commutativity}
+        \rho(g)\psi = \psi\rho(g), \quad
+            \text{\rm for all } g \in G,
+    \end{equation}
+    is scalar, i.e., has the form\/ $\psi=c\cdot\id_\V$, with\/ $c\in \kappa$.
+\end{prop}
+
+\begin{proof}
+    Put $A=\kappa[G]$. Equation \eqref{eq:rho-commutativity} does hold if, and only if, every $\kappa$-linear endomorphism of $\V$ is an $A$-endomorphism. By Corollaries~\ref{cor:alg-closed-scalar-multiplications} and~\ref{cor:schur-converse}, this is the case if, and only if, $\V$ is an irreducible $A$-module, i.e., $\rho$ is irreducible.
+
+\end{proof}
+
+\needspace{2\baselineskip}
+\begin{xmpls}${}$
+    \begin{enumerate}[\rm a)]
+        \item Let $C_3=\set{1,a,a^2}$ be the multiplicative cyclic group of $3$ elements. Consider the matrix
+        $$
+            A = \begin{pmatrix}
+                0   &-1\\
+                1   &-1
+            \end{pmatrix},
+        $$
+        which satisfies
+        $$
+            A^3 = \underbrace{\begin{pmatrix}
+                0   &-1\\
+                1   &-1
+            \end{pmatrix}
+            \begin{pmatrix}
+                0   &-1\\
+                1   &-1
+            \end{pmatrix}}_{\begin{pmatrix}
+                -1   &1\\
+                -1   &0
+            \end{pmatrix}}
+            \begin{pmatrix}
+                0   &-1\\
+                1   &-1
+            \end{pmatrix}
+            =\begin{pmatrix}
+                1   &0\\
+                0   &1
+            \end{pmatrix}=\op{Id},
+        $$
+        and define
+        \begin{align*}
+            \rho\colon C_3&\to\GL 2\kappa\\
+            a&\mapsto A,
+        \end{align*}
+        where $\kappa\in\acf_p$ and $p\ne3$. Since $\rho(a)A=A\rho(a)$ and $A$ is not scalar, we deduce that $\rho$ is reducible.\footnote{See also Proposition~\ref{prop:commutative-group-alg-closed-field}.}
+    
+        \item Consider consider the dihedral group $D_{10}$ with generators $a$ and $t$. We have a $\C$-representation
+        \begin{align*}
+           \rho\colon D_{10}&\to\GL 2\C\\
+            a&\mapsto A\\
+            t&\mapsto T,
+        \end{align*}
+        where, for $\omega=e^{2\pi i/5}$,
+        $$
+            A = \begin{pmatrix}
+                \omega  &0\\
+                0   & \omega^{-1}
+            \end{pmatrix}
+            \quad\text{and}\quad
+            T = \begin{pmatrix}
+                0   &1\\
+                1   &0
+            \end{pmatrix}.
+        $$
+        Suppose that a matrix
+        $$
+            M = \begin{pmatrix}
+                x_{11}  &x_{12}\\
+                x_{21}  &x_{22}
+            \end{pmatrix}
+        $$
+        commutes with $A$. Then
+        $$
+            \begin{pmatrix}
+                x_{11}\omega\phantom{{}^{-1}}
+                    &x_{12}\omega\phantom{{}^{-1}}\\
+                x_{21}\omega^{-1}   &x_{22}\omega^{-1}
+            \end{pmatrix}
+            = \begin{pmatrix}
+                x_{11}\omega    &x_{12}\omega^{-1}\\
+                x_{21}\omega    &x_{22}\omega^{-1}
+            \end{pmatrix}
+        $$
+        and so $x_{21}=x_{12}=0$. If, $M$ commutes with $T$,
+        $$
+            \begin{pmatrix}
+                x_{21}  &x_{22}\\
+                x_{11}  &x_{12}
+            \end{pmatrix}
+            = \begin{pmatrix}
+                x_{12}  &x_{11}\\
+                x_{22}  &x_{21}
+            \end{pmatrix},
+        $$
+        i.e., $x_{11}=x_{22}$ and $x_{12}=x_{21}$. If both conditions do hold, then $M$ is scalar. As a result, $\rho$ is irreducible.
+    \end{enumerate}
+\end{xmpls}
+
+\begin{prop}\label{prop:commutative-group-alg-closed-field}
+    Let\/ $\kappa\in\acf$ and\/ $G$ an abelian group. If\/ $\rho\colon G\to\Aut_\kappa(\V)$ is an irreducible representation, then\/ $\dim\V=1$.
+\end{prop}
+
+\begin{proof}
+    Put $A=\kappa[G]$. Take $x\in G$. The map $x_\V$ is an $A$-morphism:
+    $$
+        x_\V(av) = x(av) = (xa)v = (ax)v = a(xv) = ax_\V(v),
+    $$
+    for all $a\in A$. Thus, $x_\V\in \End_A(\V)$. By Corollary~\ref{cor:alg-closed-dim-equations}, $\End_A(\V)$ has dimension~$1$ and so, $x_\V(v)=c\cdot v$ for some $c\in\kappa$. Therefore, if $W$ is a linear subspace of $\V$, we have
+    $$
+        xW = \set{xw\mid w\in W} = \set{x_\V(w)\mid w\in W}
+            = \set{c\cdot w\mid w\in W}\subseteq W,
+    $$
+    i.e., $W$ is an $A$-submodule. Since $\V$ is irreducible, we deduce that $\V$ must have dimension~$1$.
+    
+\end{proof}
+
+\begin{defn}
+    Let $G=C_{n_1}\times\cdots\times C_{n_r}$ be the product of $r$ cyclic groups $C_{n_i}=\langle a_i\mid a_i^{n_i}=1\rangle$, and put
+    $$
+        g_i = (1,\dots,a_i,\dots1).
+    $$
+    Suppose that $\kappa\in\acf$ and that $\omega_1,\dots,\omega_r\in\kappa$ satisfy $\omega_i^{n_i}=1$. The representation \textsl{induced by\/} $\omega_1,\dots,\omega_r$ is the representation defined by
+    \begin{align*}
+        \rho_{\omega_1,\dots,\omega_r}\colon G&\to\kappa^*\\
+        g_1^{i_1}\cdots g_r^{i_r}
+            &\mapsto\omega_1^{i_1}\cdots\omega_r^{i_r}.
+    \end{align*}
+\end{defn}
+
+\begin{thm}
+    Let\/ $G=C_{n_1}\times\cdots\times C_{n_r}$ be the product of\/ $r$ cyclic groups\/ $C_{n_i}=\langle a_i\mid a_i^{n_i}=1\rangle$. Suppose that\/ $\kappa\in\acf_p$ with $p\nmid|G|$. Then
+    \begin{enumerate}[\rm a)]
+        \item The number of induced representations of\/ $G$ is\/ $|G|$, and every irreducible representation of\/ $G$ over\/ $\kappa$ is equivalent to precisely one of them.
+        
+        \item If\/ $\rho\colon G\to\GL n\kappa$ is an irreducible representation, then\/ $n=1$ and there exist\/ $\omega_1,\dots,\omega_r$ in\/ $\kappa$ such that\/ $\rho=\rho_{\omega_1,\dots,\omega_r}$.
+    \end{enumerate}    
+\end{thm}
+
+\begin{proof} With the notations of the preceding definition.
+    \begin{enumerate}[\rm a)]
+        \item Given that $\rho_{\omega_1,\dots,\omega_r}(g_i)=\omega_i$, the map $(\omega_1,\dots,\omega_r)\mapsto\rho_{\omega_1,\dots,\omega_r}$ is injective. Therefore, the number of induced representations equals the number of possible $r$-tuples $(\omega_1,\dots,\omega_r)$, which is $n_1\cdots n_r=|G|$ because the polynomial $x^{n_i}-1$ has exactly $n_i$ roots in~$\kappa$.
+
+        \item The fact that $n=1$ for any irreducible representation $\rho$ is a direct consequence of Proposition~\ref{prop:commutative-group-alg-closed-field}. For the second part it suffices to observe that $\omega_i=\rho(g_i)$ is an element of $\kappa^*$ that satisfies $\omega_i^{n_i}=1$.
+    \end{enumerate}
+\end{proof}
+
+\begin{xmpl}
+    As shown in Example~\ref{xmpls:irreducible-decomposition}~a), the set of irreducible representatives of $\C[C_3]$-modules is $\set{U_0,U_1,U_2}$, where $U_i=\C v_i$ for
+    \begin{align*}
+        v_0 &= 1+a+a^2\\
+        v_1 &= 1+\omega^2a+\omega a^2\\
+        v_2 &= 1+\omega a+\omega^2a^2
+    \end{align*}
+    and $\omega = e^{2\pi i/3}$. According to the theorem above, the irreducible representations of $C_3$ are $\rho_1,\rho_\omega,\rho_{\omega^2}$, with
+    $$
+        \rho_{\omega^i}(a^j)=\omega^{ij}
+    $$
+    for $0\le i,j\le 2$.
+\end{xmpl}
+
+\medskip
+
+\begin{rem}\label{rem:chi_j(e_i)}
+    Assume that $\fchar(\kappa)\nmid|G|$. Put $A=\kappa[G]$, which is semisimple [cf.~Theorem~\ref{thm:maschke}]. 
+
+    Fix a set $\mathcal S=\set{S_1,\dots,S_r}$ of irreducible submodules of $A^\circ$ representing all the irreducible $A$-modules. Let $\rho_i\colon G\to\Aut_\kappa(S_i)$ be the restriction of $\rho$ to $S_i$ [\S\,Reduced Representations on page~\pageref{page:reudced-representations}]. The character $\chi_i$ afforded by $\rho_i$ is an irreducible $\kappa$-character. Moreover, every irreducible $\kappa$-character is one of the $\chi_i$ and so we can define $\op{Irr}(G)=\set{\chi_1,\dots,\chi_r}$.
+    
+    Since $\kappa$-characters are closed under sum [Remark~\ref{rem:sum-of-characters}], every integer combination
+    \begin{equation}\label{eq:integer-combination-of-characters}
+        \chi = n_1\chi_1+\cdots+n_r\chi_r,
+    \end{equation}
+    where $n_i\ge0$ for $1\le i\le r$, is also a $\kappa$-character.
+    
+    Let $e_i$ denote the unit in $A_{[S_i]}$ [cf.~Remark~\ref{rem:homogeneus-part-is-algebra}]. Take $1\le j\le r$. If $j\ne i$, then
+    \begin{equation}\label{eq:chi_j(e_i)}
+        \rho_j(e_i)(v)=(e_i)_{S_j}(v)=e_iv=0
+    \end{equation}
+    for all $v\in S_j\subseteq A_{[S_j]}=Ae_j$ because $e_ie_j=0$. Thus, from the equation
+    $$
+        1 = e_1+\cdots+e_r
+    $$
+    we get
+    $$
+        \rho_j(e_i) = \begin{cases}
+            0   &i\ne j,\\
+            \rho_i(1)=\id_{S_i} &i=j.
+        \end{cases}
+    $$
+    In particular, $\chi_j(e_i)=0$ and  $\chi_i(e_i)=\chi_i(1)=\deg\chi_i$, which is nonzero in~$\kappa$, provided that $\fchar\kappa\nmid\dim S_i$. In consequence, $\chi_i\ne\chi_j$, for $i\ne j$, as functions with domain in $\kappa[G]$, hence as functions with domain in $G$. We have proven the following
+\end{rem}
+
+\begin{prop}\label{prop:irreducible-characters-in-char-0}
+    Let\/ $\kappa$ be a field of characteristic zero. If\/ $G$ is a group and\/ $\mathcal S$ is a set representing all the irreducible\/ $\kappa[G]$-modules, then\/ $|\op{Irr}(G)|=|\mathcal S|$.
+\end{prop}
+
+
+\begin{rem}\label{rem:characters-as-integer-combinations}
+    Under the hypothesis of $\fchar(\kappa)\nmid|G|$, now consider a representation $\rho\colon G\to\Aut_\kappa(\V)$. Then $\V$ is completely reducible and we can decompose $\V=V_1\oplus\cdots\oplus V_m$ where every $V_j$ is irreducible. According to Proposition~\ref{prop:representation-decomposition}, given $1\le j\le m$, there is a $\kappa$-representation $\varrho_j\subseteq\rho$ of~$G$ in~$V_j$ such that $\rho$ has the diagonal-block matrix
+    \begin{equation}\label{eq:block-diagonal-representation-2}
+        [\rho]_{\basis B}= \begin{bmatrix}
+            [\varrho_1]_{\basis B_1}  &\cdots &0\\
+            \vdots  &\ddots &\vdots\\
+            0   &\cdots &[\varrho_m]_{\basis B_m}
+        \end{bmatrix},
+    \end{equation}
+    where $\basis B_j$ is a basis of $V_j$ and $\basis B=\basis B_1,\dots,\basis B_m$ is the concatenation. In consequence, the characters afforded by these representations satisfy
+    $$
+        \chi_\rho = \chi_{\varrho_1}+\cdots+\chi_{\varrho_m}.
+    $$
+    If $V_j\cong S_i$ as $A$-modules, then $\chi_{\varrho_j}=\chi_i$. It follows that
+    \begin{equation}\label{eq:integer-combination-of-characters-2}
+        \chi_\rho = n_{S_1}(\V)\chi_1+\cdots+n_{S_r}(\V)\chi_r,
+    \end{equation}
+    where $n_{S_i}(\V)$ is the number of irreducible components of $\V$ isomorphic to~$S_i$ [cf.~Lemma~\ref{lem:homogenous-decomposition}].
+\end{rem}
+
+\begin{prop}\label{prop:sum-chi-squared}
+    Suppose that\/ $\kappa\in\acf_p$ with\/ $p\nmid|G|$. Let\/ $\set{\chi_1,\dots,\chi_r}$ be the set of\/ $\kappa$-characters of\/ $G$ associated to a representation of irreducible $\kappa[G]$-modules. Then
+    $$
+        |G| = \sum_{i=1}^r\chi_i(1)^2,
+    $$
+    with $r=\dim Z(\kappa[G])$.
+\end{prop}
+
+\begin{proof}
+    With the notations of the previous note, 
+    \begin{align*}
+        |G| &= \dim A
+                &&;\ A=\kappa[G]\\
+            &= \sum_{i=1}^r(\dim S_i)^2
+                &&;\ \text{Cor.~}\ref{cor:alg-closed-dim-equations}\\
+            &= \sum_{i=1}^r\chi_i(1)^2
+                &&;\ \text{Rem.~}\ref{rem:chi(1)-is-dim}.
+    \end{align*}
+\end{proof}
+
+\begin{thm}
+    Let\/ $C_1,\dots,C_r$ be the conjugacy classes of\/ $G$. For\/ $1\le i\le r$ let
+    $$
+        z_{C_i} = \sum_{g\in C_i}g\in\kappa[G].
+    $$
+    Then\/ $\set{z_{C_1},\dots,z_{C_r}}$ is a basis of\/ $Z(\kappa[G])$ and
+    $$
+        z_{C_i}z_{C_j} = \sum_{h=1}^rc_{ijh}z_{C_h}
+    $$
+    where the coefficients\/ $c_{ijh}$ are nonnegative integers.
+\end{thm}
+
+\begin{proof}
+    If $g\in G$ and $C$ is a conjugacy class then $C^g=C$. In consequence, $z_{C_i}$ is in the center of $\kappa[G]$.
+
+    Take an element $z=\sum_{g\in G}c_gg$ of $Z(\kappa[G])$. Given $h\in G$, the equation $z^h=z$ translates into
+    $$
+        \sum_{g\in G}c_gg^h=\sum_{g\in G}c_gg
+            = \sum_{g\in G}c_{g^h}g^h,
+    $$
+    which implies that $c_g=c_{g^h}$ for $g\in G$. It follows that $c_g$ is constant when $g$ runs over a conjugacy class. Let $b_i$ be the common value of $c_g$ when $g\in C_i$. Then,
+    $$
+        z=\sum_{i=1}^rb_iz_{C_i},
+    $$
+    i.e., $\set{z_{C_1},\dots,z_{C_n}}$ is a set of generators of the center. The set is linearly independent because conjugacy classes are pairwise disjoint.
+
+   To compute $b_{ijh}$, it suffices to find the coefficient $c_g$ of any $g\in C_h$ in the expansion of $z_{C_i}z_{C_j}$ as a linear combination of the basis $G$ because $b_{ijh}=c_g$. By the way in which the product is defined in $\kappa[G]$, this coefficient is given explicitly by
+   $$
+        c_g = |\{(x, y)\in C_i\times C_j \mid xy=g\}|,
+   $$
+   which is clearly a nonnegative integer.
+\end{proof}
+
+\begin{cor}\label{cor:irr=nb-conjugacy-classes}
+     Suppose that\/ $\kappa\in\acf_p$ and\/ $p\nmid|G|$. Then the number of similarity classes of irreducible representations of\/ $G$ equals the number of conjugacy classes of\/~$G$. 
+\end{cor}
+
+\begin{proof}
+    This is a direct consequence of the theorem and Corollary~\ref{cor:alg-closed-dim-equations}~e).
+\end{proof}
+
+\begin{cor}
+    Suppose that\/ $\kappa\in\acf_p$ and\/ $p\nmid|G|$. Then\/ $G$ is abelian if, and only if, every irreducible character is scalar.
+\end{cor}
+
+\begin{proof}
+    This is a direct consequence of the theorem and Proposition~\ref{prop:sum-chi-squared} because $G$ is abelian if, and only if, $\dim Z(\kappa[G])=|G|$, which happens if, and only if, $\dim S_i=\chi_i(1)=1$ for all~$i$.
+\end{proof}
+
+%\newpage
+\begin{xmpl}\label{xmpl:S3-character-table}
+    Following with Example~\ref{xmpl:S_3-character}, notice that the conjugacy classes of $S_3$ follow the cycle structure of its elements
+    \begin{align*}
+        C_1 &= \set{\id}\\
+        C_2 &= \set{(12),(13),(23)}\\
+        C_3 &= \set{(123),(132)}.
+    \end{align*}
+    In particular, the character $\chi$ afforded by the permutation representation given in said example satisfies
+    $$
+        \chi(C_1) = 3,\quad \chi(C_2)= 1\quad
+        \text{and}\quad \chi(C_3)=0
+    $$
+    because $\chi(\sigma)$ is the number of fixed points of $\sigma$.
+    
+    Recall that $\kappa^3=\V\oplus\W$, which gives us two representations, $\rho_\V$ of degree $1$ and $\rho_\W$ of degree~$2$. Let $\chi_\V$ and $\chi_\W$ be the corresponding $\kappa$-characters. Since we have $3$ conjugacy classes, we must have a third irreducible representation. Consider
+    \begin{align*}
+        \varrho\colon S_3&\to\kappa^*\\
+        \sigma&\mapsto\sg(\sigma),
+    \end{align*}
+    which is known to be a morphism of groups. It is clearly irreducible because $\dim\kappa=1$. Moreover
+    $$
+    \begin{array}{c|c|c|c|c|c|c}
+        \sigma&\id&(12)&(13)&(23)&(123)&(132)\\\hline
+        \vphantom{|^{|^|}}
+        \chi_\varrho(\sigma)&1&-1&-1&-1&1&1
+    \end{array}
+    $$
+    More succinctly, we can express the character as a class function
+    $$
+    \begin{array}{c|c|c|c}
+        \text{class}&C_1&C_2&C_3\\\hline
+        \vphantom{|^{|^|}}
+        \chi_\varrho(C_i)&1&-1&1
+    \end{array}
+    $$
+    
+                \if{false}
+                Consider the basis
+                $$
+                    \basis B=\set{\id,(12),(13),(23),(123),(132)}.
+                $$
+                Then, %id, (23), (12), (123), (13), (132) 
+                \begin{align*}
+                    v=(1,1,-1,0,0,-1)_{\basis B} &= \id+(12)-(13)-(132)\\
+                    w=(0,-1,0,1,-1,1)_{\basis B} &= -(12)+(23)-(123)+(132).
+                \end{align*}
+                The subspace $\lsp{v,w}$ can be described by
+                $$
+                    \begin{cases}
+                        \hphantom{x_1+{}}x_2\hphantom{{}+x_3+x_4+x_5}+x_6 &= 0\\
+                        \hphantom{x_1+x_2+x_3+{}}x_4+x_5 &= 0\\
+                        x_1\hphantom{{}+x_2}+x_3 &= 0\\
+                        \hphantom{x_1+{}}x_2+x_3+x_4 &= 0
+                    \end{cases}
+                $$
+                i.e.,
+                $$
+                    \begin{cases}
+                        x_6 &= -x_2\\
+                        x_3 &= -x_1\\
+                        x_4 &= x_1-x_2\\
+                        x_5 &= -x_1+x_2
+                    \end{cases}
+                $$
+                Using the table
+                \small
+                $$
+                    \begin{array}{c|c|c|c|c|c}
+                              & (12) & (13) & (23) & (123) & (132)\\ \hline
+                        \vphantom{{}^{|^|}}
+                        (12)  & \id  & (132)& (123) & (23)  & (13)  \\
+                        (13)  & (123)& \id  & (132) & (12)  & (23)  \\
+                        (23)  & (132)& (123)& \id   & (13)  & (12)  \\
+                        (123) & (13) & (23) & (12)  & (132) & \id   \\
+                        (132) & (23) & (12) & (13)  & \id   & (123)
+                    \end{array}
+                $$
+                \normalsize
+                we see that
+                \begin{align*}
+                    \begin{array}{c|c|c|c|c|c|c}
+                        \sigma&\id&(12)&(13)&(23)&(123)&(132)\\\hline
+                        \sigma\cdot v&v&v&-v-w&w&-v-w&w\\%\hline
+                        \sigma\cdot w&w&-v-w&w&v&v&-v-w
+                    \end{array}
+                \end{align*}
+                Let $\basis C=(v,w)$ denote the basis of the $\kappa$-subspace $\lsp{v,w}$. The table above, expressed in this basis, yields
+                \begin{align*}
+                    \begin{array}{c|c|c|c|c|c|c}
+                        \sigma&\id&(12)&(13)&(23)&(123)&(132)\\\hline
+                        %\sigma\cdot (1,0)&(1,0)&(1,0)&(-1,-1)&(0,1)&(-1,-1)&(0,1)\\ %\hline
+                        %\sigma\cdot (0,1)&(0,1)&(-1,-1)&(0,1)&(1,0)&(1,0)&(-1,-1)\\
+                        \begin{matrix}
+                            \\{[\sigma]_{\basis C}}\\\\
+                        \end{matrix}
+                        &\begin{pmatrix}
+                            1&0\\
+                            0&1
+                        \end{pmatrix}
+                        &\begin{pmatrix}
+                            1&-1\\
+                            0&-1
+                        \end{pmatrix}
+                        &\begin{pmatrix}
+                            -1&0\\
+                            -1&1
+                        \end{pmatrix}
+                        &\begin{pmatrix}
+                            0&1\\
+                            1&0
+                        \end{pmatrix}
+                        &\begin{pmatrix}
+                            -1&1\\
+                            -1&0
+                        \end{pmatrix}
+                        &\begin{pmatrix}
+                            0&-1\\
+                            1&-1
+                        \end{pmatrix}
+                    \end{array}
+                \end{align*}
+                which is an irreducible representation of $S_3$ in $\GL\kappa2$.
+            
+                The character afforded by this representation is
+                $$
+                \begin{array}{c|c|c|c|c|c|c}
+                    \sigma&\id&(12)&(13)&(23)&(123)&(132)\\\hline
+                    \chi(\sigma)&2&0&0&0&-1&-1
+                \end{array}
+                $$
+                \fi
+                
+    Recall from Example~\ref{xmpl:S_3-character} that $\kappa^3=\V\oplus\W$ is a decomposition in irreducible submodules where $\V=\lsp{(1,1,1)}$ and $\W=\lsp{(1,-1,0),(0,1,-1)}$. Let $\rho_\V$ and $\rho_\W$ be the induced representations on these submodules. Write $s=(1,-1,0)$ and $t=(0,1,-1)$. Then $\rho_\V=\id$ and $\rho_\W$ is given by
+    $$
+        \begin{array}{c|c|c|c|c|c|c}
+            \sigma&\id&(12)&(13)&(23)&(123)&(132)\\\hline
+            \sigma\cdot s&s&-s&-t&s+t&t&-s-t\\
+            \sigma\cdot t&t&s+t&-s&-t&-s-t&s
+        \end{array}
+    $$
+    In consequence, $\chi_\V\equiv1$ and
+    $$
+    \begin{array}{c|c|c|c|c|c|c}
+        \sigma&\id&(12)&(13)&(23)&(123)&(132)\\\hline
+        \chi_\W(\sigma)&2&0&0&0&-1&-1
+    \end{array}
+    $$
+    or
+    $$
+    \begin{array}{c|c|c|c}
+        \text{class}&C_1&C_2&C_3\\\hline
+        \chi_\W(C_i)&2&0&-1
+    \end{array}
+    $$
+    Finally, the permutation character can be expressed as
+    $$
+        [\chi]_{\basis B} = [\chi_\V+\chi_\W]_{\basis B} = (3,1,1,1,0,0)
+    $$
+    in the basis $\basis B=(\id,(12),(13),(23),(123),(132))$, which corresponds to $(3,1,0)$ when referred to conjugacy classes.
+
+    Finally, note that $\op{Irr}(S_3)=\set{\chi_\varrho,\chi_\V,\chi_\W}$ because
+    $$
+        |S_3| = 6 = 1^2 + 1^2 + 2^2.
+    $$
+\end{xmpl}
+
+\begin{prop}\label{prop:cyclotomic-sum}
+    Let\/ $\chi$ be a $\kappa$-character of\/ $G$ of degree\/ $n$ and\/ $g\in G$ an element of order\/ $m$. Then
+    $$
+        \chi(g) = \omega_1 + \cdots + \omega_n,
+    $$
+    where the\/ $\omega_i\in\kappa_m$ are $m$th roots of unity. In particular, every character value\/ $\chi(g)$ is an algebraic integer for $g\in G$. Also, for any\/ $j \in \mathbb{Z}$ we have
+    $$
+    \chi(g^j) = \omega_1^j + \cdots + \omega_n^j.
+    $$
+\end{prop}
+
+\begin{proof}
+    Let $\rho\colon G\to\Aut_\kappa(\V)$ be a representation of degree $n$ affording $\chi$. Since $g^m=1$, we deduce that $\rho(g)^m-\id_\V=0$. Hence, by Corollary~\ref{cor:triangularizable-cyclotomic}, there is a basis $\basis B$ of $\V$ where $M=[\rho(g)]_{\basis B}$ is triangular. Let $(\omega_1,\dots,\omega_n)$ be the diagonal of~$M$. Since $M^j=[\rho(g^j)]_{\basis B}$ and $M^j$ is triangular with diagonal $(\omega_1^j,\dots,\omega_n^j)$, we see that $\chi(g)$ is the sum of the $\omega_i$ and that these elements are $m$th roots of unity.
+    
+\end{proof}
+
+\begin{defn}
+    Let $\kappa$ be a field and $G$ a group. A map $\varphi\colon G\to\kappa$ is a \textsl{class function} if it is constant on every conjugacy class. The set of class functions of $G$ will be denoted by $\Cl_\kappa(G)$ or simply $\Cl(G)$.
+\end{defn}
+
+\begin{thm}\label{thm:character-basis}
+    Let $\kappa\in\acf_0$ and let $G$ be a group. Then, every element $\varphi\in\Cl_\kappa(G)$ can be uniquely expressed in the form
+    $$
+    \varphi = \sum_{\chi\in\op{Irr}(G)}c_\chi\chi,
+    $$
+    where\/ $c_\chi\in\kappa$. Furthermore, $\varphi$ is a $\kappa$-character if, and only if, all of the\/ $c_\chi$ are nonnegative integers and\/ $\varphi\ne0$.
+\end{thm}
+
+\begin{proof}
+    The set $\Cl_\kappa(G)$ is a $\kappa$-vector space whose dimension is the number of conjugacy classes of $G$. By Corollary~\ref{cor:irr=nb-conjugacy-classes} this number equals $|\op{Irr}(G)|$. Put $\op{Irr}(G)=\set{\chi_1,\dots,\chi_r}$. Since all $\kappa$-characters are class functions it is enough to show that
+    $$
+        \sum_{i=1}^rc_i\chi_i=0
+            \implies c_i=0,\text{ for }1\le i\le r.
+    $$
+    But this can be verified by evaluating at $e_i$, which yields $c_i\deg\chi_i=0$ [cf.~Remark~\ref{rem:chi_j(e_i)}].
+
+    Since every $\kappa$-character is a class function and the sum of characters is a character [cf.~Remark~\ref{rem:sum-of-characters}], every linear combination of the $\chi_i$ with nonnegative coefficients that is not zero is a class function.
+
+    Conversely, suppose that $\chi$ is a $\kappa$-character. We can write
+    \begin{equation}\label{eq:character-basis}
+        \chi = \sum_{i=1}^rc_i\chi_i,
+    \end{equation}
+    where the $c_i$ are nonnegative integers [cf.~Remark~\ref{rem:characters-as-integer-combinations}]. 
+\end{proof}
+
+\begin{cor}\label{cor:character-determines-representation-1}
+    Let\/ $\kappa\in\acf_0$.\footnote{See Corollary~\ref{cor:character-determines-representation-2} for a generalization.} Then two\/ $\kappa$-representations are similar if, and only if, they afford equal characters. 
+\end{cor}
+
+\begin{proof}
+    Let $\mathcal S=\set{S_1,\dots,S_r}$ be a set representing all irreducible $\kappa[G]$-modules and let $\op{Irr}(G)=\set{\chi_1,\dots,\chi_r}$ be the set of corresponding irreducible characters. Suppose that $\rho\colon G\to\Aut_\kappa(\V)$ and $\varrho\colon G\to\Aut_\kappa(\W)$ afford the same character~$\chi$. According to \eqref{eq:integer-combination-of-characters-2}, this implies that
+    $$
+        \sum_{i=1}^rn_{S_i}(\V)\chi_i=\sum_{i=1}^rn_{S_i}(\W)\chi_i.
+    $$
+    By the theorem, we must have $n_{S_i}(\V)=n_{S_i}(\W)$ for $1\le i\le r$. Therefore, the irreducible submodules (and the corresponding homogeneous parts) of both $\kappa[G]$-modules are isomorphic, hence the restrictions of $\rho$ and $\varrho$ to each of these irreducible submodules are similar [cf.~Remark~\ref{rem:similarity}]. The result follows by considering the direct sum of the isomorphisms between irreducible components.
+\end{proof}
+
+\begin{thm}\label{thm:direct-summands-under-field-extensions}
+    Let\/ $\kappa$ be a field (not necessarily algebraically closed) and\/ $G$ a group with\/ $\fchar(\kappa)\nmid|G|$. Let\/ $\V$ and\/ $\W$ be\/ $\kappa[G]$-modules and $\kappa\hookrightarrow K$ an algebraic field extension. Suppose that\/ $\V\otimes_\kappa K$ is a direct summand of\/ $\W\otimes_\kappa K$ as\/ $K[G]$-modules. Then\/ $\V$ is a direct summand of\/ $\W$ as\/ $\kappa[G]$-modules.
+\end{thm}
+
+\begin{proof}${}$
+    Firstly observe that $\V\otimes_\kappa K$ is a $K[G]$-module with the action
+    \begin{equation}\label{eq:extended-action}
+        (bg)(v\otimes z) = gv\otimes bz
+    \end{equation}
+    for $g\in G$, $v\in\V$ and $b,z\in K$ (extended by linearity to $K[G]$), which is well-defined because the underlying map is $\kappa$-bilinear on $\V\times K$.
+    
+    Assume we are given two $K[G]$-module morphisms, $\iota$ and $\pi$, such that the following diagram commutes:
+    $$
+        \begin{tikzcd}
+            \V\otimes_\kappa K
+                    \arrow[r,"\iota",hook]
+                    \arrow[rd,"\id_{\V\otimes_\kappa K}"']
+                &\W\otimes_\kappa K
+                    \arrow[d,"\pi",two heads]\\
+                &\V\otimes_\kappa K
+        \end{tikzcd}
+    $$
+    In what follows we will divide the proof into two cases.
+    \begin{description}
+        \item[Case ${[K:\kappa]}=n<\infty$.] Here $K\cong\kappa^n$ as $\kappa$-vector spaces.
+        
+        Let $\basis B=(b_1,\dots,b_n)$ be a basis of $K$ as $\kappa$-vector space. The map
+        \begin{align*}
+            \zeta_\V\colon\V\otimes_\kappa K&\to\V^n\\
+            v\otimes z&\mapsto(z_1v,\dots,z_nv),
+        \end{align*}
+        where $[z]_{\basis B}=(z_1,\dots,z_n)\in\kappa^n$, is well-defined (it is clearly bilinear) and, for $g\in G$, satisfies
+        \begin{align*}
+            \zeta_\V(g(v\otimes z))
+                &= \zeta_\V(gv\otimes z)\\
+                &=(z_1gv,\dots,z_ngv)\\
+                &=g(z_1v,\dots,z_nv)\\
+                &=g\zeta_\V(v\otimes z).
+        \end{align*}
+        It is therefore a morphism of $\kappa[G]$-modules. Since it is also an isomorphism of $\kappa$-vector spaces (it is clearly an epimorphism between spaces of equal dimension), it is an isomorphism of $A$-modules. Using a similar isomorphism $\zeta_\W\colon\W\otimes_\kappa K\to\W^n$, we obtain two morphisms of $\kappa[G]$-modules
+        $$
+            \V^n\stackrel{\iota^n}\to\W^n\otimes_\kappa K
+                \quad\text{and}\quad
+            \W^n\stackrel{\pi^n}\to\V^n\otimes_\kappa K,
+        $$
+        namely, $\iota^n=\iota\circ\zeta_\V^{-1}$ and $\pi^n=\zeta_\W\circ\pi$. Since $\iota^n\circ\pi^n=\id_{\V^n}$, we deduce that $\V^n$ is a direct summand of $\W^n$.
+        
+        By Maschke's Theorem~\ref{thm:maschke}, both $\V$ and $\W$ decompose into direct sums of irreducible $\kappa[G]$-submodules. These decompositions, when repeated $n$ times, produce the decompositions of $\V^n$ and $\W^n$. In particular, if $S$ is an irreducible $\kappa[G]$-submodule of $\kappa[G]^\circ$, Lemma~\ref{lem:homogenous-decomposition}~c) implies that
+        $$
+            n_S(\V^n)=nn_S(\V)
+            \quad\text{and}\quad
+            n_S(\W^n)=nn_S(\W).
+        $$
+        Since $\V^n$ is a direct summand of $\W^n$, it follows that
+        $$
+            nn_S(\V)=n_S(\V^n)\le n_S(\W^n)=nn_S(\W)
+        $$
+        and so $n_S(\V)\le n_S(\W)$. In consequence, $\V_{[S]}$ is a direct summand of $\W_{[S]}$. Since $\V$ and $\W$ can be decomposed as the direct sums of their homogeneous parts, we conclude that $\V$ is a direct summand of $\W$.
+        
+        \item[Case $K/\kappa$ algebraic.] Take bases $(v_1,\dots,v_q)$ of $\V$ and $(w_1,\dots,w_r)$ of $\W$ as $\kappa$-vector spaces. Then, $\basis B=(v_1\otimes1,\dots,v_q\otimes1)$ and $\basis C=(w_1\otimes1,\dots,w_r\otimes1)$ are bases of $\V\otimes_\kappa K$ and $\W\otimes_\kappa K$.
+    
+        Let $L$ be a finite extension of $\kappa$ including all the entries of the matrices $J=[\iota]_{\basis B\basis C}$ and $P=[\pi]_{\basis C\basis B}$.\footnote{See \citep{LC}, \S1~Field Extensions.} Then  $J\in L^{r\times q}$ and $P\in L^{q\times r}$ define morphisms of $L[G]$-modules
+        \begin{align*}
+            \iota_L\colon\V\otimes_\kappa L
+                &\to\W\otimes_\kappa L
+            &\pi_L\colon\V\otimes_\kappa L
+                &\to\V\otimes_\kappa L
+        \end{align*}
+        that satisfy
+        $$
+            [\pi_L\circ\iota_L]_{\basis B\basis B}
+                = PL = [\pi\circ\iota]_{\basis B\basis B}=\op{Id}_{q\times q}
+                =[\id_{\V\otimes L}]_{\basis B\basis B}.
+        $$
+        As a result, $\pi_L\circ\iota_L=\id_{\V\otimes_\kappa L}$ which means that $\V\otimes_\kappa L$ is a direct summand of $\W\otimes_\kappa L$. The result is now a direct consequence of the previous case.
+    \end{description}
+\end{proof}
+
+\begin{cor}\label{cor:isomorphisms-under-field-extensions}
+    Let\/ $\kappa$ be a field (not necessarily algebraically closed) and\/ $G$ a group with\/ $\fchar(\kappa)\nmid|G|$. Let\/ $\V$ and\/ $\W$ be\/ $\kappa[G]$-modules and $\kappa\hookrightarrow K$ an algebraic field extension. Suppose that\/ $\V\otimes_\kappa K\cong \W\otimes_\kappa K$ as $K[G]$-modules. Then\/ $\V\cong \W$ as\/ $\kappa[G]$-modules.
+\end{cor}
+
+\begin{proof}
+    The hypothesis implies that $\V\otimes_\kappa K$ is a direct summand of $\W\otimes_\kappa K$ and that $\W\otimes_\kappa K$ is a direct summand of $\V\otimes_\kappa K$ as $K[G]$-modules. By the theorem, $\V$ is a direct summand of $\W$, and $\W$ is a direct summand of $\V$ as $\kappa[G]$-modules. This implies that the complement of $\W$ in $\V$ is zero, i.e., $\V\cong\W$ as $\kappa[G]$-modules.
+\end{proof}
+
+\begin{rem}
+    Corollary~\ref{cor:character-determines-representation-1} means that, when $\kappa\in\acf_0$, every representation of $G$ is determined by its character. In the general case, where $\fchar(\kappa)=0$ but $\kappa$ is not necessarily algebraically closed, this result still holds. To see this, let $F$ be an algebraic closure of $\kappa$. If $\V$ is a $\kappa[G]$-module with representation $\rho\colon\kappa[G]\to\End_\kappa(\V)$ and character $\chi$, then $\V\otimes_\kappa F$ is an $F[G]$-module whose representation is $\rho_F\colon F[G]\to\End_F(\V\otimes_\kappa F)$ and character $\chi_F$. As we have seen in \eqref{eq:extended-action}, the structure of $F[G]$-module on $\V\otimes_\kappa F$ is such that
+    $$
+        (bg)_{\V\otimes_\kappa F}(v\otimes z) = gv\otimes bz,
+    $$
+    for $b,z\in F$, $v\in\V$ and $g\in G$. This equation translates into
+    \begin{align*}
+        \rho_F(g) = g_{\V\otimes_\kappa F}
+            =\rho(g)\otimes_\kappa\id_F.
+    \end{align*}
+    Let $\basis B = (v_1, \dots, v_n)$ be a basis of $\V$. Then, $\basis B \otimes 1 = (v_1 \otimes 1, \dots, v_n \otimes 1)$ forms a basis of $\V \otimes_\kappa F$. The matrix $[\rho_F(g)]_{\basis B \otimes 1}$ has its $i$th column given by $[gv_i \otimes 1]_{\basis B \otimes 1}$, which coincides with the $i$th column of $[\rho(g)]_{\basis B}$ as an element of $F^n$. In other words, $[\rho_F(g)]_{\basis B\otimes1}=[\rho(g)]_{\basis B}$ in $F^{n\times n}$. In particular,
+    $$
+        \chi_F(g)=tr\rho_F(g)
+            =\tr[\rho_F(g)]_{\basis B\otimes1}
+            =\tr[\rho(g)]_{\basis B}
+            =\chi(g).
+    $$
+    
+\end{rem}
+
+\begin{cor}\label{cor:character-determines-representation-2}
+    Let\/ $\kappa$ be a field with $\fchar(\kappa)=0$. Then two\/ representations are similar if, and only if, they afford equal characters.\footnote{In other words, every representation similarity class is determined by the character it affords.}
+\end{cor}
+
+\begin{proof}
+    Suppose that $\rho\colon G\to\Aut_\kappa(\V)$ and $\varrho\colon G\to\Aut_\kappa(\W)$ are two representations affording the same character $\chi$. Let $F$ be an algebraic closure of $\kappa$. As we just saw in the previous remark, the representations $\rho_F\colon G\to\Aut_\kappa(\V\otimes_\kappa F)$ and $\varrho_F\colon G\to\Aut_\kappa(\W\otimes_\kappa F)$ afford the same character $\chi_F=\chi$. From Corollary~\ref{cor:character-determines-representation-1} we deduce that $\V\otimes_\kappa F\cong\W\otimes_\kappa F$. The conclusion is now a direct consequence of Corollary~\ref{cor:isomorphisms-under-field-extensions}.
+\end{proof}
+
+\begin{lem}\label{lem:regular-character-expansion}
+    Let $\kappa\in\acf_0$. Then, the regular character\/ $\rchi$ satisfies
+    \begin{equation}\label{eq:regular-character-expansion}
+        \rchi = \sum_{\chi\in\op{Irr}(G)}\chi(1)\chi.
+    \end{equation}
+\end{lem}
+
+\begin{proof}
+    Put $A=\kappa[G]$ and let $\set{S_1,\dots,S_r}$ be a set representing all the irreducible submodules of~$A^\circ$. Then $\op{Irr}(G)=\set{\chi_1,\dots,\chi_r}$, where $\chi_i\subseteq\rchi$ is the $\kappa$-character induced by restriction on $S_i$. Then
+    \begin{align*}
+        \rchi &= \sum_{i=1}^rn_{S_i}(A^\circ)\chi_i
+                &&\text{; \eqref{eq:integer-combination-of-characters-2}}\\
+            &= \sum_{i=1}^r\dim(S_i)\chi_i
+                &&\text{; Cor.~\ref{cor:alg-closed-dim-equations}}\\
+            &= \sum_{i=1}^r\chi_i(1)\chi_i
+                &&\text{; Rem.~\ref{rem:chi(1)-is-dim}}
+    \end{align*}
+\end{proof}
+
+\begin{thm}\label{thm:ei-from-characters}
+    Let\/ $\kappa\in\acf_0$. If\/ $\op{Irr}(G)=\set{\chi_1,\dots,\chi_r}$ then, for $1\le i\le r$, the unit\/ $e_i$ of the\/ $i$th homogeneous part of\/ $A^\circ$ can be expressed by
+    \begin{equation}\label{eq:ei-from-characters}
+        e_i = \frac{\chi_i(1)}{|G|}
+            \sum_{g\in G}\chi_i(g^{-1})g.
+    \end{equation}
+\end{thm}
+
+\begin{proof}
+    Fix $1\le i\le r$ and write
+    $$
+        e_i = \sum_{g\in G}c_gg.
+    $$
+    If $\rchi$ denotes the regular character, we deduce from Remark~\ref{rem:chi(1)-is-dim} that
+    $$
+        \rchi(g^{-1}e_i)=|G|c_g.
+    $$
+    By \eqref{eq:regular-character-expansion}, we have
+    \begin{equation}\label{eq:|G|cg-expansion}
+        \sum_{j=1}^r\chi_j(1)\chi_j(g^{-1}e_i)=|G|c_g.
+    \end{equation}
+    Let $\rho_i$ be a representation of $G$ affording $\chi_i$. From Remark~\ref{rem:chi_j(e_i)}, we get
+    $$
+        \rho_j(g^{-1}e_i)=\rho_j(g^{-1})\rho_j(e_i)
+            = \rho_j(g^{-1})\delta_{ij}\id
+            = \delta_{ij}\rho_j(g^{-1}).
+    $$
+    Taking traces on both ends of the equality,
+    $$
+        \chi_j(g^{-1}e_i) = \delta_{ij}\chi_j(g^{-1}).
+    $$
+    By plugging this into \eqref{eq:|G|cg-expansion}, we get
+    $$
+        \chi_i(1)\chi_i(g^{-1})=|G|c_g,
+    $$
+    as desired.
+\end{proof}
+
+\begin{thm}\label{thm:general-orthogonality}
+    {\rm[Generalized Orthogonality Relation]}
+    Let $\kappa\in\acf_0$. Then, for every\/ $g \in G$, we have
+    $$
+        \frac1{|G|} \sum_{h\in G} \chi_i(hg)\chi_j(h^{-1})
+        = \delta_{ij} \frac{\chi_i(g)}{\chi_i(1)}.
+    $$
+\end{thm}
+
+\begin{proof} From \eqref{eq:ei-from-characters}, we get
+    \begin{align*}
+        \delta_{ij}e_i &= e_ie_j\\
+            &= \frac{\chi_i(1)\chi_j(1)}{|G|^2}
+                \sum_{h\in G}\sum_{g\in G}
+                    \chi_i(h^{-1})\chi_j(g^{-1})hg\\
+            &= \frac{\chi_i(1)\chi_j(1)}{|G|^2}
+                \sum_{h\in G}\sum_{g\in G}
+                    \chi_i(h^{-1})\chi_j(g^{-1}h)g
+                        &&;\ g\to h^{-1}g\\
+            &= \frac{\chi_i(1)\chi_j(1)}{|G|^2}
+                \sum_{g\in G}\Big(\sum_{h\in G}
+                    \chi_i(h^{-1})\chi_j(g^{-1}h)\Big)g.
+    \end{align*}
+    Comparing coefficients with \eqref{eq:ei-from-characters}, we get
+    \begin{align*}
+        \delta_{ij}\frac{\chi_i(1)}{|G|}\chi_i(g^{-1})
+            &= \frac{\chi_i(1)\chi_j(1)}{|G|^2}
+                \sum_{h\in G}\chi_i(h^{-1})\chi_j(g^{-1}h)\\
+            &= \frac{\chi_i(1)\chi_j(1)}{|G|^2}
+                \sum_{h\in G}\chi_i(hg^{-1})\chi_j(h^{-1})
+                    &&;\ h\to gh^{-1},
+    \end{align*}
+    and the result follows replacing $g$ with $g^{-1}$.
+\end{proof}
+
+\begin{cor}\label{cor:first-orthogonality}
+    {\rm[First Orthogonality Relation]}
+    Let $\kappa\in\acf_0$. Then, for every\/ $g \in G$, we have
+    $$
+        \frac1{|G|}\sum_{g\in G} \chi_i(g)\chi_j(g^{-1})
+        = \delta_{ij}.
+    $$
+\end{cor}
+
+\begin{proof}
+    This follows from the theorem with $g=1$ and $h$ renamed to~$g$.
+\end{proof}
+
+\section{The Complex Numbers as the Base Field}
+
+In this section we assume that $\kappa=\C$, the field of complex numbers. More generally, $\kappa$ could also be $\A$, the algebraic closure of $\Q$ with the complex conjugation restricted to it. In both cases $z\mapsto\conj z$ will denote the conjugation involution.
+
+\separator
+
+The following theorem is the natural extension of Proposition~\ref{prop:cyclotomic-sum} to the present assumptions on~$\kappa$.
+
+\begin{thm}\label{thm:characters-are-cyclotomic-sums}
+    Let\/ $\rho$ be a representation of\/ $G$ affording the character\/ $\chi$, and let\/ $g \in G$. Put\/ $m = \ord(g)$. Then
+    \begin{enumerate}[\rm a)]
+        \item $\rho(g)$ is similar to a diagonal matrix\/ $\diag(\omega_1, \dots, \omega_r)$
+        \item $\omega_i^m = 1$ for $1\le i\le r$
+        \item $\chi(g) = \sum_{i=1}^r \omega_i$
+        \item $\chi(g^{-1}) = \sum_{i=1}^r\omega_i^{-1}$
+        \item $|\chi(g)|\le\chi(1)$%, with equality attained if, and only if, $\chi(g)=\chi(1)$
+        \item $\chi(g^{-1})=\conj{\chi(g)}$.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}
+    Let $C=\grp g$ be the (cyclic) subgroup of $G$ generated by $g$. Let $\rho_C\subseteq\rho$ be the representation of $C$ in the representation space of $\rho$. If $\chi_C$ denotes the character afforded by $\rho_C$, then 
+    $$
+        \chi_C(g^k)=\tr\rho_C(g^k)=\tr\rho(g^k)=\chi(g^k)
+    $$
+    and so $\chi_C\subseteq\chi$. In consequence, we can reduce ourselves to the case $G=C$.
+
+    Since $G$ is abelian, by Proposition~\ref{prop:commutative-group-alg-closed-field} we now that every irreducible submodule of $\kappa[G]$ is one-dimensional. It follows that $\kappa[G]^\circ$ is a direct sum of submodules, each of them generated, as $\kappa$-vector space, by a single element. Therefore, there is a basis $\basis B$ where $[\rho]_{\basis B}$ is a block matrix with $1\times1$ blocks.\footnote{Alternatively, it is enough to observe that $\rho(g)$ is diagonalizable because its minimal divides $x^m-1$, which is separable and splits over~$\kappa$.}
+
+    \begin{enumerate}[\rm a)]
+        \item This is clear.
+
+        \item Given that $g^m=1$, we deduce that $\diag(\omega_1^m,\dots,\omega_r^m)=\rho(g)^m=\op{Id}$.
+
+        \item Trivial.
+
+        \item $\chi(g^{-1})=\tr\rho(g^{-1})=\tr\diag(\omega_1^{-1},\dots,\omega_r^{-1})$.
+
+        \item $|\omega_i|=1$ by part b). Hence, $|\chi(g)|=|\sum\omega_i|\le\sum|\omega_i|=\chi(1)$. %Moreover, if equality is attained, 
+
+        \item This follows from part~d) and the fact that $\omega_i^{-1}=\conj\omega_i$ because $|\omega_i|=1$.
+    \end{enumerate}
+\end{proof}
+
+\begin{ntn}
+    Recall from\/ {\rm Remark~\ref{rem:E-generalization}} that the \textsl{averaging operator}\/ $E$ on a group\/ $G$ can be defined for any subspace of the\/ $\kappa$-vector space of functions between two given\/ $\kappa[G]$-modules. 
+    
+    In what follows we will (ab)use\/ $E$ to denote the averaging operator for functions from\/ $\kappa[G]$ to\/ $\kappa$. Note that here\/ $\kappa$ has the structure of\/ $\kappa[G]$-module given by the trivial representation~$\prho$.
+    
+    Now the functions under consideration can be identified with their restriction to\/ $G$, and then extended by linearity to\/ $\kappa[G]$. Thus,
+    \begin{align*}
+        E\colon\kappa^G&\to\kappa^G\\
+        \theta&\mapsto\frac1{|G|}\sum_{g\in G}\theta^g,
+    \end{align*}
+    Moreover, here we will introduce a modification in the definition of\/ $\theta^g$, namely
+    $$
+        \theta^g(x)=\theta(x^g),
+    $$
+    for $x\in G$. The operation is also $\kappa$-linear:
+    \begin{align*}
+        (\theta_1+c\cdot\theta_2)^g(x)
+            &= (\theta_1+c\cdot\theta_2)(x^g)\\
+            &= \theta_1(x^g)+c\cdot\theta_2(x^g)\\
+            &= \theta_1^g(x)+c\cdot\theta_2^g(x),
+    \end{align*}
+    and satisfies
+    $$
+        \theta^{gh} = (\theta^h)^g.
+    $$
+\end{ntn}
+
+\begin{lem}\label{lem:E-2-properties}
+    With the notations introduced above,
+    \begin{enumerate}[a),font=\upshape]
+        \item $E(\theta+c\cdot\theta')=E(\theta)+c\cdot E(\theta')$, for all\/ $\theta,\theta'\in\Hom_\kappa(\V,\W)$.
+
+        \item $E(\theta)=E(\theta^g)$, for all\/ $g\in G$
+
+        \item $E^2=E$
+
+        \item $\im E\subseteq\Cl(G)$
+        
+        \item If\/ $\theta\in\Cl(G)$ then\/ $E(\theta)$ is a constant function, namely
+        $$
+            E(\theta)(x)=\frac1{|G|}\sum_{g\in G}\theta(g).
+        $$
+    \end{enumerate}
+\end{lem}
+
+\begin{proof}
+    Parts a), b) and c) can be proven exactly as in Lemma~\ref{lem:E-properties}. Part d) is equivalent to part~b). Part~e) is trivial.
+\end{proof}
+
+\begin{defn}
+    Let $\alpha$ and $\beta$ be two class functions defined on a group~$G$. Then, their \textsl{inner product} is defined as
+    $$
+        \inner\alpha\beta = \frac1{|G|}
+            \sum_{g\in G}\alpha(g)\conj{\beta(g)}.
+    $$
+\end{defn}
+
+\begin{rem}
+    $\inner\alpha\beta=E(\alpha\conj\beta)(1)$.
+\end{rem}
+
+\begin{prop}
+    The inner product is an \textsl{Hermitian} form, i.e.,
+    \begin{enumerate}[\rm a)]
+        \item $\inner\alpha\beta=\conj{\inner\beta\alpha}$
+        \item $\inner{\alpha_1 + c\cdot\alpha_2}\beta
+            =\inner{\alpha_1}\beta
+            +c\inner{\alpha_2}\beta$
+        \item $\inner\alpha{\beta_1 + c\cdot\beta_2}
+            =\inner\alpha{\beta_1}
+            +\conj c\inner\alpha{\beta_2}$.
+        \item $\inner\alpha\alpha\ge0$ and $\inner\alpha\alpha=0\iff\alpha=0$.
+    \end{enumerate}
+\end{prop}
+
+\begin{proof}
+    This is a direct consequence of the definition.
+\end{proof}
+
+\begin{rem}\label{rem:orthogonality}
+    Let $\op{Irr(G)}=\set{\chi_1,\dots,\chi_r}$. The First Orthogonality Relation Corollary~\ref{cor:first-orthogonality} implies that
+    \begin{equation}\label{eq:orthogonality}
+        \inner{\chi_i}{\chi_j}=\delta_{ij}.
+    \end{equation}
+\end{rem}
+
+\begin{thm}\label{thm:inner-product-of-characters}
+    If\/ $\chi$ and $\psi$ are $\kappa$-characters, then $\inner\chi\psi=\inner\psi\chi$ is a nonnegative integer. In addition, $\chi$ is irreducible if, and only if, $\inner\chi\chi=1$.
+\end{thm}
+
+\begin{proof}
+    By Theorem~\ref{thm:character-basis}, $\chi$ and $\psi$ can be expressed as
+    $$
+        \chi=\sum_{i=1}^rc_i\chi_i
+        \quad\text{and}\quad
+        \psi=\sum_{j=1}^rd_j\chi_j,
+    $$
+    where $c_i$ and $d_j$ are nonnegative integers. From \eqref{eq:orthogonality} we get $\inner\chi\psi=\sum_{i=1}^rc_id_i$, which proves the first assertion. For the second, it is enough to observe that
+    $$
+        \inner\chi\chi=\sum_{i=1}^rc_i^2.
+    $$
+\end{proof}
+
+\begin{thm}\label{thm:second-orthogonality} {\rm[Second Orthogonality Relation]}
+    Let\/ $g,h\in G$. Then
+    $$
+        \sum_{\chi\in\op{Irr}(G)}\!\!\!
+            \chi(g)\conj{\chi(h)}
+            = \begin{cases} 
+                0
+                    &\text{\rm if $g\notin h^G$},\\
+                |C_G(g)|
+                    & \text{\rm otherwise},
+            \end{cases}
+    $$
+    where\/ $C_G(g)$ is the centralizer of\/ $g$.
+\end{thm}
+
+\begin{proof}
+    Let $\set{g_1^G,\dots,g_r^G}$ be the set of all conjugacy classes of $G$. By Corollary~\ref{cor:irr=nb-conjugacy-classes}, the set of irreducible characters has $r$ elements, say $\set{\chi_1,\dots,\chi_r}$. Consider the matrix $M\in M_r(\kappa)$ with entries
+    $$
+        c_{ij} = \chi_i(g_j),\qquad1\le i,j\le r.
+    $$
+    Let $D=\diag(|g_1^G|,\dots,|g_r^G|)$. Since every term $\chi_i(g)\conj{\chi_j(g)}$ occurring in the First Orthogonality Relation Corollary~\ref{cor:first-orthogonality} repeats $|g^G|$ times, we obtain
+    \begin{align*}
+        \frac1{|G|}\sum_{k=1}^r
+                |g_k^G|\chi_i(g_k)\widebar{\chi_j(g_k)}
+            = \frac1{|G|}\sum_{g\in G}
+                \chi_i(g)\conj{\chi_j(g)}
+            = \delta_{ij}.
+    \end{align*}
+    Put $D=(d_{ij})$. Then, the equation above translates into
+    $$
+        \sum_{k=1}^rc_{ik}d_{kk}\conj c_{kj}^T=|G|\delta_{ij},
+    $$
+    that corresponds to the matrix equation $M(D\conj M^T)=|G|\op{Id}_r$. Since $PQ=\op{Id}_r$ implies $QP=\op{Id}_r$ whenever $P,Q\in M_\kappa(r)$, we deduce that $(D\conj M^T)M=|G|\op{Id}_r$. This last equation can be rewritten as
+    $$
+        \sum_{\ell=1}^rd_{ii}\conj c_{i\ell}^Tc_{\ell
+        j}=|G|\delta_{ij}
+        \quad\text{or}\quad
+        |g_i^G|\sum_{\ell=1}^r
+        \chi_\ell(g_j)\conj{\chi_\ell(g_i)}=|G|\delta_{ij}.
+    $$
+    The conclusion follows by observing that $|G|/|g_i^G|=|C_G(g_i)|$.\footnote{See \citep{LC-groups}, The Fundamental Counting Principle.} 
+\end{proof}
+
+\begin{cor}\label{cor:cardinal-of-centralizer-etc} For every\/ $g\in G$, we have
+    $$
+        |C_G(g)|=\!\!\!\!\sum_{\chi\in\op{Irr}(G)}
+            \!\!|\chi(g)|^2.
+    $$
+    In particular, $|C_G(g)|$ and all the conjugacy classes of\/ $G$ can be calculated from the character table.
+\end{cor}
+
+\begin{proof}
+    For the equation apply the theorem to the case $h=g$. The last statement follows from the equation we mentioned above, namely $|g^G|=|G:C_G(g)|$.
+    
+\end{proof}
+
+\begin{cor}\label{cor:character-injectivity}
+    Given\/ $g,h\in G$, we have
+    $$
+        g\in h^{G} \iff \chi(g)=\chi(h)
+    $$
+    for all\/ $\chi\in\op{Irr}(G)$.
+\end{cor}
+
+\begin{proof}
+    The forward implication is trivial. For the reverse implication, note that the hypothesis implies
+    $$
+        \sum_{\chi\in\op{Irr}(G)}\chi(g)\conj{\chi(h)}
+            \,=\!\!\!
+                \sum_{\chi\in\op{Irr}(G)}|\chi(g)|^2 > 0.
+    $$
+    Thus, this sum is nonzero, and by the Second Orthogonality Relation~\ref{thm:second-orthogonality}, we conclude that $g\in h^G$.
+\end{proof}
+
+
+
+\begin{lem}\label{lem:complex-characters-are-algebraic}
+    Let\/ $\iota\colon\A\to\C$ be the inclusion. If\/ $\chi_\A$ is an\/ $\A$-character of\/ $G$, then\/ $\chi_\A\mapsto\iota\circ\chi_\A$ defines a\/ $\C$-character\/ $\chi_\C$ of\/ $G$. Moreover, the map\/ $\chi_\A\mapsto\chi_\C$ is a bijection that maps\/ $\op{Irr}_\A(G)$ onto\/ $\op{Irr}_\C(G)$. In particular, every\/ $\C$-character of\/ $G$ can be afforded by a representation of\/ $G$ over\/~$\A$. 
+\end{lem}
+
+\begin{proof}
+    Let $\chi_\A$ be an $\A$-character of $G$. Pick an $\A$-representation $\rho_\A$ affording $\chi_\A$. By considering the matrix of $\rho_\A$ in the canonical basis of $\A^n\subseteq\C^n$, we can see $\rho_\A$ as a $\C$-representation $\rho_\C$. Furthermore, $\rho_\C$ affords a $\C$-character $\chi_\C$ that satisfies $\chi_\C=\iota\circ\chi_\A$. In particular, $\inner{\chi_\A}{\chi_\A}=\inner{\chi_\C}{\chi_\C}$, and by Theorem~\ref{thm:inner-product-of-characters}, we deduce that $\chi_\A\in\op{Irr}_\A(G)$ if, and only if, $\chi_\C\in\op{Irr}_\C(G)$. Therefore, $\chi_A\mapsto\chi_\C=\iota\circ\chi_\A$ defines a map $\op{Irr}_\A(G)\to\op{Irr}_\C(G)$. This map is injective because the inclusion $\iota$ is injective. It is actually a bijection because, by Corollary~\ref{cor:irr=nb-conjugacy-classes}, both sets of irreducible characters have the same number of elements.
+    
+    The last statement is now a direct consequence of Theorem~\ref{thm:character-basis}
+\end{proof}
+
+\begin{lem}\label{lem:character-kernel}
+    Let $\rho$ be a representation of\/ $G$ which affords the character\/~$\chi$. Then\/ $g\in\ker\rho$ if, and only if, $\chi(g)=\chi(1)$.
+\end{lem}
+
+\begin{proof}
+    The \textit{only if\/} part is trivial. For the \textit{if\/} part let $g\in G$ be such that $\chi(g)=\chi(1)$. By Theorem~\ref{thm:characters-are-cyclotomic-sums},
+    $$
+        r=\chi(1)=\chi(g)=\omega_1+\cdots+\omega_r,
+    $$
+    where $|\omega_i|=1$ for $1\le i\le r$. Then
+    $$
+        r = \op{Re}(\omega_1)+\cdots+\op{Re}(\omega_r),
+    $$
+    which shows that $\omega_i=1$ for all $i$. Since the same theorem establishes that the matrix of $\rho(g)$ is similar to $\diag(\omega_1,\dots,\omega_r)$, we deduce that $\rho(g)=\id$.
+\end{proof}
+
+\begin{defn}
+    If $\chi$ is a character of $G$, its \textsl{kernel} is 
+    $$
+        \ker\chi= \set{g\in G\mid\chi(g)=\chi(1)}.
+    $$
+\end{defn}
+
+\begin{rem}\label{rem:character-kernels-are-normal}
+    If $\chi$ is a character of $G$ then $\ker\chi$ is a normal subgroup of $G$. Indeed. The kernel is closed under the group operation of $G$ by Lemma~\ref{lem:character-kernel} and Theorem~\ref{thm:characters-are-cyclotomic-sums}. The same theorem also shows that $g\in\ker\chi\iff g^{-1}\in\ker\chi$.
+\end{rem}
+
+\begin{rem}\label{rem:regular-kernel-is-trivial}
+    If $\rchi$ is the regular character of $G$, then $\ker\rchi=1$ by Remark~\ref{rem:chi(1)-is-dim} because $\rchi(1)=\dim\kappa[G]=|G|$.
+\end{rem}
+
+\begin{lem}\label{lem:identical-roots-of-unity}
+    Let $\omega_1,\dots,\omega_r$ be $n$th roots of unity. Then $|\omega_1+\cdots+\omega_r|=r$ if, and only if, $\omega_j=\omega_1$ for $j=1,\dots,r$.
+\end{lem}
+
+\begin{proof}
+    The \textit{if\/} part is trivial. The \textit{only if\/} part works by induction on $r$. The case $r=1$ is trivial. For $r+1$, after multiplying by $\conj\omega_{r+1}$, we may assume that $\omega_{r+1}=1$. For $j=1,\dots,r$ put $\omega_j=a_j+ib_j$. If $\alpha=a_1+\cdots+a_r$ and $\beta=b_1+\cdots+b_r$, we have
+    $$
+        (\alpha+1)^2+\beta^2=(r+1)^2,
+    $$
+    i.e.,
+    $$
+        2\alpha+(\alpha^2+\beta^2)=r^2+2r.
+    $$
+    Since $\alpha^2+\beta^2=|\omega_1+\cdots+\omega_r|^2$, we know that $\alpha^2+\beta^2\le r^2$. If equality is attained, the induction hypothesis implies that the $\omega_j$ are all equal. Otherwise, we would have $\alpha>r$, which is not possible because $|a_j|\le1$ for all $j$. Consequently,
+    $$
+        |1+r\omega_1| = r+1
+    $$
+    i.e.,
+    $$
+        \cancel1+r^{\bcancel2}a_1^2+2\bcancel ra_1+r^{\bcancel2}b_1^2
+            =(1+ra_1)^2+(rb_1)^2
+            =r^{\bcancel2}+2\bcancel r+\cancel1,
+    $$
+    which implies $a_1=1$. Then $\omega_1=1$ and we are done.
+\end{proof}
+
+
+\begin{lem}\label{lem:|chi(g)|=chi(1)}
+    Let\/ $\chi$ be a character of\/ $G$ afforded by a representation $\rho$. If\/ $|\chi(g)|=\chi(1)$ for some\/ $g\in G$, then\/ $\rho(g)=\omega\cdot\id$ and $\chi(g)=\chi(1)\omega$ with $\omega^{\ord(g)}=1$.
+\end{lem}
+
+\begin{proof}
+    Put $r=\chi(1)$ and $m=\ord(g)$. According to Theorem~\ref{thm:characters-are-cyclotomic-sums}, we have $\rho(g)=\diag(\omega_1,\dots,\omega_r)$ and $\chi(g)=\omega_1+\dots+\omega_r$, where $\omega_j^m=1$ for $j=1,\dots,r$. By hypothesis,
+    $$
+        |\omega_1+\cdots+\omega_r|=|\chi(g)|=\chi(1)=r.
+    $$
+    From Lemma~\ref{lem:identical-roots-of-unity} we deduce that all $\omega_i$ are equal, say, to some $m$th root of unity $\omega$. Therefore, $\rho(g)=\omega\cdot\id$ and $\chi(g)=r\omega=\chi(1)\omega$ as wanted.
+\end{proof}
+
+
+\begin{lem}\label{lem:kernel-intersection}
+    Let\/ $\chi=\sum_{i=1}^rn_i\chi_i$ be a character of\/ $G$, where\/ $\chi_i\in\op{Irr}(G)$ for $1\le i\le r$. Then\/ $\ker\chi=\bigcap\set{\ker\chi_i\mid n_i>0}$. Also, $\bigcap_{i=1}^r\ker\chi_i=1$.
+\end{lem}
+
+\begin{proof}
+    For the first equality it is enough to show that the LHS is included in the RHS. Take $g\in\ker\chi$. Then, $\chi(1)=\chi(g)$ and so
+    %\small
+    \begin{align*}
+        \sum_{i=1}^rn_i\chi_i(1) 
+            &= \Big|\sum_{i=1}^rn_i\chi_i(1)\Big|\\
+            &= \Big|\sum_{i=1}^rn_i\chi_i(g)\Big|\\
+            &\le \sum_{i=1}^rn_i|\chi_i(g)|\\
+            &\le \sum_{i=1}^rn_i\chi_i(1)
+                &&\text{; Thm.~\ref{thm:characters-are-cyclotomic-sums}},
+    \end{align*}
+    \normalsize
+    which implies
+    $$
+         \Big|\sum_{i=1}^rn_i\chi_i(g)\Big|
+            = \sum_{i=1}^rn_i|\chi_i(g)|.
+    $$
+    Theorem~\ref{thm:characters-are-cyclotomic-sums} also establishes that, if $m = \operatorname{ord}(g)$, each $\chi_i(g)$ is a sum of $m$th roots of unity. Consequently, every term $n_i\chi_i(g)$ of the sum above is itself a sum of $m$-th roots of unity, where every root of unity contributed by $\chi_i(g)$ is repeated $n_i$ times. Thus, the equation above shows that the triangular inequality attains equality for what happens to be a sum of $m$th roots of unity. By Lemma~\ref{lem:identical-roots-of-unity}, all the roots involved must be identical to, say, some $\omega$. It follows that $\chi(1)=\chi(g)=n\omega$ for some natural number $n$, which cannot be other than $\chi(1)$ because $|\omega|=1$. Hence, $\omega=1$, meaning that all those roots of unity equal $1$. It follows that $\chi_i(g)=\chi_i(1)$, i.e., $g\in\ker\chi_i$ for all $i$ such that $n_i\ne0$.
+
+    Now suppose that $g\in\bigcap_{i=1}^r\ker\chi_i$. Then $g\in\ker\psi$ for any character $\psi$ of $G$. In particular, $g$ will belong in the kernel of the regular character, which is trivial by Remark~\ref{rem:regular-kernel-is-trivial}.
+\end{proof}
+
+\begin{prop}\label{prop:principal-iff-kernel=G}
+    $\ker\chi=G\iff\chi=\chi(1)\pchi$. If ---in addition--- $\chi$ is irreducible, then\/ $\ker\chi=G\iff\chi=\pchi$.
+\end{prop}
+
+\begin{proof}
+    The principal character satisfies $\ker\pchi=G$ because 
+    $$
+        \pchi(g)=1=\pchi(1)
+    $$
+    for all $g\in G$.
+    
+    Conversely, the equations $\chi(g)=\chi(1)$ and $\pchi(g)=1$, for $g\in G$, imply that $\chi=\chi(1)\pchi$. If ---in addition--- $\chi$ is irreducible then $\inner\chi\chi=1$ by Theorem~\ref{thm:inner-product-of-characters}, and so the nonnegative integer $\chi(1)$ must equal~$1$.
+\end{proof}
+
+\subsection{Characters and Normal Subgroups}
+
+Here we continue with the assumption of the previous section, namely that $\kappa=\C$ or $\kappa=\A$.
+
+\begin{prop}\label{prop:quotient-representations}
+    Suppose that\/ $N\normal G$ is a normal subgroup. Then, every\/ $\kappa$-representation\/ $\bar\rho$ of\/ $G/N$ corresponds to a\/ $\kappa$-representation\/ $\rho$ of\/ $G$ that satisfies\/ $N\subseteq\ker\rho$. Moreover, $\bar\rho$ is irreducible if, and only if, $\rho$ is.
+\end{prop}
+
+\begin{proof}
+    If $\bar\rho$ is a $\kappa$-representation of $G/N$ in $\V$, clearly $\bar\rho\circ\varphi$, where $\varphi\colon G\to G/N$ is the projection, is a $\kappa$-representation of $G$. Conversely, if $\rho\colon G\to\Aut_\kappa(\V)$ is a $\kappa$-representation of $G$ with $N\subseteq\ker\rho$, the induced morphism of groups $\bar\rho\colon G/\ker\rho\to\Aut_\kappa(\V)$ composed with the epimorphism $G/N\to G/\ker\rho$ induced by the identity is a $\kappa$-representation of $G/N$. In other words the correspondence between $\bar\rho$ and $\rho$ satisfies $\bar\rho(\bar g)=\rho(g)$ for $g\in G$.
+
+    According to Remark~\ref{rem:representations-and-modules}, a representation $\rho$ is irreducible when there is no proper nonzero subspace $W\subseteq\V$ such that $\rho(g)(W)\subseteq W$ for all $g\in G$. Therefore, the equation $\bar\rho(\bar g)=\rho(g)$ we just saw shows that the irreducibility of $\bar\rho$ is equivalent to the irreducibility of~$\rho$.
+\end{proof}
+
+
+\begin{cor}\label{cor:quotient-characters}
+    Let\/ $N \normal G$ be a normal subgroup of\/ $G$.
+    \begin{enumerate}[a),font=\upshape]
+        \item If\/ $\chi$ is a character of\/ $G$ and\/ $N \subseteq \ker \chi$, then\/ $\chi$ is constant on cosets of\/ $N$ in\/ $G$ and the function\/ $\bar\chi$ on\/ $G/N$ defined by\/ $\bar\chi(\bar g) = \chi(g)$ is a character of\/ $G/N$.
+        
+        \item If\/ $\bar\chi$ is a character of\/ $G/N$, then the function\/ $\chi$ defined by\/ $\chi(g) = \bar\chi(\bar g)$ is a character of\/ $G$.
+        
+        \item In both\/ {\rm a)} and\/ {\rm b)}, $\chi \in \op{Irr}(G)\iff\bar\chi \in \op{Irr}(G/N)$.
+    \end{enumerate}
+\end{cor}
+
+\begin{proof}
+    This is a direct consequence of Proposition~\ref{prop:quotient-representations}.
+\end{proof}
+
+\begin{rem}\label{rem:quotient-characters}
+    With the notations of the corollary, we can identify $\bar\chi$ with $\chi$ and get
+    $$
+        \op{Irr}(G/N)=\set{\chi\in\op{Irr}(G)
+            \mid N\subseteq\ker\chi}.
+    $$
+    In consequence,
+    \begin{equation}\label{eq:subgroup-index-from-characters}
+        |G:N| = \sum\set{\chi(1)\mid \chi\in\op{Irr}(G),\ N\subseteq\ker\chi}.
+    \end{equation}
+\end{rem}
+
+\begin{cor}
+    Let $G$ be a group, $N\normal G$ and $G'$ the commutator. Then
+    \begin{enumerate}[a),font=\upshape]
+        \item $N=\bigcap\set{\ker\chi\mid\chi\in\op{Irr}(G),\ N\subseteq\ker\chi}$
+        \item $\chi(1)=1\iff G'\subseteq\ker\chi$
+        \item $G' = \bigcap\set{\ker\chi\mid\chi\in \op{Irr}(G),\ \chi(1)=1}$
+        \item $|G:G'| = \mathrm{number\ of\ scalar\ characters\ of\ } G$.
+    \end{enumerate}
+\end{cor}
+
+\needspace{2\baselineskip}
+\begin{proof}${}$
+    \begin{enumerate}[a)]
+        \item This follows from the last equation of Lemma~\ref{lem:kernel-intersection} applied to $G/N$ and Remark~\ref{rem:quotient-characters}.
+
+        \item Since $G'\normal G$ and $G/G'$ is abelian, it follows from Proposition~\ref{prop:commutative-group-alg-closed-field} that a character $\chi$ of $G/G'$ is irreducible if, and only if, it satisfies $\chi(1)=1$. Thus, every character $\chi\in\op{Irr}(G)$ with $G'\subseteq\ker\chi$ satisfies $\chi(1)=1$. Conversely, if $\chi(1)=1$ then a representation $\rho$ of degree~$1$ affording $\chi$ satisfies $G/\ker\rho\cong\kappa^*$. Thus, $G/\ker\rho$ is abelian and so $G'\subseteq\ker\rho=\ker\chi$.
+
+        \item This follows from parts~a) and~b).
+
+        \item This follows from part b) and equation \eqref{eq:subgroup-index-from-characters} applied to $N=G'$.
+    \end{enumerate}
+    
+\end{proof}
+
+\begin{rem}\label{rem:quotient-regular-representation}
+    Suppose that $N$ is a normal subgroup of $G$. Let $\bar G=G/N$ and $\varphi\colon G\to\bar G$ the projection onto the quotient. Let $\rrho[\bar\rho]$ be the regular representation of $\bar G$. According to Lemma~\ref{prop:quotient-representations}, $\rho=\rrho[\bar\rho]\circ\varphi$ is a representation of $G$. In a diagram,
+    $$
+        \begin{tikzcd}[column sep=tiny]
+            G
+                    \arrow[r,"\varphi"]
+                    \arrow[rd,"\rho"']
+                &\bar G
+                    \arrow[d,"{\rrho[\bar\rho]}"]
+                &g
+                    \arrow[r,mapsto]
+                    \arrow[rd,mapsto]
+                &\bar g
+                    \arrow[d,mapsto]\\
+                &{\Aut(\kappa[\bar G])}
+                &&\bar h\mapsto\bar g\bar h
+        \end{tikzcd}
+    $$
+    Hence, $\rrho[\bar\rho](\bar g)=\rho(g)$,  implies that $\ker\rho=\varphi^{-1}(\ker\rrho[\bar\rho])$.
+\end{rem}
+
+\begin{prop}\label{prop:regular-representation-quotient}
+    Let\/ $N$ be a normal subgroup of\/ $G$. Define
+    $$
+        \kappa[G]^N = \set{v\in\kappa[G]\mid hv=v\text{\rm\ for all }n\in N}.
+    $$
+    Write\/ $s_N=\sum_{h\in N}h$. Then
+    \begin{enumerate}[a),font=\upshape]
+        \item $\kappa[G]^N$ is a\/ $\kappa$-vector subspace of\/ $\kappa[G]$.
+
+        \item If\/ $T$ is a traversal\/\footnote{Recall that a traversal is a set that contains exactly one element for each left coset of\/ $N$.} for\/ $N$ in\/ $G$ then\/ $(ts_N)_{t\in T}$ is a basis of\/ $\kappa[G]^N$.
+
+        \item $\kappa[G]^N\cong\kappa[G/N]$ under the map\/ $\varphi_N\colon ts_N\mapsto\bar t$, for\/ $t\in T$.
+
+        \item $\kappa[G]^N$ is a\/ $\kappa[G]$-submodule of\/ $\kappa[G]^\circ$. In particular, the regular representation\/ $\rrho$ of\/ $G$ restricts to a representation\/ $\rrho[\rho^N]\colon G\to\Aut(\kappa[G]^N)$.
+
+        \item Let\/ $\rrho[\bar\rho]$ denote the regular representation of\/ $G/N$, $\varphi\colon G\to G/N$ the projection onto the quotient and let
+        \begin{align*}
+            \varphi^N\colon\Aut(\kappa[G]^N)&\to
+                \Aut(\kappa[G/N])\\
+            \theta&\mapsto
+                \varphi_N\circ\theta\circ\varphi_N^{-1}
+        \end{align*}
+        be the isomorphism induced by $\varphi_N$. Then the following diagram commutes 
+        $$
+            \begin{tikzcd}
+                G
+                        \arrow[r,"\varphi"]
+                        \arrow[d,"{\rrho[\rho^N]}"']
+                    &G/N
+                        \arrow[d,"{\rrho[\bar\rho]}"]\\
+                {\Aut(\kappa[G]^N)}
+                        \arrow[r,"\varphi^N"']
+                    &{\Aut(\kappa[G/N])}
+            \end{tikzcd}
+        $$
+    \end{enumerate}
+\end{prop}
+
+\begin{proof}${}$
+    \begin{enumerate}[a),font=\upshape]
+        \item Obvious
+
+        \item Since $gs_N$ is $N$-invariant for every $g\in G$, we have $gs_N\in\kappa[G]^N$. Take an element $v\in\kappa[G]^N$. We can write
+        $$
+            v = \sum_{g\in G}c_gg,
+        $$
+        where $c_g\in\kappa$ for $g\in G$. Since $hv=v$ for all $h\in N$, we get
+        $$
+            v = hv = \sum_{g\in G}c_ghg,
+        $$
+        which implies that $c_g=c_{hg}$. It follows that $g'\in Ng\implies c_{g'}=c_g$. Since $G$ is the disjoint unit of the cosets $\set{tN\mid t\in T}$. Using that $tN=Nt$, we can rewrite
+        $$
+            v = \sum_{t\in T}\sum_{g\in tN}c_gg
+                = \sum_{t\in T}c_t\sum_{h\in N}th
+                = \sum_{t\in T}c_tts_N,
+        $$
+        which shows that $\set{ts_N\mid t\in T}$, generate $\kappa[G]^N$. These elements are linearly independent because $th=t'h'\implies t=t',\ h=h'$ and therefore there is no intersection between the terms of two different sums $ts_N$ and $t's_N$.
+
+        \item This is clear because $G/N=\set{\bar t\mid t\in T}$ and $\bar h=\bar h'\implies hs_N=h's_N$.
+
+        \item Given $g\in G$ and $v\in\kappa[G]^N$ we see that $gv\in\kappa[G]^N$ because
+        $$
+            h(gv)=(g(g^{-1}hg))v = g((g^{-1}hg)v) = gv
+        $$
+        fro all $h\in N$.
+
+        \item Given $g\in G$ and $t\in T$, we have
+        \begin{align*}
+            \varphi^N\circ\rrho[\rho^N](g)(\bar t)
+                &= \varphi_N\circ\rrho[\rho^N](g)\circ\varphi_N^{-1}
+                        (\bar t)\\
+                &= \varphi_N\circ\rrho[\rho^N](g)(ts_N)\\
+                &= \varphi_N(gts_N)\\
+                &= \bar g\bar t\\
+                &= \rrho[\bar\rho]\circ\varphi(g)(\bar t).
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+
+\begin{rem}\label{rem:quotient-representation-as-restriction}
+    The previous proposition shows that the regular representation $\rrho[\bar\rho]$ of $G/N$ is obtained by restricting the regular representation $\rrho$ of $G$ to the subspace $\kappa[G]^N$ and factoring through the quotient $G/N$. In other words:
+    $$
+        \rrho[\bar\rho](\bar g) = \rrho(g)\big|_{\kappa[G]^N},
+    $$
+    where $\rrho(g)\big|_{\kappa[G]^N}\subseteq\rrho(g)$ denotes the automorphism of $\kappa[G]^N$ induced by restriction and coastriction. Another way to put this is by saying that the representation $\rrho[\bar\rho]\circ\varphi$ is a restriction of the regular representation of $G$, i.e.,
+    $$
+        \rrho[\bar\rho]\circ\varphi = \rrho\big|_{\kappa[G]^N}.
+    $$
+\end{rem}
+
+\begin{xmpl}
+    Consider the group $S_3=\set{\id,(12),(13),(23),(123),(132)}$ and the normal subgroup $A_3=\set{\id,(123),(132)}$. Then $S_3/A_3$ is a group of two elements, say $\langle\tau\mid\tau^2=1\rangle$, and a traversal for $A_3$ is $T=\set{\id,(12)}$. Thus, a basis of $\kappa[S_3]^{A_3}$ is
+    $$
+        \basis B=\big(\id+(123)+(132),(12)+(23)+(13)\big),
+    $$
+    where the second sum equals $(12)$ times the first one. Moreover,
+    $$
+        [\rrho[\bar\rho](\tau)]_{\basis B}=
+            \begin{bmatrix}
+                0   &1\\
+                1   &0
+            \end{bmatrix}.
+    $$
+\end{xmpl}
+
+\begin{prop}
+    Let\/ $N$ be a normal subgroup of\/ $G$, $\rchi[\bar\chi]$ the regular character of\/ $G/N$ and\/ $\varphi\colon G\to G/N$ the projection onto the quotient. Then
+    \begin{enumerate}[a),font=\upshape]
+        \item $N = \bigcap\set{\ker\chi\mid
+                \chi\in\op{Irr}(G),\ \inner{\rchi[\bar\chi]\circ\varphi}{\chi}\ne0}$
+
+        \item $|N|$ can be obtained from the character table. More precisely, if\/ $C_1,\dots,C_r$ are the conjugacy classes of\/ $G$, we have
+        $$
+            |N|=\sum\set{|C_i|\mid C_i\subseteq N}.
+        $$
+    \end{enumerate}
+\end{prop}
+
+\needspace{2\baselineskip}
+\begin{proof}${}$
+    \begin{enumerate}[a),font=\upshape]
+        \item This follows from Remarks~\ref{rem:quotient-regular-representation} and~\ref{rem:orthogonality} and Lemma~\ref{lem:kernel-intersection}.
+        
+        \item This is a consequence of the equation $N=\bigcup\set{C_i\mid C_i\subseteq N}$ and Corollary~\ref{cor:cardinal-of-centralizer-etc}.
+    \end{enumerate}
+\end{proof}
+
+\begin{thm}
+     The group\/ $G$ is simple if, and only if, $\ker\chi=1$ for all nonprincipal\/ $\chi\in\op{Irr}(G)$. In particular, the simplicity of\/ $G$ is determined from its character table.
+\end{thm}
+
+\begin{proof}${}$
+    \begin{description}
+        \item[\rm\textit{only if\/}:] Take a nonprincipal character $\chi$. Since $\ker\chi$ is normal and $G$ is simple, it must be $1$ or $G$. If $\ker\chi=G$, then $\chi=\pchi$ by Proposition~\ref{prop:principal-iff-kernel=G}, in contradiction with our hypothesis. Thus, $\ker\chi=1$.
+
+        \item[\rm\textit{if\/}part:] If $\chi$ is nonprincipal, by Proposition~\ref{prop:principal-iff-kernel=G}, $\ker\chi\ne1$. Since $G$ is simple and $\ker\chi$ normal [cf.~Remark~\ref{rem:character-kernels-are-normal}], we must have $\ker\chi=1$.
+    \end{description}
+\end{proof}
+
+\begin{rem}
+    Recall that a group $G$ is solvable if it admits a normal series  
+    $$
+        \grp1 = N_0 \subseteq N_1 \subseteq \cdots \subseteq N_r = G
+    $$
+    such that each quotient $N_i/N_{i-1}$ is abelian for all $1 \le i \le r$.
+    
+    Equivalently, $G$ is solvable if there exists a normal series as above in which each quotient $N_i/N_{i-1}$ is a $p$-group.\footnote{See \citep{LC-groups}, \S\,Subnormality.}
+    
+    In particular, the solvability of $G$ can be determined from its character table.
+\end{rem}
+
+
+\begin{thm}
+    Let\/ $g\in G$ and\/ $N\normal G$, and put $\bar G=G/N$. Then
+    $$
+        |C_{\bar G}(\bar g)|\le|C_G(g)|.
+    $$
+\end{thm}
+
+\begin{proof}
+    \begin{align*}
+        |C_{\bar G}(\bar g)|
+            &= \sum_{\bar\chi\in\op{Irr}(\bar G)}
+                |\bar\chi(\bar g)|^2
+                &&\text{; Cor.~\ref{cor:cardinal-of-centralizer-etc}}\\
+            &= \sum_{\substack{\chi\in\op{Irr}(G)
+                \\N\subseteq\ker\chi}}
+                |\chi(g)|^2
+                &&\text{; Rem.~\ref{rem:quotient-characters}}\\
+            &\le \sum_{\chi\in\op{Irr}(G)}
+                |\chi(g)|^2\\
+            &= |C_G(g)|
+                &&\text{; Cor.~\ref{cor:cardinal-of-centralizer-etc}}
+    \end{align*}
+\end{proof}
+
+\subsection{Characters and the Center of a Group}
+
+\begin{defn}
+    If $\chi$ is a character of $G$, the \textsl{center} of $\chi$ is defined as
+    $$
+        Z(\chi) = \set{g\in G\mid|\chi(g)|=\chi(1)}
+    $$
+\end{defn}
+
+\begin{ntn}
+    If $\rho$ is a representation of $G$ affording the character $\chi$, then given a subgroup $H\subseteq G$ the restriction $\rho_H=\rho|_H$ is a representation of $H$ affording the character $\chi_H=\chi|_H$.
+    $$
+        \begin{tikzcd}
+            H
+                    \arrow[r,"\iota_H",hook]
+                    \arrow[rd,"\rho_H"']
+                &G
+                    \arrow[d,"\rho"]
+                &H
+                    \arrow[r,"\iota_H",hook]
+                    \arrow[rd,"\chi_H"']
+                &G\arrow[d,"\chi"]\\
+                &\Aut_\kappa(\V)
+                &&\kappa
+        \end{tikzcd}
+    $$
+\end{ntn}
+
+\begin{lem}
+    Every finite subgroup of the multiplicative group of a field is cyclic.
+\end{lem}
+
+\begin{proof} {\citep{1113402}}
+
+    Suppose that $K$ is a field and $G\subseteq K^*$ is a finite subgroup. Since $G$ is a finite abelian group, it is isomorphic to a direct product of cyclic groups $C_1\times \cdots \times C_r$ with $|C_i|=q_i$ and $q_i=p_i^{n_i}$, where the $p_i$ are (not necessarily distinct) prime numbers.
+
+    Let $m = \lcm\set{q_i\mid 1\le i\le r}\leq q_1\cdots q_r.$ If $g \in C_i$ then $g^{q_i}=1$ and hence $g^m=1$. It follows that, every element of $G$ is a root of the polynomial $x^m-1$.
+
+    However, $G$ has $q_1\cdots q_r$ elements, while the polynomial $x^m-1$ can have at most $m$ roots in~$K$. So, we deduce that $m=q_1\cdots q_r$. Thus, the $p_i$ are distinct, and therefore the group $G$ is isomorphic to the cyclic group $\Z/m\Z$.
+\end{proof}
+
+\begin{thm}\label{thm:Z(chi)-properties}
+    Let\/ $\chi$ be a character of\/ $G$. Put\/ $Z=Z(\chi)$. Let\/ $\rho$ be a representation of\/ $G$ in\/ $\V$ which affords\/ $\chi$. Then  
+    \begin{enumerate}[a),font=\upshape]
+        \item $Z = \set{g\in G\mid\rho(g)=c\cdot\id_\V\text{ for some }c\in\kappa}$;
+        \item $Z$ is a subgroup of\/ $G$;
+        \item $\chi_Z = \chi(1)\lambda$ for some scalar character\/ $\lambda$ of\/ $Z$;
+        \item $Z/\ker \chi$ is cyclic;
+        \item $Z/\ker \chi \subseteq Z(G/\ker \chi)$;
+        \item If ---in addition--- $\chi$ is irreducible, equality is attained in part~{\rm e)}.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}${}$
+    \begin{enumerate}[a),font=\upshape]
+        \item Take $g\in Z$. Then $\rho(g)=c\cdot\id_{\V}$ by Lemma~\ref{lem:|chi(g)|=chi(1)}. The reciprocal is trivial.
+
+        \item This is trivial after part~a).
+
+        \item Straightforward after part~a).
+
+        \item By definition $\ker\chi\subseteq Z$ and given that $\ker\chi\normal G$ it follows that $\ker\chi\normal Z$. On the other hand, by part~c), $\ker\chi_Z=\ker\lambda$ and so $Z/\ker\chi_Z=Z/\ker\lambda$ is a finite (multiplicative) subgroup of $\kappa^*$, which is cyclic by the previous lemma. The conclusion follows because $\ker\chi_Z=\ker\chi$ since $\ker\chi\subseteq Z$.
+
+        \item Take $g\in Z$. By part~a) $\rho(g)\in Z(\im\rho)$. Since $\im\rho=G/\ker\rho$, using bars to denote classes modulo $\ker\rho=\ker\chi$, we get 
+        $$
+            \rho(g)=\bar\rho(\bar g)\in Z(G/\ker\chi).
+        $$
+        Thus, $Z/\ker\chi=\im\rho_Z\subseteq Z(G/\ker\chi)$.
+
+        \item If $\bar g\in Z(G/\ker\chi)$, by Corollary~\ref{cor:alg-closed-scalar-multiplications}, $\bar\rho(\bar g)=c\cdots\id$. Since $\rho(g)=\bar\rho(\bar g)$, the result follows from part~a).
+    \end{enumerate}
+\end{proof}
+
+\begin{cor}
+    Let $G$ be a group. Then
+    \begin{equation}\label{eq:center-of-G-center-of-characters}
+        Z(G) = \bigcap\set{Z(\chi)\mid \chi\in\op{Irr}(G)}.
+    \end{equation}
+\end{cor}
+
+\begin{proof}
+    Take $\chi\in\op{Irr}(G)$ and put $Z=Z(\chi)$. Clearly 
+    $$
+        Z(G)\ker\chi/\ker\chi\subseteq Z(G/\ker\chi).
+    $$
+    Therefore, according to the theorem
+    $$
+        Z(G)\ker\chi/\ker\chi
+            \subseteq Z(\chi)/\ker\chi
+    $$
+    and so $Z(G)\subseteq Z(\chi)$. Thus, the LHS of \eqref{eq:center-of-G-center-of-characters} is included in the RHS.
+
+    Conversely, suppose that $g\in Z(\chi)$ for all $\chi\in\op{Irr}(G)$. Fix $\chi\in\op{Irr}(G)$ and let $\bar g$ denote the class of $g$ modulo $\ker\chi$. By part~e) of the theorem, $\bar g\in Z(G/\ker\chi)$. Therefore, given $h\in G$ we have $[g,h]\in\ker\chi$. Since this happens for all $\chi$, from Lemma~\ref{lem:kernel-intersection} we deduce that $[g,h]=1$, i.e., $g\in Z(G)$.
+\end{proof}
+
+\begin{lem}
+    Let\/ $H\subgroup G$ and let\/ $\chi$ be a character of\/ $G$. Then
+    $$
+        \inner{\chi_H}{\chi_H}\le |G:H|\inner\chi\chi,
+    $$
+    with equality attained if, and only if, $\chi(g)=0$ for all\/ $g\in G\setminus H$.
+\end{lem}
+
+\begin{proof}
+    The definition of the inner product implies that
+    $$
+        |H|\inner{\chi_H}{\chi_H}
+            = \sum_{h\in H}|\chi(h)|^2
+            \le \sum_{g\in G}|\chi(g)|^2
+            = |G|\inner\chi\chi.
+    $$
+\end{proof}
+
+\begin{cor}\label{cor:bounded-index-of-Z(chi)}
+    Let\/ $\chi\in\op{Irr}(G)$. Then\/ $\chi(1)^2\le |G:Z(\chi)|$, with equality attained if, and only if, $\chi$ vanishes on\/ $G\setminus Z(\chi)$.\footnote{Compare with Proposition~\ref{prop:sum-chi-squared}.}
+\end{cor}
+
+\begin{proof}
+    Put $Z=Z(\chi)$. By part c) of the theorem, $\chi_Z=r\lambda$, where $r=\chi(1)$ and $\lambda$ is a scalar character of $Z$. In particular, $\lambda$ is irreducible. Therefore, by Theorem~\ref{thm:inner-product-of-characters}, $\inner\lambda\lambda=1$ and so $\inner{\chi_Z}{\chi_Z}=\chi(1)^2\inner\lambda\lambda=\chi(1)^2$. Now the previous lemma implies
+    $$
+        \chi(1)^2=\inner{\chi_Z}{\chi_Z}
+            \le|G:Z|\inner\chi\chi = |G:Z|,
+    $$
+    with equality attained if, and only if, $\chi$ vanishes on $G\setminus Z$.
+\end{proof}
+
+\begin{rem}
+    By \eqref{eq:center-of-G-center-of-characters} we know that $Z(G)\subseteq Z(\chi)$ for $\chi\in\op{Irr}(G)$. By the corollary, it follows that $\chi(1)^2\le|G:Z(G)|$.
+\end{rem}
+
+\begin{thm}
+    Suppose that $\chi\in\op{Irr}(G)$ and that $G/Z(\chi)$ is abelian. Then
+    $$
+        |G:Z(\chi)|=\chi(1)^{2}.
+    $$
+\end{thm}
+
+\begin{proof}
+    By Corollary~\ref{cor:bounded-index-of-Z(chi)} it is enough to show that $\chi$ vanishes on $G\setminus Z(\chi)$.
+
+    Take $g\in G\setminus Z(\chi)$. We will use bars to denote class module $\ker\chi$. From Theorem~\ref{thm:Z(chi)-properties}, we know that $\bar g\notin Z(\bar G)=Z(\chi)/\ker\chi$. Otherwise, $g=z h$ with $z\in Z(\chi)$ and $h\in\ker\chi\subseteq Z(\chi)$, in contradiction with our assumption. Therefore, we can find $\bar x\in\bar G$ such that $[x,g]\notin\ker\chi$. Since $G/Z(\chi)$ is abelian, it follows that $xgx^{-1}g^{-1} = [x,g] = \zeta\in Z(\chi)\setminus\ker\chi$. By the same theorem, if $\rho$ is a representation that affords $\chi$, we deduce that $\rho(\zeta)=c\cdot\id$. It follows that
+    $$
+        \rho(g^x)\rho(g)^{-1}
+            = \rho(x)\rho(g)\rho(x)^{-1}\rho(g)^{-1}
+            = c\cdot\id
+    $$
+    Then
+    $$
+        \rho(g^x)=c\cdot\rho(g)
+    $$
+    and so $\chi(g)=\chi(g^x)=c\chi(g)$. Since $\zeta\notin\ker\chi$, we cannot have $c=1$ and therefore $\chi(g)=0$ as wanted.
+\end{proof}
+
+\begin{defn}
+    A character $\chi$ is \textsl{faithful} if $\ker\chi=1$.
+\end{defn}
+
+\begin{rem}
+    The regular character $\rchi$ is faithful. However, not every group has a faithful irregular character.
+\end{rem}
+
+\begin{xmpl}
+    As we have seen in Example~\ref{xmpl:S3-character-table}, the character table of $S_3$ consists of three characters,
+    namely
+    $$
+        \begin{array}{c|ccc}
+                & \id & (12) & (123) \\ \hline
+            \chi_1 & 1 & \phantom-1 & \phantom-1 \\
+            \chi_2 & 1 & -1 & \phantom-1 \\
+            \chi_3 & 2 & \phantom-0 & -1
+    \end{array}
+    $$
+    Let $C_1$, $C_2$ and $C_3$ denote the three conjugacy classes of $S_3$. In the table we see that only $\chi_3$ is faithful because $\ker\chi_1=C_1\cup C_2\cup C_3$, $\ker\chi_2=C_1\cup C_3$ and $\ker\chi_3=C_1$, i.e., $\chi_3(g^{S_3})=\chi_3(\id^{S_3})\iff g^{S_3}=\id^{S_3}$. Thus, $\chi_3$ is the only irreducible and faithful character of~$S_3$.
+\end{xmpl}
+
+\begin{rem}
+    Recall\footnote{See \cite{LC-groups} \S\,Normal Series.} that if $G$ is a $p$-group and $N\normal G$ is nontrivial, then $|N\cap Z(G)|>1$. We will use this fact in the proof of the following
+\end{rem}
+
+\begin{thm}${}$ Let $G$ be a group. Then,
+    \begin{enumerate}[a),font=\upshape]
+        \item If\/ $G$ has a faithful irreducible character, $Z(G)$ is cyclic.
+
+        \item If\/ $G$ is a\/ $p$-group and\/ $Z(G)$ is cyclic, $G$ has a faithful irreducible character.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}${}$
+    \begin{enumerate}[a)]
+        \item By Theorem~\ref{thm:Z(chi)-properties} part f), if $\chi$ is irreducible and faithful
+        $$
+            Z(G)=Z(G)/\ker\chi=Z(\chi)/\ker\chi,
+        $$
+        which is cyclic by part~d).
+
+        \item Let $Z$ be the (only) subgroup of $Z(G)$ of order $p$. By the remark above, $|N\cap Z|>1$ and so  $Z\subseteq N$, whenever $1\ne N\normal G$. Since, by Lemma~\ref{lem:kernel-intersection}, $\bigcap\set{\ker\chi\mid\chi\in\op{Irr}(G)}=1$, and every kernel is normal, there must be some $\chi\in\op{Irr}(G)$ with $\ker\chi=1$.
+    \end{enumerate}
+\end{proof}
+
+\section{Problems} Here we continue with the assumption of the previous section, i.e., $\kappa=\C$ or $\kappa=\A$.
+
+\begin{probl}${}$
+    \begin{enumerate}[a),font=\upshape]
+        \item Let\/ $\rho$ be an irreducible\/ $K$-representation of\/ $G$ over an arbitrary field\/ $K$. Show that 
+        $$
+            \sum_{g\in G}\rho(g) = 0
+        $$
+        unless\/ $\rho$ is the principal representation.
+    
+        \item Let\/ $H\subseteq G$ and\/ $g\in G$ be such that all elements of the coset\/ $gH$ are conjugate in\/ $G$. Let\/ $\chi$ be a\/ $\kappa$-character of\/ $G$ such that\/ $\inner{\chi_H}{1_H}=0$, where\/ $1_H$ denotes the principal\/ $\kappa$-character of\/ $H$. Show that\/ $\chi(g)=0$.
+    
+        \textrm{\rm Hint: Compute the trace of $\sum_{h \in H} \rho(gh)$, where $\rho$ affords $\chi$.}
+    \end{enumerate}
+\end{probl}
+
+\begin{solution}
+    \begin{enumerate}[a)]
+        \item Let $s=\sum\set{g\mid g\in G}$. Let $\V$ be the irreducible representation space of~$\rho$. Consider $s_\V\colon\V\to\V$, as induced by $\rho$. Since $s\in Z(K[G])$, we see that
+        $$
+            s_\V(av) = sav = asv = as_\V(v),
+        $$
+        for all $v\in\V$, i.e., $\rho(s)=s_\V$ is a $K[G]$-morphism. Therefore, we have two possibilities: (1)~$\rho(s)$ is zero or (2)~$\rho(s)$ is an automorphism of $\V$.
+        
+        In case (1) we are done because $\rho$ is linear.
+
+        In case (2), given $a\in K[G]$, say $a=\sum\set{c_g\cdot g\mid g\in G}$, since $sg=gs=s$ for all $g\in G$, we deduce that
+        $$
+            sa = \sum_{g\in G}c_g\cdot sg
+                = \Big(\sum_{g\in G}c_g\Big)\cdot s
+                = \tr(a)\cdot s.
+        $$
+        In particular, $s^2=\tr(s)s=|G|s$ and so $\rho(s)^2=|G|\rho(s)$, which implies that $\rho(s)=|G|\id_\V$ because $\rho(s)$ is invertible. Hence, $\fchar(K)\nmid|G|$.
+        
+        Take a $K$-vector subspace $W$ of $\V$. Then, $\rho(s)(W)=|G|W=W$. Therefore, given $g\in G$, we have
+        $$
+            \rho(g)(W)=\rho(g)(\rho(s)(W)) = \rho(gs)(W)=\rho(s)(W)=W,
+        $$
+        i.e., $W$ is a $K[G]$-submodule of $\V$. Since $\V$ is irreducible, this shows that $\dim\V=1$ and so $\rho$ is principal.
+
+        \item First observe that
+        $$
+            \tr\Big(\sum_{h\in H}\rho(gh)\Big)
+                = \sum_{h\in H}\chi(gh)
+                = |H|\chi(g).
+        $$
+        If we decompose $\chi_H$ as a linear combination
+        $$
+            \chi_H = \sum_{i=1}^r\inner{\chi_i}{\chi_H}\chi_i,
+        $$
+        where $\chi_i$ is an irreducible character of $H$. Furthermore, the hypothesis $\inner{\chi_H}{1_H}=0$, allows as to assume that $\chi_i\ne1_H$ for $1\le i\le r$. Let $\rho_i$ be an irreducible representation of $H$ affording $\chi_i$. Then $\rho=\rho_1\oplus\cdots\oplus\rho_r$ is a representation of $H$ that affords $\chi_H$.
+
+        By part~a), for $i=1,\dots,r$ we have
+        $$
+            \sum_{h\in H}\rho_i(h) = 0.
+        $$
+        In consequence,
+        $$
+            \sum_{h\in H}\rho(h) = 0
+        $$
+        and so
+        $$
+            \chi(g) = \frac1{|H|}\tr\Big(\rho(g)
+                \sum_{h\in H} \rho(h)\Big)
+            = 0.
+        $$
+    \end{enumerate}
+\end{solution}
+
+\begin{probl}${}$
+    \begin{enumerate}[a),font=\upshape]
+        \item Let\/ $\chi$ be a character of\/ $G$. Show that\/ $\chi$ is afforded by a representation\/ $\rho$ such that all entries of\/ $\rho(g)$ for all\/ $g \in G$ lie in some field\/ $K \subseteq \kappa$ with\/ $|K:\Q| < \infty$.
+        
+        \item Let\/ $\omega = e^{2\pi i/n}$, where\/ $n = |G|$, and let\/ $\chi$ be a character of\/ $G$. (Note that\/ $\chi(g) \in \Q[\omega]$ for all\/ $g \in G$ by\/ {\rm Theorem~\ref{thm:characters-are-cyclotomic-sums}.}) Let\/ $\sigma$ be an automorphism of\/ the field\/ $\Q[\omega]$ and define\/ $\chi^{\sigma}\colon G\to\kappa$ by\/ $\chi^{\sigma}(g) = \chi(g)^{\sigma}$. Show that\/ $\chi^{\sigma}$ is a character and that\/ $\chi^{\sigma} \in \op{Irr}(G)$ if, and only if, $\chi \in \op{Irr}(G)$.
+    \end{enumerate}
+\end{probl}
+
+\begin{solution}${}$
+    \begin{enumerate}[a)]
+        \item By Theorem~\ref{thm:characters-are-cyclotomic-sums}, $\chi$ is afforded by a matrix representation~$\varrho$ for which $\varrho(g)$ is similar to a diagonal matrix with entries that are $m$th roots of unit, where $m=\ord(g)$. By Theorem~\ref{thm:subfield-similarity}, $\varrho(g)$.  In particular, if $\omega$ is a primitive root of unit of order $|G|$, $\varrho(g)=PDP^{-1}$, where $D$ has coefficients in $\Q[\omega]$. This means that  of $\Q[\omega]$ that includes the coefficients of all matrices $P$ as $g$ runs over $G$. Since every matrix $P$ is a change between the canonical basis and a basis of eigenvectors
+    \end{enumerate}
+\end{solution}
